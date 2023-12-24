@@ -23,7 +23,7 @@
                     <Label HorizontalAlignment="Left" Margin="16,268,0,0" VerticalAlignment="Top" Width="104"/>
                     <RadioButton x:Name="ToCashButton" Content="To Cash" HorizontalAlignment="Center" Margin="0,273,0,0" VerticalAlignment="Top" Height="23" Width="124" GroupName="MoneyRadioButtons"/>
                     <RadioButton x:Name="ToBankButton" Content="To Bank" HorizontalAlignment="Center" Margin="0,296,0,0" VerticalAlignment="Top" Height="23" Width="124" GroupName="MoneyRadioButtons" IsChecked="True"/>
-                    <TextBox x:Name="MoneyInput" HorizontalAlignment="Center" Margin="0,324,0,0" TextWrapping="Wrap" Text="$" VerticalAlignment="Top" Width="124"/>
+                    <TextBox x:Name="MoneyInput" HorizontalAlignment="Center" Margin="0,324,0,0" TextWrapping="Wrap" Text="$" VerticalAlignment="Top" Width="124" KeyUp="MoneyInput_KeyUp"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Contacts">

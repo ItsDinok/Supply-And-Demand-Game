@@ -9,61 +9,54 @@
         Background="#FF262B37">
     <Grid>
         <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="BackButton_Click"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,25,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,71,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,117,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,163,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,209,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,255,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
 
         <!-- This is hell -->
         <!-- Downers -->
-        <Button Content="&lt;-" HorizontalAlignment="Left" Margin="115,38,0,0" VerticalAlignment="Top" Height="21" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,38,0,0" VerticalAlignment="Top" Height="21" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,38,0,0" VerticalAlignment="Top" Height="21" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,38,0,0" VerticalAlignment="Top" Height="21" Width="25"/>
-        
+        <Button x:Name="DownersLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,38,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="DownersRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,38,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="DownersTextBox" HorizontalAlignment="Left" Margin="165,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
+
         <!-- Weed -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,84,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,84,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="115,84,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,84,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,84,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        
+        <Button x:Name="WeedLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,84,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="WeedRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,84,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="WeedTextBox" HorizontalAlignment="Left" Margin="165,84,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+
         <!-- Acid -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,130,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,130,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="115,130,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,130,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,130,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
+        <Button x:Name="AcidLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,130,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="AcidRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,130,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="AcidTextBox" HorizontalAlignment="Left" Margin="165,130,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
 
         <!-- Ecstacy -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,176,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,176,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="115,176,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,176,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,176,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        
+        <Button x:Name="EcstacyLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,176,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="EcstacyRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,176,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="EcstacyTextBox" HorizontalAlignment="Left" Margin="165,176,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+
         <!-- Heroin -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,217,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,217,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="115,217,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,217,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,217,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        
+        <Button x:Name="HeroinLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,217,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="HeroinRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,217,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="HeroinTextBox" HorizontalAlignment="Left" Margin="165,217,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+
         <!-- Coke -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="140,263,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="285,263,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="115,263,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        <TextBox HorizontalAlignment="Left" Margin="165,263,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="310,263,0,0" VerticalAlignment="Top" Height="20" Width="25"/>
-        
+        <Button x:Name="CokeLeftButton" Content="&lt;-" HorizontalAlignment="Left" Margin="140,263,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <Button x:Name="CokeRightButton" Content="-&gt;" HorizontalAlignment="Left" Margin="285,263,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks"/>
+        <TextBox x:Name="CokeTextBox" HorizontalAlignment="Left" Margin="165,263,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+
+        <!-- Images -->
         <Image HorizontalAlignment="Left" Height="46" Margin="366,25,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
         <Image HorizontalAlignment="Left" Height="46" Margin="366,71,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
         <Image HorizontalAlignment="Left" Height="46" Margin="366,117,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
         <Image HorizontalAlignment="Left" Height="46" Margin="366,163,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
         <Image HorizontalAlignment="Left" Height="46" Margin="367,209,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
         <Image HorizontalAlignment="Left" Height="46" Margin="366,250,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,25,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,71,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,117,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,163,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,209,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
+        <Image HorizontalAlignment="Left" Height="46" Margin="37,255,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
+        <Label x:Name="WarningLabel" Content="BEFORE SHIPPING: GET ACTUAL ARROW ICON" HorizontalAlignment="Left" Height="42" Margin="88,288,0,0" VerticalAlignment="Top" Width="398" Foreground="White"/>
+        <Button x:Name="SendButton" Content="Send!" HorizontalAlignment="Left" Margin="417,343,0,0" VerticalAlignment="Top" Height="42" Width="69" Click="SendButton_Click"/>
+        <RadioButton x:Name="ToStashRadioButton" Content="To Stash" HorizontalAlignment="Left" Margin="491,370,0,0" VerticalAlignment="Top" Foreground="White" GroupName="Destination"/>
+        <RadioButton x:Name="ToBagRadioButton" Content="To Bag" HorizontalAlignment="Left" Margin="491,343,0,0" VerticalAlignment="Top" Foreground="White" GroupName="Destination" IsChecked="True"/>
     </Grid>
 </Window>

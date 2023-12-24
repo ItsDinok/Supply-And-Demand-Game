@@ -17,10 +17,13 @@ namespace MarketGame
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly GameObject Game;
+        readonly public GameObject Game;
+        public bool IsStashInView = false;
 
         public MainWindow()
         {
+            ValueFromChildWindow = "";
+
             InitializeComponent();
             this.Game = new();
             HeatBar.Value = Game.Character.Heat;
@@ -50,27 +53,42 @@ namespace MarketGame
 
         }
 
-        private void MoveCashButton_Click(object sender, RoutedEventArgs e)
-        {
-            string input = MoneyInput.Text[1..];
-            if (!Int32.TryParse(input, out int value)) return;
+        private void MoneyInput_KeyUp(object sender, KeyEventArgs e) { 
+            if (e.Key == Key.Enter)
+            {
+                string input = MoneyInput.Text[1..];
+                if (!Int32.TryParse(input, out int value)) return;
 
+                MoveMoney(value);
+            }
+        }
+
+        private void MoveMoney(int amount)
+        {
             if (ToCashButton.IsChecked == null) return;
 
             if ((bool)ToCashButton.IsChecked)
             {
-                Game.Character.CashConvert(value, true);
+                Game.Character.CashConvert(amount, true);
             }
             else
             {
-                Game.Character.CashConvert(value, false);
+                Game.Character.CashConvert(amount, false);
             }
 
             CashLabel.Content = "$" + Game.Character.DisplayCash;
             MoneyLabel.Content = "$" + Game.Character.DisplayMoney;
         }
 
-        private void SetToBagOrStashView(bool isStash)
+        private void MoveCashButton_Click(object sender, RoutedEventArgs e)
+        {
+            string input = MoneyInput.Text[1..];
+            if (!Int32.TryParse(input, out int value)) return;
+
+            MoveMoney(value);
+        }
+
+        public void SetToBagOrStashView(bool isStash)
         {
             if (isStash)
             {
@@ -80,6 +98,8 @@ namespace MarketGame
                 EcstacyCount.Content = Game.Character.Stash[Merchandise.Ecstacy];
                 HeroinCount.Content = Game.Character.Stash[Merchandise.Heroin];
                 CokeCount.Content = Game.Character.Stash[Merchandise.Coke];
+
+                IsStashInView = true;
             }
             else
             {
@@ -89,6 +109,8 @@ namespace MarketGame
                 EcstacyCount.Content = Game.Character.Bag[Merchandise.Ecstacy];
                 HeroinCount.Content = Game.Character.Bag[Merchandise.Heroin];
                 CokeCount.Content = Game.Character.Bag[Merchandise.Coke];
+
+                IsStashInView = false;
             }
         }
 
@@ -107,8 +129,10 @@ namespace MarketGame
             // Prevents duplicates
             if (Application.Current.Windows.OfType<BuySellWindow>().Any()) return;
 
-            BuySellWindow second = new();
-            second.Owner = this;
+            BuySellWindow second = new()
+            {
+                Owner = this
+            };
             second.ShowDialog();
         }
 
@@ -116,8 +140,10 @@ namespace MarketGame
         {
             if (Application.Current.Windows.OfType<MoveDrugsWindow>().Any()) return;
 
-            MoveDrugsWindow moveDrugsWindow = new();
-            moveDrugsWindow.Owner = this;
+            MoveDrugsWindow moveDrugsWindow = new()
+            {
+                Owner = this
+            };
             moveDrugsWindow.ShowDialog();
         }
     }
