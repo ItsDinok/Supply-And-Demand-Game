@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,116 +17,160 @@ using System.Windows.Shapes;
 
 namespace MarketGame
 {
-    /// <summary>
-    /// Interaction logic for MoveDrugsWindow.xaml
-    /// </summary>
     public partial class MoveDrugsWindow : Window
     {
+        // This keeps track of the REAL (not displayed) total for transfer
+        private int[] RealQuantities = [0, 0, 0, 0, 0, 0];
+
         public MoveDrugsWindow()
         {
             InitializeComponent();
+            AssignLabelValues();
+        }
+
+        private void AssignLabelValues()
+        {
+            MainWindow host = (MainWindow)Application.Current.MainWindow;
+            Label[] leftLabels =
+            [
+                DownersBagLabel,
+                WeedBagLabel,
+                AcidBagLabel,
+                EcstacyBagLabel,
+                HeroinBagLabel,
+                CokeBagLabel
+            ];
+
+            for (int i = 0; i < leftLabels.Length; i++)
+            {
+                leftLabels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+            }
+
+            Label[] rightLabels =
+            [
+                DownersStashLabel,
+                WeedStashLabel,
+                AcidStashLabel,
+                EcstacyStashLabel,
+                HeroinStashLabel,
+                CokeStashLabel
+            ]; 
+
+            for (int i = 0; i < rightLabels.Length;i++)
+            {
+                rightLabels[i].Content = host.Game.Character.Stash.ElementAt(i).Value.ToString();
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            // Simply closes window
             Close();
         }
 
         private void ArrowButtonClicks(object sender, RoutedEventArgs e)
         {
-            bool isAdd = false;
-            TextBox targeted = new();
+            // TODO: Implement a bidirectional system
+            bool isRight;
+            TextBox targeted;
+            Button accessString = (Button)sender;
 
-            // This is beautiful
-            switch(((Button)sender).Name)
+            // This assigns a value to the textbox that sent it
+            Dictionary<string, TextBox> keyValuePairs = new()
             {
-                // Left buttons
-                case "DownersLeftButton":
-                    targeted = DownersTextBox; break;
-                case "WeedLeftButton":
-                    targeted = WeedTextBox; break;
-                case "AcidLeftButton":
-                    targeted = AcidTextBox; break;
-                case "EcstacyLeftButton":
-                    targeted = EcstacyTextBox; break;
-                case "HeroinLeftButton":
-                    targeted = HeroinTextBox; break;
-                case "CokeLeftButton":
-                    targeted = CokeTextBox; break;
+                { "DownersLeftButton", DownersTextBox },
+                { "DownersRightButton", DownersTextBox },
+                { "WeedLeftButton", WeedTextBox },
+                { "WeedRightButton", WeedTextBox },
+                { "AcidLeftButton", AcidTextBox },
+                { "AcidRightButton", AcidTextBox },
+                { "EcstacyLeftButton", EcstacyTextBox },
+                { "EcstacyRightButton", EcstacyTextBox },
+                { "HeroinLeftButton", HeroinTextBox },
+                { "HeroinRightButton", HeroinTextBox },
+                { "CokeLeftButton", CokeTextBox },
+                { "CokeRightButton", CokeTextBox }
+            };
+            targeted = keyValuePairs[accessString.Name];
 
-                // Right buttons
-                case "DownersRightButton":
-                    targeted = DownersTextBox; isAdd = true; break;
-                case "WeedRightButton":
-                    targeted = WeedTextBox; isAdd = true; break;
-                case "AcidRightButton":
-                    targeted = AcidTextBox; isAdd = true; break;
-                case "EcstacyRightButton":
-                    targeted = EcstacyTextBox; isAdd = true; break;
-                case "HeroinRightButton":
-                    targeted = HeroinTextBox; isAdd = true; break;
-                case "CokeRightButton":
-                    targeted = CokeTextBox; isAdd = true; break;
-            }
+            // Determine if targeted is left or right
+            // NOTE: It is scarily lucky no merch contains L, if this ever changes, fix this
+            if (!accessString.Name.Contains('L')) isRight = true;
+            else isRight = false;
 
-            if (!Int32.TryParse(targeted.Text, out int x)) return;
-            if (!isAdd && x - 1 < 0) return;
+            int x = RealQuantities[(keyValuePairs.Keys.ToList().IndexOf(accessString.Name)) / 2];
+            int index;
 
-            _ = isAdd == true ? targeted.Text = (x + 1).ToString() : targeted.Text = (x - 1).ToString();
-        }
-
-        private int[] GetAmount() 
-        {
-            string[] amounts =
-            [
-                DownersTextBox.Text,
-                WeedTextBox.Text,
-                AcidTextBox.Text,
-                EcstacyTextBox.Text,
-                HeroinTextBox.Text,
-                CokeTextBox.Text,
-            ];
-
-            // Returns an ordered amounts and checks for user tampering
-            int[] returnAmounts = new int[amounts.Length];
-            for (int i = 0; i < amounts.Length; i++)
+            // Update text values
+            if (isRight)
             {
-                if (Int32.TryParse(amounts[i], out int x)) returnAmounts[i] = x;
-                else returnAmounts[i] = 0;
-            }
-
-            return returnAmounts;
-        }
-
-#pragma warning disable CS8600
-#pragma warning disable CS8602
-        private void SendButton_Click(object sender, RoutedEventArgs e)
-        {
-            // This is the parent window, ignore the scary code
-            MainWindow host = Application.Current.MainWindow as MainWindow;
-            int[] quantities = GetAmount();
-
-            // This can never happen, I hate WPF sometimes
-            if (ToBagRadioButton.IsChecked == null) return;
-
-            if((bool)ToBagRadioButton.IsChecked)
-            {
-                for (int i = 0; i <  quantities.Length; i++)
-                {
-                    host.Game.Character.MoveToBag(quantities[i], (Merchandise)i);
-                }
-                host.SetToBagOrStashView(true);
+                index = UpdateQuantities(targeted, x + 1);
             }
             else
             {
-                for (int i = 0; i < quantities.Length; i++)
-                {
-                    host.Game.Character.MoveToStash(quantities[i], (Merchandise)i);
-                }
-                host.SetToBagOrStashView(false);
+                index = UpdateQuantities(targeted, x - 1);
             }
+            targeted.Text = Math.Abs(RealQuantities[index]).ToString();
         }
-#pragma warning restore CS8600
-#pragma warning restore CS8602
+
+        private int UpdateQuantities(TextBox drugType, int amount)
+        {
+
+            // The index is used in the negative function
+            int index;
+
+            // Determines which drug it is
+            switch (drugType.Name)
+            {
+                case "DownersTextBox":
+                    this.RealQuantities[0] = amount;
+                    index = 0;
+                    break;
+                case "WeedTextBox":
+                    this.RealQuantities[1] = amount;
+                    index = 1;
+                    break;
+                case "AcidTextBox":
+                    this.RealQuantities[2] = amount;
+                    index = 2;
+                    break;
+
+                case "EcstacyTextBox":
+                    this.RealQuantities[3] = amount; 
+                    index = 3;
+                    break;
+                case "HeroinTextBox":
+                    this.RealQuantities[4] = amount;
+                    index = 4;
+                    break;
+                case "CokeTextBox":
+                    this.RealQuantities[5] = amount;
+                    index = 5;
+                    break;
+                // Thanks to buttons, this will never be called
+                default:
+                    index = -1;
+                    break;
+            }
+
+            return index;
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            // This is the parent window, ignore the scary code
+            MainWindow host = (MainWindow)Application.Current.MainWindow;
+            int[] quantities = RealQuantities;
+
+            int index = 0;
+            foreach (int entry in quantities)
+            {
+                if (entry < 0) host.Game.Character.MoveToBag(Math.Abs(entry), (Merchandise)index);
+                else host.Game.Character.MoveToStash(Math.Abs(entry), (Merchandise)index);
+                index++;
+            }
+
+            AssignLabelValues();
+        }
     }
 }

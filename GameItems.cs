@@ -87,6 +87,7 @@ namespace MarketGame
         public int GetTotalCapacity(bool isStash)
         {
             int total = 0;
+            // Gets total amount of items in stash
             if (isStash)
             {
                 foreach(var pair in Stash)
@@ -94,6 +95,7 @@ namespace MarketGame
                     total += pair.Value;
                 }
             }
+            // Gets total amount of items in bag
             else
             {
                 foreach(var pair in Bag)
