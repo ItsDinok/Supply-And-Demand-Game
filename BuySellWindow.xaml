@@ -5,36 +5,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Select Buyer" Height ="300" Width="409" Background="#FF262B37"
 		Icon="/Icons/Downers.png">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="44" Click="BackButton_Click"/>
-		<Button x:Name="MobButton" HorizontalAlignment="Left" Height="81" Margin="10,10,0,0" VerticalAlignment="Top" Width="77">
+    <Grid>
+        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="44" Click="BackButton_Click"/>
+		
+        <!-- Character Buttons -->
+        <Button x:Name="MobButton" HorizontalAlignment="Left" Height="81" Margin="10,10,0,0" VerticalAlignment="Top" Width="77">
 			<Image Source="/Icons/Mob.png" Stretch="Fill"/>
 		</Button>
-		<Button HorizontalAlignment="Center" Height="81" Margin="0,10,0,0" VerticalAlignment="Top" Width="76">
+		<Button x:Name="BikerButton" HorizontalAlignment="Center" Height="81" Margin="0,10,0,0" VerticalAlignment="Top" Width="76">
 			<Image Source="/Icons/Biker.png" Stretch="Fill"/>
 		</Button>
-		<Button HorizontalAlignment="Left" Height="81" Margin="314,10,0,0" VerticalAlignment="Top" Width="76">
+		<Button x:Name="TriadButton" HorizontalAlignment="Left" Height="81" Margin="314,10,0,0" VerticalAlignment="Top" Width="76">
 			<Image Source="/Icons/Triad.png" Stretch="Fill"/>
 		</Button>
-		<Button HorizontalAlignment="Left" Height="81" Margin="314,122,0,0" VerticalAlignment="Top" Width="76">
+		<Button x:Name="RussianButton" HorizontalAlignment="Left" Height="81" Margin="314,122,0,0" VerticalAlignment="Top" Width="76">
 			<Image Source="/Icons/Russian.png" Stretch="Fill"/>
 		</Button>
-		<Button HorizontalAlignment="Center" Height="81" Margin="0,122,0,0" VerticalAlignment="Top" Width="76">
+		<Button x:Name="YardiesButton" HorizontalAlignment="Center" Height="81" Margin="0,122,0,0" VerticalAlignment="Top" Width="76">
 			<Image Source="/Icons/Yardies.png" Stretch="Fill"/>
 		</Button>
-		<Button HorizontalAlignment="Left" Height="81" Margin="11,122,0,0" VerticalAlignment="Top" Width="76">
+		<Button x:Name="SyndicateButton" HorizontalAlignment="Left" Height="81" Margin="11,122,0,0" VerticalAlignment="Top" Width="76">
 			<Image Source="/Icons/Syndicate.png" Stretch="Fill"/>
 		</Button>
-		<Label Content="Mob" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
+		
+        <!-- Character Description Labels -->
+        <Label Content="Mob" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
 		<Label Content="Bikers" HorizontalAlignment="Center" Margin="0,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
 		<Label Content="Triad" HorizontalAlignment="Left" Margin="315,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
 		<Label Content="Mob" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
 		<Label Content="Syndicate" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
-		<Label Content="Yardies&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
-		<Label Content="Yardies&#xA;Russians&#xD;&#xA;" HorizontalAlignment="Left" Margin="314,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+		<Label Content="Yardies" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+		<Label Content="Russians" HorizontalAlignment="Left" Margin="314,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
 
 	</Grid>
 </Window>

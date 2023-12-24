@@ -20,7 +20,7 @@ namespace MarketGame
     public partial class MoveDrugsWindow : Window
     {
         // This keeps track of the REAL (not displayed) total for transfer
-        private int[] RealQuantities = [0, 0, 0, 0, 0, 0];
+        private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
 
         public MoveDrugsWindow()
         {
@@ -46,7 +46,7 @@ namespace MarketGame
                 leftLabels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
             }
 
-            Label[] rightLabels =
+            Label[] rightLabels = 
             [
                 DownersStashLabel,
                 WeedStashLabel,
@@ -70,7 +70,6 @@ namespace MarketGame
 
         private void ArrowButtonClicks(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement a bidirectional system
             bool isRight;
             TextBox targeted;
             Button accessString = (Button)sender;
@@ -111,6 +110,16 @@ namespace MarketGame
                 index = UpdateQuantities(targeted, x - 1);
             }
             targeted.Text = Math.Abs(RealQuantities[index]).ToString();
+
+            // Assign arrows as needed
+            Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
+                EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
+            // TODO: Assign PNGs
+            if (RealQuantities[index] < 0) indicators[index].Content = "<---";
+            else if (RealQuantities[index] == 0) indicators[index].Content = "";
+            else indicators[index].Content = "--->";
+
+            indicators[index].IsEnabled = true;
         }
 
         private int UpdateQuantities(TextBox drugType, int amount)
@@ -160,11 +169,11 @@ namespace MarketGame
         {
             // This is the parent window, ignore the scary code
             MainWindow host = (MainWindow)Application.Current.MainWindow;
-            int[] quantities = RealQuantities;
 
             int index = 0;
-            foreach (int entry in quantities)
+            foreach (int entry in RealQuantities)
             {
+                // If the number is negative, it gets sent to bag, otherwise stash
                 if (entry < 0) host.Game.Character.MoveToBag(Math.Abs(entry), (Merchandise)index);
                 else host.Game.Character.MoveToStash(Math.Abs(entry), (Merchandise)index);
                 index++;

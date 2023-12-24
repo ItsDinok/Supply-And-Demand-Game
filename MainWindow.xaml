@@ -8,19 +8,24 @@
         Title="Drug Game" Height="450" Width="800" Background="#FF262B37" ResizeMode="NoResize" Icon="/Icons/Downers.png">
     <Grid>
         <TabControl Margin="0,0,650,0">
+            <!-- Store tab content -->
             <TabItem Header="Store">
                 <Grid Background="#FFE5E5E5">
+                    <!-- Static labels -->
                     <Label Content="Shop Vitals" HorizontalAlignment="Left" Margin="6,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.03,-0.206" Width="128" Height="37" HorizontalContentAlignment="Center"/>
                     <Label Content="Heat" HorizontalAlignment="Left" Margin="6,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.549,-0.8"/>
                     <Label Content="Reputation" HorizontalAlignment="Left" Margin="6,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.235,0.556"/>
-                    <ProgressBar x:Name="HeatBar" HorizontalAlignment="Left" Height="10" Margin="10,68,0,0" VerticalAlignment="Top" Width="100" Background="White" Foreground="#FFEA1C1C" Value="30"/>
-                    <ProgressBar x:Name="ReputationBar" HorizontalAlignment="Left" Height="10" Margin="10,114,0,0" VerticalAlignment="Top" Width="100" Background="#FFFBFBFB" Foreground="#FF65F517" Value="30"/>
                     <Label Content="Cash" HorizontalAlignment="Left" Margin="0,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.498,0.436" Width="128" HorizontalContentAlignment="Center"/>
                     <Label Content="Bank Balance" HorizontalAlignment="Left" Margin="0,206,0,0" VerticalAlignment="Top" Width="128" HorizontalContentAlignment="Center"/>
-                    <Button x:Name="MoveCashButton" Content="Move Cash" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="124" Click="MoveCashButton_Click" Height="30"/>
+
+                    <!-- Stat counters -->
+                    <ProgressBar x:Name="HeatBar" HorizontalAlignment="Left" Height="10" Margin="10,68,0,0" VerticalAlignment="Top" Width="100" Background="White" Foreground="#FFEA1C1C" Value="30"/>
+                    <ProgressBar x:Name="ReputationBar" HorizontalAlignment="Left" Height="10" Margin="10,114,0,0" VerticalAlignment="Top" Width="100" Background="#FFFBFBFB" Foreground="#FF65F517" Value="30"/>
                     <Label x:Name="CashLabel" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.421" Width="128" HorizontalContentAlignment="Center" Content="{Binding DisplayCash}"/>
                     <Label x:Name="MoneyLabel" Content="{Binding DisplayMoney}" HorizontalAlignment="Left" Margin="0,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.313,0.421" Width="128" HorizontalContentAlignment="Center"/>
-                    <Label HorizontalAlignment="Left" Margin="16,268,0,0" VerticalAlignment="Top" Width="104"/>
+
+                    <!-- Interactable -->
+                    <Button x:Name="MoveCashButton" Content="Move Cash" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Width="124" Click="MoveCashButton_Click" Height="30"/>
                     <RadioButton x:Name="ToCashButton" Content="To Cash" HorizontalAlignment="Center" Margin="0,273,0,0" VerticalAlignment="Top" Height="23" Width="124" GroupName="MoneyRadioButtons"/>
                     <RadioButton x:Name="ToBankButton" Content="To Bank" HorizontalAlignment="Center" Margin="0,296,0,0" VerticalAlignment="Top" Height="23" Width="124" GroupName="MoneyRadioButtons" IsChecked="True"/>
                     <TextBox x:Name="MoneyInput" HorizontalAlignment="Center" Margin="0,324,0,0" TextWrapping="Wrap" Text="$" VerticalAlignment="Top" Width="124" KeyUp="MoneyInput_KeyUp"/>
@@ -30,53 +35,32 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
+            
+        <!-- Capacity Indicators -->
         <Label Content="Bag Capacity" HorizontalAlignment="Left" Height="28" Margin="166,33,0,0" VerticalAlignment="Top" Width="135" Foreground="White"/>
-        <ProgressBar x:Name="BagCapacityBar" HorizontalAlignment="Left" Height="17" Margin="166,66,0,0" VerticalAlignment="Top" Width="399" Value="0">
-            <ProgressBar.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
-                            <RotateTransform Angle="270" CenterX="0.5" CenterY="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="White"/>
-                    <GradientStop Color="#FFCC0909" Offset="1"/>
-                </LinearGradientBrush>
-            </ProgressBar.Foreground>
-        </ProgressBar>
+        <ProgressBar x:Name="BagCapacityBar" HorizontalAlignment="Left" Height="17" Margin="166,66,0,0" VerticalAlignment="Top" Width="399" Value="0" Foreground="#FFE01818"/>
         <Label Content="Stash Capacity" HorizontalAlignment="Left" Height="28" Margin="166,88,0,0" VerticalAlignment="Top" Width="135" Foreground="White"/>
-        <ProgressBar x:Name="StashCapacityBar" HorizontalAlignment="Left" Height="17" Margin="166,116,0,0" VerticalAlignment="Top" Width="399" Background="#FFE6E6E6">
-            <ProgressBar.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
-                            <RotateTransform Angle="270" CenterX="0.5" CenterY="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="White"/>
-                    <GradientStop Color="#FFFF0404" Offset="1"/>
-                </LinearGradientBrush>
-            </ProgressBar.Foreground>
-        </ProgressBar>
+        <ProgressBar x:Name="StashCapacityBar" HorizontalAlignment="Left" Height="17" Margin="166,116,0,0" VerticalAlignment="Top" Width="399" Background="#FFE6E6E6" Foreground="#FFE01818"/>
+
+        <!-- Grid for central icons -->
         <Grid HorizontalAlignment="Left" Height="228" Margin="166,175,0,0" VerticalAlignment="Top" Width="399">
+            <!-- Drug images -->
             <Image HorizontalAlignment="Left" Height="79" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Downers.png"/>
             <Image HorizontalAlignment="Left" Height="79" Margin="10,114,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Weed.png"/>
             <Image HorizontalAlignment="Center" Height="79" Margin="0,114,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Ecstacy.png"/>
             <Image HorizontalAlignment="Center" Height="79" Margin="0,10,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Acid.png"/>
             <Image HorizontalAlignment="Left" Height="79" Margin="314,10,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Heroin.png"/>
             <Image HorizontalAlignment="Left" Height="79" Margin="314,119,0,0" VerticalAlignment="Top" Width="75" Source="/Icons/Coke.png" RenderTransformOrigin="0.514,1.101"/>
+
+            <!-- Drug Descriptions -->
             <Label Content="Downers" HorizontalAlignment="Left" Height="29" Margin="10,85,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
             <Label Content="Acid" HorizontalAlignment="Center" Height="29" Margin="0,90,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
             <Label Content="Heroin" HorizontalAlignment="Left" Height="29" Margin="324,90,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
             <Label Content="Weed" HorizontalAlignment="Left" Height="29" Margin="10,189,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
             <Label Content="Ecstacy" HorizontalAlignment="Center" Height="29" Margin="0,186,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
             <Label Content="Coke" HorizontalAlignment="Left" Height="29" Margin="324,186,0,0" VerticalAlignment="Top" Width="75" Foreground="White"/>
+
+            <!-- Stat labels -->
             <Label x:Name="DownersCount" Content="Label" HorizontalAlignment="Left" Height="31" Margin="59,67,0,0" VerticalAlignment="Top" Width="39" Foreground="White" FontWeight="Bold"/>
             <Label x:Name="AcidCount" Content="Label" HorizontalAlignment="Left" Height="31" Margin="220,67,0,0" VerticalAlignment="Top" Width="39" Foreground="White" FontWeight="Bold"/>
             <Label x:Name="HeroinCount" Content="Label" HorizontalAlignment="Left" Height="31" Margin="360,67,0,0" VerticalAlignment="Top" Width="39" Foreground="White" FontWeight="Bold" RenderTransformOrigin="1.082,0.505"/>
@@ -85,6 +69,7 @@
             <Label x:Name="WeedCount" Content="Label" HorizontalAlignment="Left" Height="31" Margin="59,164,0,0" VerticalAlignment="Top" Width="39" Foreground="White" FontWeight="Bold"/>
 
         </Grid>
+        <!-- Control buttons -->
         <Button Content="Buy/Sell" HorizontalAlignment="Left" Height="74" Margin="582,0,0,0" VerticalAlignment="Center" Width="188" Click="BuySell_Click"/>
         <Button x:Name="MoveDrugsButton" Content="Move Drugs
                 " HorizontalAlignment="Left" Height="74" Margin="582,310,0,0" VerticalAlignment="Top" Width="188" HorizontalContentAlignment="Center" Padding="50,1,1,1" Click="MoveDrugsButton_Click"/>
@@ -94,6 +79,8 @@
         <Button x:Name="StashView" HorizontalAlignment="Left" Margin="400,138,0,0" VerticalAlignment="Top" Height="50" Width="78" Background="#00DDDDDD" BorderThickness="0" Click="StashView_Click">
             <Image Source="/Icons/Safe.png" Height="32" Width="48"></Image>
         </Button>
+
+        <!-- Misc Labels -->
         <Label x:Name="BagCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,34,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
         <Label x:Name="StashCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,88,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
 

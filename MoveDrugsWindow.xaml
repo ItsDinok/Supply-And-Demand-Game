@@ -72,8 +72,18 @@
         <Label x:Name="HeroinStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,234,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
         <Label x:Name="CokeStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,273,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
 
-        <Label x:Name="WarningLabel" Content="BEFORE SHIPPING: GET ACTUAL ARROW ICON" HorizontalAlignment="Left" Height="42" Margin="88,288,0,0" VerticalAlignment="Top" Width="398" Foreground="White"/>
+        <Label x:Name="WarningLabel" Content="BEFORE SHIPPING: GET ACTUAL ARROW ICON" HorizontalAlignment="Left" Height="42" Margin="88,392,0,0" VerticalAlignment="Top" Width="398" Foreground="White"/>
         <Button x:Name="SendButton" Content="Send!" HorizontalAlignment="Left" Margin="417,343,0,0" VerticalAlignment="Top" Height="42" Width="69" Click="SendButton_Click"/>
+        <Label x:Name="CokeBagLabel_Copy" Content="Bag&#xD;&#xA;" HorizontalAlignment="Left" Margin="60,306,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+        <Label x:Name="CokeBagLabel_Copy1" Content="Stash&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" Margin="366,308,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+        
+        <!-- Directional Indicators -->
+        <Label x:Name="DownersDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,12,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="WeedDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,64,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="AcidDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,109,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="EcstacyDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,155,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="HeroinDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,195,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="CokeDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,242,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>
