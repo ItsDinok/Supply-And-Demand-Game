@@ -17,8 +17,11 @@ using System.Windows.Shapes;
 
 namespace MarketGame
 {
+    // TODO: Add "jump" buttons
     public partial class MoveDrugsWindow : Window
     {
+        readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+
         // This keeps track of the REAL (not displayed) total for transfer
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
 
@@ -30,7 +33,6 @@ namespace MarketGame
 
         private void AssignLabelValues()
         {
-            MainWindow host = (MainWindow)Application.Current.MainWindow;
             Label[] leftLabels =
             [
                 DownersBagLabel,
@@ -101,14 +103,9 @@ namespace MarketGame
             int index;
 
             // Update text values
-            if (isRight)
-            {
-                index = UpdateQuantities(targeted, x + 1);
-            }
-            else
-            {
-                index = UpdateQuantities(targeted, x - 1);
-            }
+            if (isRight) index = UpdateQuantities(targeted, x + 1);
+            else index = UpdateQuantities(targeted, x - 1);
+
             targeted.Text = Math.Abs(RealQuantities[index]).ToString();
 
             // Assign arrows as needed
@@ -167,8 +164,6 @@ namespace MarketGame
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            // This is the parent window, ignore the scary code
-            MainWindow host = (MainWindow)Application.Current.MainWindow;
 
             int index = 0;
             foreach (int entry in RealQuantities)
@@ -180,6 +175,33 @@ namespace MarketGame
             }
 
             AssignLabelValues();
+            UpdateCapacityBars();
+            ResetBars();
+        }
+
+        private void ResetBars()
+        {
+            DownersTextBox.Text = "0";
+            WeedTextBox.Text = "0";
+            AcidTextBox.Text = "0";
+            EcstacyTextBox.Text = "0";
+            HeroinTextBox.Text = "0";
+            CokeTextBox.Text = "0";
+        }
+
+        private void UpdateCapacityBars()
+        {
+            // Set bars
+            float stashPercentage = (float)host.Game.Character.GetTotalCapacity(true) / 1500 * 100;
+            float bagPercentage = (float)host.Game.Character.GetTotalCapacity(false) / 150 * 100;
+
+            host.StashCapacityBar.Value = stashPercentage;
+            host.BagCapacityBar.Value = bagPercentage;
+
+
+            // Set label
+            host.StashCapacityLabel.Content = host.Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
+            host.BagCapacityLabel.Content = host.Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
         }
     }
 }

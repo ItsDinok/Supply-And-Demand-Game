@@ -14,31 +14,37 @@ namespace MarketGame
 {
     public partial class BuySellWindow : Window
     {
+        public Merchant Dealer;
+
         public BuySellWindow()
         {
             InitializeComponent();
+         
+            UserControl selectWindow = new MerchantSelect();
+            UserControl inventoryView = new MerchantInventoryView();
+
+            WindowSetter.Content = selectWindow;
         }
 
-        private void DealerButton_Click(object sender, RoutedEventArgs e)
-        { 
-            // TODO: Implement this in move merchandise
-            Dictionary<object, string> factionMap = new()
-            {
-                {MobButton, "Mob" },
-                {BikerButton, "Bikers" },
-                {TriadButton, "Triad" },
-                {SyndicateButton, "Syndicate" },
-                {YardiesButton, "Yardies" },
-                {RussianButton, "Russians" }
-            };
-
-            Merchant dealer = new(factionMap[sender]);
-
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        public void SetChange()
         {
-            this.Close();
+            WindowSetter.Content = new MerchantInventoryView();
+        }
+
+        public void ForceClose()
+        {
+            Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MerchantInventoryView newWindow = new();
+            ShowWindow(newWindow);
+        }
+
+        private void ShowWindow(UserControl window)
+        {
+            WindowSetter.Content = window;
         }
     }
 }

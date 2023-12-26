@@ -47,12 +47,6 @@ namespace MarketGame
         // Stores value passed from child window
         public string ValueFromChildWindow { get; set; }
 
-        // Update value from child window
-        public void UpdateFromBuySellWindow(string value)
-        {
-
-        }
-
         private void MoneyInput_KeyUp(object sender, KeyEventArgs e) { 
             if (e.Key == Key.Enter)
             {
