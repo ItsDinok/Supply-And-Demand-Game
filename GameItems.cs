@@ -21,6 +21,17 @@ namespace MarketGame
         Coke
     }
 
+    public enum Factions
+    {
+        Triad,
+        Mob,
+        Yardies,
+        Russians,
+        Syndicate,
+        Bikers,
+        NotDefined
+    }
+
     public class Player
     {
         // Attributes
@@ -194,25 +205,27 @@ namespace MarketGame
         }
     }
 
-    public class Merchant
+    public class Merchant(Factions faction = Factions.NotDefined)
     {
-        readonly string Faction;
-        Dictionary<Merchandise, int> merchandise;
-        public Merchant(string faction)
+        public Factions Faction = faction;
+        Dictionary<Merchandise, int> ?DealerMerchandise;
+
+        public void SetFaction(Factions faction)
         {
             Faction = faction;
-            merchandise = GenerateMerchandise();
+            GenerateMerchandise();
         }
 
         public void Sell(int amount, Merchandise type)
         {
-            if (this.merchandise[type] - amount < 0) return;
-
-            this.merchandise[type] -= amount;
+            if (DealerMerchandise == null) return;
+            if (DealerMerchandise[type] - amount < 0) return;
+            DealerMerchandise[type] -= amount;
         }
         public void Buy(int amount, Merchandise type)
         {
-            this.merchandise[type] += amount;
+            if (DealerMerchandise == null) return;
+            DealerMerchandise[type] += amount;
         }
 
         private Dictionary<Merchandise, int> GenerateMerchandise()
@@ -240,24 +253,18 @@ namespace MarketGame
             switch (Faction)
             {
                 // TODO: Change probability distribution
-                case "Mob":
-                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20));
-                    return merch;
-                case "Bikers":
-                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35));
-                    return merch;
-                case "Triad":
-                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5));
-                    return merch;
-                case "Russians":
-                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5));
-                    return merch;
-                case "Yardies":
-                    SetMerchandise(random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5), 0, 0);
-                    return merch;
-                case "Syndicate":
-                    SetMerchandise(random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5), 0, 0);
-                    return merch;
+                case Factions.Mob:
+                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20)); return merch;
+                case Factions.Bikers:
+                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35)); return merch;
+                case Factions.Triad:
+                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5)); return merch;
+                case Factions.Russians:
+                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5)); return merch;
+                case Factions.Yardies:
+                    SetMerchandise(random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5), 0, 0); return merch;
+                case Factions.Syndicate:
+                    SetMerchandise(random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5), 0, 0); return merch;
                 // It should never reach this point
                 default: return merch;
             };

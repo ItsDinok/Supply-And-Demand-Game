@@ -15,20 +15,45 @@ namespace MarketGame
     public partial class BuySellWindow : Window
     {
         public Merchant Dealer;
+        readonly MerchantSelect SelectWindow;
+        readonly MerchantInventoryView InventoryView;
 
         public BuySellWindow()
         {
             InitializeComponent();
-         
-            UserControl selectWindow = new MerchantSelect();
-            UserControl inventoryView = new MerchantInventoryView();
 
-            WindowSetter.Content = selectWindow;
+            Dealer = new(Factions.NotDefined);
+
+            SelectWindow = new();
+            InventoryView = new();
+
+            WindowSetter.Content = SelectWindow;
         }
 
-        public void SetChange()
+        public void SetChange(bool isToInventory = false, Button? sender = null)
         {
-            WindowSetter.Content = new MerchantInventoryView();
+            if(isToInventory)
+            {
+                if (sender != null)
+                {
+                    Factions faction = sender.Name switch
+                    {
+                        "TriadButton" => Factions.Triad,
+                        "RussianButton" => Factions.Russians,
+                        "MobButton" => Factions.Mob,
+                        "SyndicateButton" => Factions.Syndicate,
+                        "YardiesButton" => Factions.Yardies,
+                        "BikerButton" => Factions.Bikers,
+                        _ => Factions.NotDefined,// It should never reach this point
+                    };
+
+                    Dealer.SetFaction(faction);
+
+                    InventoryView.SetMerchant(Dealer);
+                    WindowSetter.Content = InventoryView;                    
+                }
+            }
+            
         }
 
         public void ForceClose()

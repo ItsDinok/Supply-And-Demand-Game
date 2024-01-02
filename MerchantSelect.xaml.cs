@@ -27,34 +27,16 @@ namespace MarketGame
             InitializeComponent();
         }
 
-        private void DealerButton_Click(object sender, RoutedEventArgs e)
+        private void MerchantSelected(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement this in move merchandise
-            Dictionary<object, string> factionMap = new()
-            {
-                {MobButton, "Mob" },
-                {BikerButton, "Bikers" },
-                {TriadButton, "Triad" },
-                {SyndicateButton, "Syndicate" },
-                {YardiesButton, "Yardies" },
-                {RussianButton, "Russians" }
-            };
-
-            Merchant dealer = new(factionMap[sender]);
-
+            ParentWindow = (BuySellWindow)Window.GetWindow(this);
+            ParentWindow.SetChange(true, (Button)sender);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             ParentWindow = (BuySellWindow)Window.GetWindow(this);
             ParentWindow.Close();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            ParentWindow = (BuySellWindow)Window.GetWindow(this);
-            ParentWindow.SetChange();
         }
     }
 }

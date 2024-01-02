@@ -22,11 +22,22 @@ namespace MarketGame
     {
         public Merchant Dealer;
 
-        public MerchantInventoryView(Merchant dealer)
+        public MerchantInventoryView()
         {
             InitializeComponent();
+            Dealer = new(Factions.NotDefined);
+        }
 
-            // Class constructor stuff
+        public void SetUpInventory()
+        {
+            // Should never reach this point
+            if (Dealer.Faction == Factions.NotDefined) return;
+
+
+        }
+
+        public void SetMerchant(Merchant dealer)
+        {
             Dealer = dealer;
         }
     }
