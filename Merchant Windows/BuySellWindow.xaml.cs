@@ -53,6 +53,10 @@ namespace MarketGame
                     WindowSetter.Content = InventoryView;                    
                 }
             }
+            else
+            {
+                WindowSetter.Content = SelectWindow;
+            }
             
         }
 
