@@ -5,13 +5,179 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MarketGame"
              mc:Ignorable="d" 
-             Height ="300" Width="409" Background="#FF262B37"
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height ="550" Width="700" Background="#FF262B37"
+             d:DesignHeight="550" d:DesignWidth="700"
+             SizeChanged="UserControl_SizeChanged">
     <Grid>
-        <ContentControl x:Name="WindowSetter">
-        </ContentControl>
-        <Image x:Name="MerchantIcon" HorizontalAlignment="Left" Height="74" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" OpacityMask="#FFDC8888" Source="/Icons/Acid.png"/>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="41,225,0,0" VerticalAlignment="Top" Click="BackButton_Click"/>
-        <Label x:Name="MerchantSpeech" Content="Label" HorizontalAlignment="Left" Margin="93,29,0,0" VerticalAlignment="Top" Width="409" Foreground="White"/>
+        
+            <!--<ContentControl x:Name="WindowSetter">
+            </ContentControl>-->
+
+            <Image x:Name="MerchantIcon" HorizontalAlignment="Left" Height="74" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" OpacityMask="#FFDC8888" Source="/Icons/Acid.png"/>
+            <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,477,0,0" VerticalAlignment="Top" Click="BackButton_Click" RenderTransformOrigin="0.603,3.282" Height="32" Width="64"/>
+            <Label x:Name="MerchantSpeech" Content="Label" HorizontalAlignment="Left" Margin="93,29,0,0" VerticalAlignment="Top" Width="409" Foreground="White"/>
+            <Grid HorizontalAlignment="Left" Height="279" Margin="35,92,0,0" VerticalAlignment="Top" Width="128">
+                <StackPanel Margin="-28,0,28,-54" >
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121" Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Downers.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="DownersBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121" Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Weed.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="WeedBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Acid.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="AcidBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Ecstacy.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="EcstacyBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Heroin.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="HeroinBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                    <Grid Height="56" HorizontalAlignment="Left" Width="121">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="9*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Left Labels -->
+                        <Image Source="/Icons/Coke.png" RenderTransformOrigin="0.5,0.5" Margin="-111,-38,-44,-17" Grid.RowSpan="2" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Label x:Name="CokeBagLabel" Content="Label" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="22,13,0,0" Padding="0,0,0,0" HorizontalAlignment="Left" Width="36" Height="21" VerticalAlignment="Top" Grid.Row="1" >
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+
+
+
     </Grid>
 </UserControl>

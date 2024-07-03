@@ -187,6 +187,11 @@ namespace MarketGame
             EcstacyTextBox.Text = "0";
             HeroinTextBox.Text = "0";
             CokeTextBox.Text = "0";
+
+            for (int i = 0; i < RealQuantities.Length; i++)
+            {
+                RealQuantities[i] = 0;
+            }
         }
 
         private void UpdateCapacityBars()

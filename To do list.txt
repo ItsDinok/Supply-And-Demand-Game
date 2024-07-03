@@ -1,0 +1,27 @@
+﻿Complete buying/selling:
+	- Make transfer window
+	- Implement heat/respect
+
+Add contacts:
+	- Include tipoffs
+	- Include raids
+	- Include quests
+
+Add Missions:
+	- Add tutorial showing game systems
+	- Idk yet
+
+Add levels?
+
+Add Upgrades:
+	- Enhanced bag size
+	- Enhanced tip offs
+	- Etc etc
+
+//////////
+
+General:
+	- Add tooltips
+	- Fix UI on drug transfer window
+	- Look at window scaling options
+	- Get playtester

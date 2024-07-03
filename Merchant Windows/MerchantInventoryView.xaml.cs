@@ -31,6 +31,7 @@ namespace MarketGame
         {
             InitializeComponent();
             Dealer = new(Factions.NotDefined);
+            
         }
 
         public void SetUpInventory()
@@ -81,6 +82,13 @@ namespace MarketGame
         {
             BuySellWindow ParentWindow = (BuySellWindow)Window.GetWindow(this);
             ParentWindow.SetChange();
+        }
+
+        public event EventHandler<SizeChangedEventArgs> DesiredSizeChanged;
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            DesiredSizeChanged?.Invoke(this, e);
         }
     }
 }

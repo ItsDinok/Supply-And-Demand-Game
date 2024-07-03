@@ -35,7 +35,7 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
-            
+
         <!-- Capacity Indicators -->
         <Label Content="Bag Capacity" HorizontalAlignment="Left" Height="28" Margin="166,33,0,0" VerticalAlignment="Top" Width="135" Foreground="White"/>
         <ProgressBar x:Name="BagCapacityBar" HorizontalAlignment="Left" Height="17" Margin="166,66,0,0" VerticalAlignment="Top" Width="399" Value="0" Foreground="#FFE01818"/>
@@ -72,12 +72,12 @@
         <!-- Control buttons -->
         <Button Content="Buy/Sell" HorizontalAlignment="Left" Height="74" Margin="582,0,0,0" VerticalAlignment="Center" Width="188" Click="BuySell_Click"/>
         <Button x:Name="MoveDrugsButton" Content="Move Drugs
-                " HorizontalAlignment="Left" Height="74" Margin="582,310,0,0" VerticalAlignment="Top" Width="188" HorizontalContentAlignment="Center" Padding="50,1,1,1" Click="MoveDrugsButton_Click"/>
-        <Button x:Name="BagView" HorizontalAlignment="Left" Margin="251,138,0,0" VerticalAlignment="Top" Height="50" Width="78" Background="#00DDDDDD" BorderThickness="0" Click="BagView_Click">
-            <Image Source="/Icons/Bag.png" Height="32" Width="48"></Image>
+                " HorizontalAlignment="Left" Height="74" Margin="582,310,0,0" VerticalAlignment="Top" Width="188" HorizontalContentAlignment="Center" Padding="50,1,1,1" Click="MoveDrugsButton_Click" BorderThickness="1" BorderBrush="Black"/>
+        <Button x:Name="BagView" HorizontalAlignment="Left" Margin="304,145,0,0" VerticalAlignment="Top" Height="38" Width="62" Click="BagView_Click" FontSize="23" Padding="1,0,0,0" BorderThickness="1">👜
+            <!--<Image Source="/Icons/Bag.png" Height="32" Width="48"></Image>-->
         </Button>
-        <Button x:Name="StashView" HorizontalAlignment="Left" Margin="400,138,0,0" VerticalAlignment="Top" Height="50" Width="78" Background="#00DDDDDD" BorderThickness="0" Click="StashView_Click">
-            <Image Source="/Icons/Safe.png" Height="32" Width="48"></Image>
+        <Button x:Name="StashView" Content="🔒" HorizontalAlignment="Left" Margin="366,145,0,0" VerticalAlignment="Top" Height="38" Width="62" BorderThickness="1" Click="StashView_Click" Padding="0,0,0,0" FontSize="23" BorderBrush="#FF707070">
+            <!--<Image Source="/Icons/Safe.png" Height="32" Width="48"></Image>-->
         </Button>
 
         <!-- Misc Labels -->

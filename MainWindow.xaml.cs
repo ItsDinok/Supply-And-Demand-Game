@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -84,6 +86,7 @@ namespace MarketGame
 
         public void SetToBagOrStashView(bool isStash)
         {
+            // TODO: Research sunken
             if (isStash)
             {
                 DownersCount.Content = Game.Character.Stash[Merchandise.Downers];
@@ -94,6 +97,10 @@ namespace MarketGame
                 CokeCount.Content = Game.Character.Stash[Merchandise.Coke];
 
                 IsStashInView = true;
+
+                BagView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
+                // #FFDDDDDD
+                StashView.Background = new SolidColorBrush(Colors.LightSteelBlue);
             }
             else
             {
@@ -105,6 +112,9 @@ namespace MarketGame
                 CokeCount.Content = Game.Character.Bag[Merchandise.Coke];
 
                 IsStashInView = false;
+
+                StashView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
+                BagView.Background = new SolidColorBrush(Colors.LightSteelBlue);
             }
         }
 
@@ -139,6 +149,12 @@ namespace MarketGame
                 Owner = this
             };
             moveDrugsWindow.ShowDialog();
+        }
+
+        private void MerchantInventoryView_DesirableSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.Width = 600;
+            this.Height = 450;
         }
     }
 }
