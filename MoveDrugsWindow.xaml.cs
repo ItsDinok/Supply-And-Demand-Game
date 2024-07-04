@@ -112,9 +112,9 @@ namespace MarketGame
             Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
                 EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
             // TODO: Assign PNGs
-            if (RealQuantities[index] < 0) indicators[index].Content = "<---";
+            if (RealQuantities[index] < 0) indicators[index].Content = "⬅️";
             else if (RealQuantities[index] == 0) indicators[index].Content = "";
-            else indicators[index].Content = "--->";
+            else indicators[index].Content = "➞";
 
             indicators[index].IsEnabled = true;
         }
@@ -191,6 +191,16 @@ namespace MarketGame
             for (int i = 0; i < RealQuantities.Length; i++)
             {
                 RealQuantities[i] = 0;
+            }
+            Label[] indicators = [DownersDirectionalIndicator,
+                WeedDirectionalIndicator,
+                AcidDirectionalIndicator,
+                EcstacyDirectionalIndicator,
+                HeroinDirectionalIndicator,
+                CokeDirectionalIndicator];
+            for (int i = 0; i < indicators.Length; i++)
+            {
+                indicators[i].Content = "";
             }
         }
 

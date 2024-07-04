@@ -1,4 +1,6 @@
-﻿Complete buying/selling:
+﻿!!! = Urgent or Easy
+
+Complete buying/selling:
 	- Make transfer window
 	- Implement heat/respect
 
@@ -21,6 +23,7 @@ Add Upgrades:
 //////////
 
 General:
+	- Increase documentation (!!!)
 	- Add tooltips
 	- Fix UI on drug transfer window
 	- Look at window scaling options
