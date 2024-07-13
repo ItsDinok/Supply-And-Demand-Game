@@ -228,6 +228,10 @@ namespace MarketGame
             DealerMerchandise[type] += amount;
         }
 
+        public Dictionary<Merchandise, int> GetInventory() {
+            return DealerMerchandise;
+        }
+
         private Dictionary<Merchandise, int> GenerateMerchandise()
         {
             Dictionary<Merchandise, int> merch = new(){

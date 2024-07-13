@@ -246,6 +246,13 @@
 
         </Grid>
         <Grid HorizontalAlignment="Left" Height="45" Margin="378,118,0,0" VerticalAlignment="Top" Width="47"/>
+        <Button x:Name="DealerView" HorizontalAlignment="Left" Margin="302,92,0,0" VerticalAlignment="Top" Height="61" Width="100" Click="DealerView_Click" FontSize="23" Padding="1,0,0,0" BorderThickness="1" Content="Buy">
+            <!--<Image Source="/Icons/Bag.png" Height="32" Width="48"></Image>-->
+        </Button>
+        <Button x:Name="BagView" Content="Sell" HorizontalAlignment="Left" Margin="402,92,0,0" VerticalAlignment="Top" Height="61" Width="100" BorderThickness="1" Click="BagView_Click" Padding="0,0,0,0" FontSize="23" BorderBrush="#FF707070">
+            <!--<Image Source="/Icons/Safe.png" Height="32" Width="48"></Image>-->
+        </Button>
+        <Button x:Name="ConfirmationButton" Content="Confirm Deal" HorizontalAlignment="Left" Margin="343,451,0,0" VerticalAlignment="Top" Click="ConfirmDeal" RenderTransformOrigin="0.603,3.282" Height="43" Width="159"/>
 
 
 

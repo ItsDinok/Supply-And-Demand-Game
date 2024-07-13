@@ -3,6 +3,7 @@
 Complete buying/selling:
 	- Make transfer window
 	- Implement heat/respect
+	- Copy/paste button and bar logic
 
 Add contacts:
 	- Include tipoffs
@@ -28,3 +29,4 @@ General:
 	- Fix UI on drug transfer window
 	- Look at window scaling options
 	- Get playtester
+	- Consider developing a helper class for frequent cross-file functions

@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 
 namespace MarketGame
 {
+    // TODO: Bag and stash have a cap; implement cap
     // TODO: Add "jump" buttons
     public partial class MoveDrugsWindow : Window
     {
@@ -111,7 +112,7 @@ namespace MarketGame
             // Assign arrows as needed
             Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
                 EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
-            // TODO: Assign PNGs
+            
             if (RealQuantities[index] < 0) indicators[index].Content = "⬅️";
             else if (RealQuantities[index] == 0) indicators[index].Content = "";
             else indicators[index].Content = "➞";
