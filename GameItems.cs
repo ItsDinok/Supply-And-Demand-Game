@@ -23,38 +23,20 @@
     }
     #endregion
 
-    // TODO : Implement this, it is 100% better
-    public class Inventory
-    {
-        int DownersQuantity;
-        int WeedQuantity;
-        int AcidQuantity;
-        int EcstacyQuantity;
-        int HeroinQuantity;
-        int CokeQuantity;
-
-        public Inventory(int dQ, int wQ, int aQ, int eQ, int hQ, int cQ)
-        {
-            DownersQuantity = dQ; WeedQuantity = wQ;
-            AcidQuantity = aQ; EcstacyQuantity = eQ;
-            HeroinQuantity = hQ; CokeQuantity = cQ;
-        }
-    }
-
     public class Player
     {
         // Attributes
         public Dictionary<Merchandise, int> Bag;
         public Dictionary<Merchandise, int> Stash;
+
         // TODO: Sort these out
         public int Respect = 30;
         public int Heat = 40;
-        public string DisplayCash;
-        public string DisplayMoney;
-        // TODO: implement the logic for this
         public int BagCapacity = 150;
         public int StashCapacity = 1500;
 
+        public string DisplayCash;
+        public string DisplayMoney;
         private int Cash = 2000;
         private int Money = 500;
         

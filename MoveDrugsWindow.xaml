@@ -10,93 +10,151 @@
     <Grid>
         <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="BackButton_Click"/>
 
-        <!-- This is hell -->
-        <!-- Downers -->
-        <Button x:Name="DownersLeftButton" HorizontalAlignment="Left" Margin="140,38,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-            <TextBlock Text="◄" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <Button x:Name="DownersRightButton" HorizontalAlignment="Left" Margin="285,38,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="DownersTextBox" HorizontalAlignment="Left" Margin="165,38,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Left">
 
-        <!-- Weed -->
-        <Button x:Name="WeedLeftButton" HorizontalAlignment="Left" Margin="140,84,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-            <TextBlock Text="◄" Margin="0, -6.5, 0, 0"/>
-        </Button>
-        <Button x:Name="WeedRightButton" FontSize="20" HorizontalAlignment="Left" Margin="285,84,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="WeedTextBox" HorizontalAlignment="Left" Margin="165,84,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+            <!-- Downers -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
+                    <Label x:Name="DownersBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,0"/>
+                </Grid>
 
-        <!-- Acid -->
-        <Button x:Name="AcidLeftButton" HorizontalAlignment="Left" Margin="140,130,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20" FontWeight="Bold">
-            <TextBlock Text="◄" Margin="0,-6.5, 0, 0"/>
-        </Button>
-        <Button x:Name="AcidRightButton" FontSize="20" HorizontalAlignment="Left" Margin="285,130,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="AcidTextBox" HorizontalAlignment="Left" Margin="165,130,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="DownersLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
+                        <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                    </Button>
+                    <TextBox x:Name="DownersTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="DownersRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
+                        <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                    </Button>
+                </StackPanel>
 
-        <!-- Ecstacy -->
-        <Button x:Name="EcstacyLeftButton" HorizontalAlignment="Left" Margin="140,176,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-            <TextBlock Text="◄" Margin="0, -6.5, 0, 0"/>
-        </Button>
-        <Button x:Name="EcstacyRightButton" FontSize="20" HorizontalAlignment="Left" Margin="285,176,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="EcstacyTextBox" HorizontalAlignment="Left" Margin="165,176,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                <Grid HorizontalAlignment="Left">
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
+                    <Label x:Name="DownersStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+            </StackPanel>
 
-        <!-- Heroin -->
-        <Button x:Name="HeroinLeftButton" HorizontalAlignment="Left" Margin="140,217,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-            <TextBlock Text="◄" Margin="0, -6.5, 0, 0"/>
-        </Button>
-        <Button x:Name="HeroinRightButton" FontSize="20" HorizontalAlignment="Left" Margin="285,217,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" RenderTransformOrigin="0.5,0.5" FontWeight="Bold">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="HeroinTextBox" HorizontalAlignment="Left" Margin="165,217,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+            <!-- Weed -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
+                    <Label x:Name="WeedBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,0"/>
+                </Grid>
 
-        <!-- Coke -->
-        <Button x:Name="CokeLeftButton" HorizontalAlignment="Left" Margin="140,263,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks">
-            <TextBlock Text="◄" Margin="0, -6.5, 0, 0" FontSize="20"/>
-        </Button>
-        <Button x:Name="CokeRightButton" FontSize="20" HorizontalAlignment="Left" Margin="285,263,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
-        </Button>
-        <TextBox x:Name="CokeTextBox" HorizontalAlignment="Left" Margin="165,263,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="WeedLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
+                        <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                    </Button>
+                    <TextBox x:Name="WeedTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="WeedRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
+                        <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                    </Button>
+                </StackPanel>
 
-        <!-- Images -->
-        <Image HorizontalAlignment="Left" Height="46" Margin="366,25,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="366,71,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="366,117,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="366,163,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="367,209,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="366,250,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,25,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,71,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,117,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,163,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,209,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="37,255,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
+                    <Label x:Name="WeedStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+            </StackPanel>
 
-        <!-- Drug value labels -->
-        <!-- Left Labels -->
-        <Label x:Name="DownersBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,53,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="WeedBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,94,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="AcidBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,145,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="EcstacyBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,191,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="HeroinBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,237,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="CokeBagLabel" Content="Label" HorizontalAlignment="Left" Margin="60,278,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        
+            <!-- Acid -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
+                    <Label x:Name="AcidBagLabel" Content="Label" HorizontalAlignment="Left" Margin="20,25,10,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="AcidLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20" FontWeight="Bold">
+                        <TextBlock Text="◄" Margin="0,0, 0, 0"/>
+                    </Button>
+                    <TextBox x:Name="AcidTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="AcidRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
+                        <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                    </Button>
+                </StackPanel>
+
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
+                    <Label x:Name="AcidStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Ecstacy -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
+                    <Label x:Name="EcstacyBagLabel" Content="Label" HorizontalAlignment="Left" Margin="20,25,10,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="EcstacyLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
+                        <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                    </Button>
+                    <TextBox x:Name="EcstacyTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="EcstacyRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
+                        <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                    </Button>
+                </StackPanel>
+
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
+                    <Label x:Name="EcstacyStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,20,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Heroin -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
+                    <Label x:Name="HeroinBagLabel" Content="Label" HorizontalAlignment="Left" Margin="20,25,10,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="HeroinLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
+                        <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                    </Button>
+                    <TextBox x:Name="HeroinTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="HeroinRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" RenderTransformOrigin="0.5,0.5" FontWeight="Bold">
+                        <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                    </Button>
+                </StackPanel>
+
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
+                    <Label x:Name="HeroinStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Coke -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
+                    <Label x:Name="CokeBagLabel" Content="Label" HorizontalAlignment="Left" Margin="20,25,10,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="CokeLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks">
+                        <TextBlock Text="◄" Margin="0, 0, 0, 0" FontSize="20"/>
+                    </Button>
+                    <TextBox x:Name="CokeTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="CokeRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
+                        <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
+                    </Button>
+                </StackPanel>
+
+                <Grid>
+                    <Label x:Name="CokeStashLabel" Content="Label" HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
+                    <Image HorizontalAlignment="Left" Height="46" Margin="20,0,0,0" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+
         <!-- Right Labels -->
-        <Label x:Name="DownersStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,53,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="WeedStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,94,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="AcidStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,140,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="EcstacyStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,186,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="HeroinStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,234,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
-        <Label x:Name="CokeStashLabel" Content="Label" HorizontalAlignment="Left" Margin="389,273,0,0" VerticalAlignment="Top" Foreground="White" Height="30" Width="42"/>
         <Button x:Name="SendButton" Content="Send!" HorizontalAlignment="Left" Margin="417,343,0,0" VerticalAlignment="Top" Height="42" Width="69" Click="SendButton_Click"/>
-        
+
         <!-- Directional Indicators -->
         <Label x:Name="DownersDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,12,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label x:Name="WeedDirectionalIndicator" Content="" HorizontalAlignment="Left" Margin="206,64,0,0" VerticalAlignment="Top" Foreground="White"/>

@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MarketGame
 {
@@ -21,27 +10,55 @@ namespace MarketGame
     /// </summary>
     /// TODO: Genuinely consider a per-drug screen
     /// TODO: Still needs to display capacity
+    /// BUG: Labels don't update when changing vendors
+    /// TODO: A lot of this can be generalised to avoid double declarations
+    
     public partial class MerchantInventoryView : UserControl
     {
         public Merchant Dealer;
         private readonly string[] IntroMessages =
-        {
+        [
             "Come on, buy already... I'm a little jumpy."
-        };
-        readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+        ];
+        
+        // Aliases for readability
+        private readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+        private readonly Player Character;
+
         // TODO: This needs to be implemented
-        float Modifier = 1;
+        private readonly float Modifier = 1;
 
         // This keeps track of the REAL (not displayed) total for transfer
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
         private bool isSelling = true;
+        
+        // TODO: consider putting this in merchant class
+        private static readonly Dictionary<Factions, string> FactionIcons = new()
+        {
+            {Factions.Yardies, "pack://application:,,,/MarketGame;component/Icons/Yardies.png" },
+            {Factions.Triad, "pack://application:,,,/MarketGame;component/Icons/Triad.png" },
+            {Factions.Mob, "pack://application:,,,/MarketGame;component/Icons/Mob.png" },
+            {Factions.Syndicate, "pack://application:,,,/MarketGame;component/Icons/Syndicate.png" },
+            {Factions.Russians, "pack://application:,,,/MarketGame;component/Icons/Russian.png" },
+            {Factions.Bikers, "pack://application:,,,/MarketGame;component/Icons/Biker.png" }
+        };
+        // TODO: Put this in gameobjects
+        private static readonly Dictionary<string, int> DrugIndices = new()
+        {
+            { "DownersTextBox", 0 },
+            { "WeedTextBox", 1 },
+            { "AcidTextBox", 2 },
+            { "EcstacyTextBox", 3 },
+            { "HeroinTextBox", 4 },
+            { "CokeTextBox", 5 }
+        };
 
         public MerchantInventoryView()
         {
             InitializeComponent();
+            this.Character = host.Game.Character;
             Dealer = new(Factions.NotDefined);
             AssignLabelValues();
-
         }
 
         private void DealerView_Click(object sender, RoutedEventArgs e)
@@ -75,7 +92,7 @@ namespace MarketGame
                 // This assigns player bag labels, assuming the player wants to start by selling
                 for (int i = 0; i < labels.Length; i++)
                 {
-                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    labels[i].Content = Character.Bag.ElementAt(i).Value.ToString();
                 }
             }
             else
@@ -112,9 +129,14 @@ namespace MarketGame
                     if (textBoxes[i].Text == "0") continue;
 
                     value = Int32.Parse(textBoxes[i].Text);
-                    type = host.Game.Character.Bag.ElementAt(i).Key;
-                    host.Game.Character.Sell(value, type, Modifier);
+                    type = Character.Bag.ElementAt(i).Key;
+                    Character.Sell(value, type, Modifier);
                     Dealer.Buy(value, type);
+
+                    // Raise heat and respect
+                    // TODO: Respect should depend on quality of deal
+                    Character.Heat += 10;
+                    Character.Respect += 10;
                 }
                 AssignLabelValues();
             }
@@ -129,15 +151,19 @@ namespace MarketGame
                         if (textBoxes[i].Text == "0") continue;
 
                         value = Int32.Parse(textBoxes[i].Text);
-                        type = host.Game.Character.Bag.ElementAt(i).Key;
-                        host.Game.Character.Buy(value, type, Modifier);
+                        type = Character.Bag.ElementAt(i).Key;
+                        Character.Buy(value, type, Modifier);
                         Dealer.Sell(value, type);
 
+                        // Raise heat and respect
+                        // TODO: Respect should depend on quality of deal
+                        Character.Heat += 10;
+                        Character.Respect += 10;
                     }
                     AssignLabelValues();
                 }
             }
-            host.UpdateMoney();
+            host.UpdateStatusIndicators();
             ResetBars();
         }
 
@@ -145,14 +171,14 @@ namespace MarketGame
         {
             // TODO : Display error or warning
             // Buying
-            Dictionary<Merchandise, int> Bag = host.Game.Character.Bag;
+            Dictionary<Merchandise, int> Bag = Character.Bag;
             int totalValue = 0;
             for (int i = 0; i < Bag.Count; i++)
             {
                 totalValue += (Bag.ElementAt(i).Value + RealQuantities[i]);
             }
             // TODO: Display error or warning
-            if (totalValue > host.Game.Character.BagCapacity) return false;
+            if (totalValue > Character.BagCapacity) return false;
             // TODO: Explort a money check to player class for verification
             return true;
         }
@@ -177,40 +203,8 @@ namespace MarketGame
         {
             // The index is used in the negative function
             int index;
-
-            // Determines which drug it is
-            switch (drugType.Name)
-            {
-                case "DownersTextBox":
-                    this.RealQuantities[0] = amount;
-                    index = 0;
-                    break;
-                case "WeedTextBox":
-                    this.RealQuantities[1] = amount;
-                    index = 1;
-                    break;
-                case "AcidTextBox":
-                    this.RealQuantities[2] = amount;
-                    index = 2;
-                    break;
-                case "EcstacyTextBox":
-                    this.RealQuantities[3] = amount;
-                    index = 3;
-                    break;
-                case "HeroinTextBox":
-                    this.RealQuantities[4] = amount;
-                    index = 4;
-                    break;
-                case "CokeTextBox":
-                    this.RealQuantities[5] = amount;
-                    index = 5;
-                    break;
-                // Thanks to buttons, this will never be called
-                default:
-                    index = -1;
-                    break;
-            }
-
+            index = DrugIndices[drugType.Name];
+            this.RealQuantities[index] = amount;
             return index;
         }
 
@@ -252,7 +246,7 @@ namespace MarketGame
 
             // Update text values
             if (isRight) index = UpdateQuantities(targeted, x + 1);
-            else if (x-1 < 0) return; 
+            else if (x - 1 < 0) return;
             else index = UpdateQuantities(targeted, x - 1);
 
             targeted.Text = Math.Abs(RealQuantities[index]).ToString();
@@ -263,37 +257,18 @@ namespace MarketGame
             // Should never reach this point
             if (Dealer.Faction == Factions.NotDefined) return;
             SetIcon();
-
         }
 
         private void SetIcon()
         {
+            // TODO: Add more messages
+            // Set message from message set
             Random random = new();
             int message = random.Next(IntroMessages.Length);
-
-            switch(Dealer.Faction)
-            {
-                case Factions.Yardies:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Yardies.png"));
-                    break;
-                case Factions.Triad:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Triad.png"));
-                    break;
-                case Factions.Mob:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Mob.png"));
-                    break;
-                case Factions.Syndicate:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Syndicate.png"));
-                    break;
-                case Factions.Russians:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Russian.png"));
-                    break;
-                case Factions.Bikers:
-                    MerchantIcon.Source = new BitmapImage(new Uri("pack://application:,,,/MarketGame;component/Icons/Biker.png"));
-                    break;
-            }
-
             MerchantSpeech.Content = IntroMessages[message];
+
+            // Set image from dictionary
+            MerchantIcon.Source = new BitmapImage(new Uri(FactionIcons[Dealer.Faction]));
         }
 
         public void SetMerchant(Merchant dealer)
@@ -305,7 +280,9 @@ namespace MarketGame
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             BuySellWindow ParentWindow = (BuySellWindow)Window.GetWindow(this);
-            ParentWindow.SetChange();
+            // HACK: See if I can't fix this for a better user experience
+            //ParentWindow.SetChange();
+            ParentWindow.Close();
         }
 
         public event EventHandler<SizeChangedEventArgs>? DesiredSizeChanged;
