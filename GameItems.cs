@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace MarketGame
+﻿namespace MarketGame
 {
+    #region Enum Declarations
     public enum Merchandise
     {
         Downers,
@@ -31,42 +21,52 @@ namespace MarketGame
         Bikers,
         NotDefined
     }
+    #endregion
+
+    // TODO : Implement this, it is 100% better
+    public class Inventory
+    {
+        int DownersQuantity;
+        int WeedQuantity;
+        int AcidQuantity;
+        int EcstacyQuantity;
+        int HeroinQuantity;
+        int CokeQuantity;
+
+        public Inventory(int dQ, int wQ, int aQ, int eQ, int hQ, int cQ)
+        {
+            DownersQuantity = dQ; WeedQuantity = wQ;
+            AcidQuantity = aQ; EcstacyQuantity = eQ;
+            HeroinQuantity = hQ; CokeQuantity = cQ;
+        }
+    }
 
     public class Player
     {
         // Attributes
         public Dictionary<Merchandise, int> Bag;
         public Dictionary<Merchandise, int> Stash;
-        public int Respect;
-        public int Heat;
+        // TODO: Sort these out
+        public int Respect = 30;
+        public int Heat = 40;
         public string DisplayCash;
         public string DisplayMoney;
-
         // TODO: implement the logic for this
         public int BagCapacity = 150;
         public int StashCapacity = 1500;
 
-        private int Cash;
-        private int Money;
-
-        private readonly Dictionary<Merchandise, int> BASEPRICES = new() {
-            {Merchandise.Downers, 20 },
-            {Merchandise.Weed, 40 },
-            {Merchandise.Acid, 250 },
-            {Merchandise.Ecstacy, 400 },
-            {Merchandise.Heroin, 750 },
-            {Merchandise.Coke, 900 }
+        private int Cash = 2000;
+        private int Money = 500;
+        
+        public readonly Dictionary<Merchandise, int> BASEPRICES = new() {
+            {Merchandise.Downers, 20 }, {Merchandise.Weed, 40 },
+            {Merchandise.Acid, 250 }, {Merchandise.Ecstacy, 400 },
+            {Merchandise.Heroin, 750 }, {Merchandise.Coke, 900 }
         };
 
         // Methods
         public Player() 
         {
-            // Standard attributes
-            Respect = 30;
-            Heat = 40;
-            Money = 2000;
-            Cash = 500;
-
             DisplayMoney = Money.ToString();
             DisplayCash = Cash.ToString();
 
@@ -125,6 +125,7 @@ namespace MarketGame
             Stash[type] -= amount;
             Bag[type] += amount;
         }
+
         public void MoveToStash(int amount, Merchandise type) 
         {
             if (Bag[type] - amount < 0) return;
@@ -149,9 +150,9 @@ namespace MarketGame
         {
             int cost = (int)(BASEPRICES[type] * modifier);
 
-            if (Cash - amount < 0) return;
+            if (Cash - cost*amount < 0) return;
 
-            Cash += (int)(amount * cost);
+            Cash -= (amount * cost);
             Bag[type] += amount;
 
             DisplayCash = Cash.ToString();
@@ -205,10 +206,21 @@ namespace MarketGame
         }
     }
 
-    public class Merchant(Factions faction = Factions.NotDefined)
+    public class Merchant
     {
-        public Factions Faction = faction;
-        Dictionary<Merchandise, int> ?DealerMerchandise;
+        public Factions Faction;
+        Dictionary<Merchandise, int> DealerMerchandise;
+
+        public Merchant(Factions faction)
+        {
+            Faction = faction;
+            DealerMerchandise = new(){
+                {Merchandise.Downers, 0 }, {Merchandise.Weed, 0 },
+                {Merchandise.Acid, 0 }, {Merchandise.Ecstacy, 0 },
+                {Merchandise.Heroin, 0 },{Merchandise.Coke, 0 },
+            };
+            GenerateMerchandise();
+        }
 
         public void SetFaction(Factions faction)
         {
@@ -232,45 +244,37 @@ namespace MarketGame
             return DealerMerchandise;
         }
 
-        private Dictionary<Merchandise, int> GenerateMerchandise()
+        private void GenerateMerchandise()
         {
-            Dictionary<Merchandise, int> merch = new(){
-                {Merchandise.Downers, 0 },
-                {Merchandise.Weed, 0 },
-                {Merchandise.Acid, 0 },
-                {Merchandise.Ecstacy, 0 },
-                {Merchandise.Heroin, 0 },
-                {Merchandise.Coke, 0 },
-            };
             Random random = new();
 
             void SetMerchandise(int weed, int downers, int acid, int ecstacy, int heroin, int coke)
             {
-                merch[Merchandise.Weed] = weed;
-                merch[Merchandise.Downers] = downers;
-                merch[Merchandise.Ecstacy] = ecstacy;
-                merch[Merchandise.Acid] = acid;
-                merch[Merchandise.Heroin] = heroin;
-                merch[Merchandise.Coke] = coke;
+                DealerMerchandise[Merchandise.Weed] = weed;
+                DealerMerchandise[Merchandise.Downers] = downers;
+                DealerMerchandise[Merchandise.Ecstacy] = ecstacy;
+                DealerMerchandise[Merchandise.Acid] = acid;
+                DealerMerchandise[Merchandise.Heroin] = heroin;
+                DealerMerchandise[Merchandise.Coke] = coke;
             }
 
             switch (Faction)
             {
                 // TODO: Change probability distribution
                 case Factions.Mob:
-                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20)); return merch;
+                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20)); return;
                 case Factions.Bikers:
-                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35)); return merch;
+                    SetMerchandise(0, 0, random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35)); return;
                 case Factions.Triad:
-                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5)); return merch;
+                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5)); return;
                 case Factions.Russians:
-                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5)); return merch;
+                    SetMerchandise(random.Next(0, 5), random.Next(0, 5), random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5)); return;
                 case Factions.Yardies:
-                    SetMerchandise(random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5), 0, 0); return merch;
+                    SetMerchandise(random.Next(20, 35), random.Next(10, 20), random.Next(0, 5), random.Next(0, 5), 0, 0); return;
                 case Factions.Syndicate:
-                    SetMerchandise(random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5), 0, 0); return merch;
+                    SetMerchandise(random.Next(10, 20), random.Next(20, 35), random.Next(0, 5), random.Next(0, 5), 0, 0); return;
                 // It should never reach this point
-                default: return merch;
+                default: return;
             };
         }
 

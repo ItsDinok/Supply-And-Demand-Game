@@ -20,7 +20,7 @@ namespace MarketGame
     /// Interaction logic for MerchantInventoryView.xaml
     /// </summary>
     /// TODO: Genuinely consider a per-drug screen
-    /// TODO: Still needs to display cash and capacity
+    /// TODO: Still needs to display capacity
     public partial class MerchantInventoryView : UserControl
     {
         public Merchant Dealer;
@@ -29,33 +29,38 @@ namespace MarketGame
             "Come on, buy already... I'm a little jumpy."
         };
         readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+        // TODO: This needs to be implemented
+        float Modifier = 1;
 
         // This keeps track of the REAL (not displayed) total for transfer
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
+        private bool isSelling = true;
 
         public MerchantInventoryView()
         {
             InitializeComponent();
             Dealer = new(Factions.NotDefined);
-            AssignLabelValues(true);
+            AssignLabelValues();
 
         }
 
         private void DealerView_Click(object sender, RoutedEventArgs e)
         {
-            AssignLabelValues(false);
-            AlterToggleButton(false);
+            AssignLabelValues();
+            AlterToggleButton();
+            isSelling = false;
         }
 
         private void BagView_Click(object sender, RoutedEventArgs e)
         {
-            AssignLabelValues(true);
-            AlterToggleButton(true);
+            AssignLabelValues();
+            AlterToggleButton();
+            isSelling = true;
         }
 
-        private void AssignLabelValues(bool isPlayer)
+        private void AssignLabelValues()
         {
-            Label[] leftLabels =
+            Label[] labels =
             [
                 DownersBagLabel,
                 WeedBagLabel,
@@ -65,23 +70,23 @@ namespace MarketGame
                 CokeBagLabel
             ];
 
-            if (isPlayer)
+            if (isSelling)
             {
                 // This assigns player bag labels, assuming the player wants to start by selling
-                for (int i = 0; i < leftLabels.Length; i++)
+                for (int i = 0; i < labels.Length; i++)
                 {
-                    leftLabels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
                 }
             }
             else
             {
                 // This assigns merchant bag labels
-                for (int i = 0; i < leftLabels.Length; i++)
+                for (int i = 0; i < labels.Length; i++)
                 {
-                    leftLabels[i].Content = Dealer.GetInventory().ElementAt(i).Value.ToString();
+                    labels[i].Content = Dealer.GetInventory().ElementAt(i).Value.ToString();
                 }
             }
-            AlterToggleButton(true);
+            AlterToggleButton();
 
         }
 
@@ -96,29 +101,65 @@ namespace MarketGame
          */
         private void ConfirmDeal(object sender, RoutedEventArgs e)
         {
-            // Despicable way to work out if I am buying or selling
-            SolidColorBrush tester = new(Colors.LightSteelBlue);
-            if (DealerView.Background == tester)
+            TextBox[] textBoxes = [DownersTextBox, WeedTextBox, AcidTextBox, EcstacyTextBox, HeroinTextBox, CokeTextBox];
+            if (isSelling)
             {
-                // Must be selling
-                
+                // Selling
+                int value;
+                Merchandise type;
+                for (int i = 0; i < textBoxes.Length; i++)
+                {
+                    if (textBoxes[i].Text == "0") continue;
+
+                    value = Int32.Parse(textBoxes[i].Text);
+                    type = host.Game.Character.Bag.ElementAt(i).Key;
+                    host.Game.Character.Sell(value, type, Modifier);
+                    Dealer.Buy(value, type);
+                }
+                AssignLabelValues();
             }
             else
             {
-                Dictionary<Merchandise, int> Bag = host.Game.Character.Bag;
-                int totalValue = 0;
-                for (int i = 0; i < Bag.Count; i++)
+                if (CheckIfPurchaseValid())
                 {
-                    totalValue += (Bag.ElementAt(i).Value + RealQuantities[i]);
+                    int value;
+                    Merchandise type;
+                    for (int i = 0; i < textBoxes.Length; i++)
+                    {
+                        if (textBoxes[i].Text == "0") continue;
+
+                        value = Int32.Parse(textBoxes[i].Text);
+                        type = host.Game.Character.Bag.ElementAt(i).Key;
+                        host.Game.Character.Buy(value, type, Modifier);
+                        Dealer.Sell(value, type);
+
+                    }
+                    AssignLabelValues();
                 }
-                // TODO: Display error or warning
-                if (totalValue > host.Game.Character.BagCapacity) return; 
             }
+            host.UpdateMoney();
+            ResetBars();
         }
 
-        private void AlterToggleButton(bool isBagView)
+        private bool CheckIfPurchaseValid()
         {
-            if (isBagView)
+            // TODO : Display error or warning
+            // Buying
+            Dictionary<Merchandise, int> Bag = host.Game.Character.Bag;
+            int totalValue = 0;
+            for (int i = 0; i < Bag.Count; i++)
+            {
+                totalValue += (Bag.ElementAt(i).Value + RealQuantities[i]);
+            }
+            // TODO: Display error or warning
+            if (totalValue > host.Game.Character.BagCapacity) return false;
+            // TODO: Explort a money check to player class for verification
+            return true;
+        }
+
+        private void AlterToggleButton()
+        {
+            if (isSelling)
             {
                 DealerView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
                 // #FFDDDDDD
@@ -134,7 +175,6 @@ namespace MarketGame
 
         private int UpdateQuantities(TextBox drugType, int amount)
         {
-
             // The index is used in the negative function
             int index;
 
@@ -153,7 +193,6 @@ namespace MarketGame
                     this.RealQuantities[2] = amount;
                     index = 2;
                     break;
-
                 case "EcstacyTextBox":
                     this.RealQuantities[3] = amount;
                     index = 3;
@@ -274,6 +313,21 @@ namespace MarketGame
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             DesiredSizeChanged?.Invoke(this, e);
+        }
+
+        private void ResetBars()
+        {
+            DownersTextBox.Text = "0";
+            WeedTextBox.Text = "0";
+            AcidTextBox.Text = "0";
+            EcstacyTextBox.Text = "0";
+            HeroinTextBox.Text = "0";
+            CokeTextBox.Text = "0";
+
+            for (int i = 0; i < RealQuantities.Length; i++)
+            {
+                RealQuantities[i] = 0;
+            }
         }
     }
 }

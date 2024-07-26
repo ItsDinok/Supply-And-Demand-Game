@@ -1,10 +1,8 @@
 ﻿!!! = Urgent or Easy
 
 Complete buying/selling:
-	- Make transfer window
 	- Implement heat/respect
-	- Copy/paste button and bar logic
-
+	
 Add contacts:
 	- Include tipoffs
 	- Include raids

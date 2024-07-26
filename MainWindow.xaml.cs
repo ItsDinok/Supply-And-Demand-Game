@@ -76,6 +76,12 @@ namespace MarketGame
             MoneyLabel.Content = "$" + Game.Character.DisplayMoney;
         }
 
+        public void UpdateMoney()
+        {
+            CashLabel.Content = "$" + Game.Character.DisplayCash;
+            MoneyLabel.Content = "$" + Game.Character.DisplayMoney;
+        }
+
         private void MoveCashButton_Click(object sender, RoutedEventArgs e)
         {
             string input = MoneyInput.Text[1..];
