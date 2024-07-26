@@ -5,38 +5,122 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MarketGame"
              mc:Ignorable="d" 
-             Height ="300" Width="409" Background="#FF262B37"
+             Height ="450" Width="800" Background="#FF262B37"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="44" Click="BackButton_Click"/>
+        <StackPanel Orientation="Horizontal">
+            <!-- Character Buttons -->
+            <StackPanel HorizontalAlignment="Left" Margin="30,0,0,0">
+                <!-- Top Row -->
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <!-- Mob -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                        <StackPanel Margin="0,0,0,0">
+                            <Button x:Name="MobButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                                <Image Source="/Icons/Mob.png" Stretch="Fill"/>
+                            </Button>
+                            <Label Content="Mob" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
 
-        <!-- Character Buttons -->
-        <Button x:Name="MobButton" HorizontalAlignment="Left" Height="81" Margin="10,10,0,0" VerticalAlignment="Top" Width="77" Click="MerchantSelected">
-            <Image Source="/Icons/Mob.png" Stretch="Fill"/>
-        </Button>
-        <Button x:Name="BikerButton" HorizontalAlignment="Left" Height="81" Margin="238,10,0,0" VerticalAlignment="Top" Width="76" Click="MerchantSelected">
-            <Image Source="/Icons/Biker.png" Stretch="Fill"/>
-        </Button>
-        <Button x:Name="TriadButton" HorizontalAlignment="Left" Height="81" Margin="124,10,0,0" VerticalAlignment="Top" Width="76" Click="MerchantSelected">
-            <Image Source="/Icons/Triad.png" Stretch="Fill"/>
-        </Button>
-        <Button x:Name="RussianButton" HorizontalAlignment="Left" Height="81" Margin="124,122,0,0" VerticalAlignment="Top" Width="76" Click="MerchantSelected">
-            <Image Source="/Icons/Russian.png" Stretch="Fill"/>
-        </Button>
-        <Button x:Name="YardiesButton" HorizontalAlignment="Left" Height="81" Margin="238,122,0,0" VerticalAlignment="Top" Width="76" Click="MerchantSelected">
-            <Image Source="/Icons/Yardies.png" Stretch="Fill"/>
-        </Button>
-        <Button x:Name="SyndicateButton" HorizontalAlignment="Left" Height="81" Margin="11,122,0,0" VerticalAlignment="Top" Width="76" Click="MerchantSelected">
-            <Image Source="/Icons/Syndicate.png" Stretch="Fill"/>
-        </Button>
+                    </StackPanel>
 
-        <!-- Character Description Labels -->
-        <Label Content="Mob" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
-        <Label Content="Bikers" HorizontalAlignment="Left" Margin="238,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
-        <Label Content="Triad" HorizontalAlignment="Left" Margin="125,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
-        <Label Content="Mob" HorizontalAlignment="Left" Margin="11,91,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
-        <Label Content="Syndicate" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
-        <Label Content="Yardies" HorizontalAlignment="Left" Margin="238,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
-        <Label Content="Russians" HorizontalAlignment="Left" Margin="124,203,0,0" VerticalAlignment="Top" Height="18" Width="75" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+                    <!-- Triad -->
+                    <StackPanel Margin="0,0,20,0">
+                        <Button x:Name="TriadButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                            <Image Source="/Icons/Triad.png" Stretch="Fill"/>
+                        </Button>
+                        <Label Content="Triad" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Bikers -->
+                    <StackPanel>
+                        <Button x:Name="BikerButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                            <Image Source="/Icons/Biker.png" Stretch="Fill"/>
+                        </Button>
+                        <Label Content="Bikers" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,5" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Bottom Row -->
+                <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+                    <!-- Syndicate -->
+                    <StackPanel Margin="0,0,20,0">
+                        <Button x:Name="SyndicateButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                            <Image Source="/Icons/Syndicate.png" Stretch="Fill"/>
+                        </Button>
+                        <Label Content="Syndicate" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Russians -->
+                    <StackPanel Margin="0,0,20,0">
+                        <Button x:Name="RussianButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                            <Image Source="/Icons/Russian.png" Stretch="Fill"/>
+                        </Button>
+                        <Label Content="Russians" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Yardies -->
+                    <StackPanel>
+                        <Button x:Name="YardiesButton" HorizontalAlignment="Left" Height="106" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" Click="MerchantSelected">
+                            <Image Source="/Icons/Yardies.png" Stretch="Fill"/>
+                        </Button>
+                        <Label Content="Yardies" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="100" Foreground="White" Background="#FF383838" Padding="5,0,5,0" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="81" Height="30" Click="BackButton_Click"/>
+            </StackPanel>
+            <StackPanel Margin="10,0,10,0">
+                <Label Content="Preferred Product" HorizontalAlignment="Center" Foreground="White" FontSize="24"/>
+                <Grid>
+                    <Label HorizontalAlignment="Center" Content="Buys" Foreground="White" FontSize="18"/>
+                    <Label HorizontalAlignment="Right" Content="Sells" Foreground="White" FontSize="18"/>
+                </Grid>
+                
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Mob: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Heroin.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Coke.png" Height="46" HorizontalAlignment="Right"/>
+                </Grid>
+                
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Triad: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Ecstacy.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Acid.png" Height="46" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Bikers: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Coke.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Heroin.png" Height="46" HorizontalAlignment="Right"/>                    
+                </Grid>
+
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Syndicate: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Downers.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Weed.png" Height="46" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Russians: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Acid.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Ecstacy.png" Height="46" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Yardies: " VerticalAlignment="Center"/>
+                    <Image Source="/Icons/Weed.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Source="/Icons/Downers.png" Height="46" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <Grid>
+                    <Label HorizontalAlignment="Left" Foreground="White" FontSize="18" Content="Latest Tip:" VerticalAlignment="Center"/>
+                    <Image Name="SellTipImage" Source="/Icons/Downers.png" Height="46" HorizontalAlignment="Center"/>
+                    <Image Name="BuyTipImage" Source="/Icons/Heroin.png" Height="46" HorizontalAlignment="Right"/>                    
+                </Grid>
+
+                <ProgressBar Opacity="0" x:Name="StashCapacityBar" HorizontalAlignment="Left" Height="17" Margin="0,0,0,0" VerticalAlignment="Top" Width="380" Background="#FFE6E6E6" Foreground="#FFE01818"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

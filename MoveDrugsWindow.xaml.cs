@@ -30,6 +30,34 @@ namespace MarketGame
         {
             InitializeComponent();
             AssignLabelValues();
+            SetValueLabel();
+            SetCapacityBars();
+            SetPoliceStatus();
+        }
+
+        private void SetValueLabel()
+        {
+            int total = 0;
+            // Accumulate all values in one dictionary for ease of calculation
+            for (int i = 0; i < 6; i++)
+            {
+                total += host.Game.Character.Bag.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
+                total += host.Game.Character.Stash.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
+            }
+
+            // Set label
+            // TODO: Set commas for cash values
+            EstimatedTotalValueLabel.Content = "$" + total.ToString();
+        }
+
+        private void SetCapacityBars()
+        {
+            float StashPercentage = (float)host.Game.Character.GetTotalCapacity(true) / 1500 * 100;
+            float BagPercentage = (float)host.Game.Character.GetTotalCapacity(false) / 150 * 100;
+            StashCapacityBar.Value = StashPercentage;
+            BagCapacityBar.Value = BagPercentage;
+            StashCapacityLabel.Content = host.Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
+            BagCapacityLabel.Content = host.Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
         }
 
         private void AssignLabelValues()
@@ -49,7 +77,7 @@ namespace MarketGame
                 leftLabels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
             }
 
-            Label[] rightLabels = 
+            Label[] rightLabels =
             [
                 DownersStashLabel,
                 WeedStashLabel,
@@ -57,9 +85,9 @@ namespace MarketGame
                 EcstacyStashLabel,
                 HeroinStashLabel,
                 CokeStashLabel
-            ]; 
+            ];
 
-            for (int i = 0; i < rightLabels.Length;i++)
+            for (int i = 0; i < rightLabels.Length; i++)
             {
                 rightLabels[i].Content = host.Game.Character.Stash.ElementAt(i).Value.ToString();
             }
@@ -112,7 +140,7 @@ namespace MarketGame
             // Assign arrows as needed
             Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
                 EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
-            
+
             if (RealQuantities[index] < 0) indicators[index].Content = "⬅️";
             else if (RealQuantities[index] == 0) indicators[index].Content = "";
             else indicators[index].Content = "➞";
@@ -143,7 +171,7 @@ namespace MarketGame
                     break;
 
                 case "EcstacyTextBox":
-                    this.RealQuantities[3] = amount; 
+                    this.RealQuantities[3] = amount;
                     index = 3;
                     break;
                 case "HeroinTextBox":
@@ -178,8 +206,25 @@ namespace MarketGame
             AssignLabelValues();
             UpdateCapacityBars();
             ResetBars();
+            SetCapacityBars();
         }
 
+        private void SetPoliceStatus()
+        {
+            // This is better than sex.
+            // Look at this switch statement.
+            int heat = host.Game.Character.Heat;
+            (string content, SolidColorBrush foreground) = heat switch
+            {
+                < 25 => ("You don't exist.", new SolidColorBrush(Colors.White)),
+                < 50 => ("They have heard reports.", new SolidColorBrush(Colors.White)),
+                < 75 => ("Lie Low.", new SolidColorBrush(Colors.Tomato)),
+                _ => ("Good Luck. You will need it.", new SolidColorBrush(Colors.Maroon))
+            };
+
+            PoliceAwarenessLabel.Content = content;
+            PoliceAwarenessLabel.Foreground = foreground;
+        }
         private void ResetBars()
         {
             DownersTextBox.Text = "0";

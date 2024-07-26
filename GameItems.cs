@@ -8,7 +8,8 @@
         Acid,
         Ecstacy,
         Heroin,
-        Coke
+        Coke,
+        NotDefined
     }
 
     public enum Factions
@@ -40,7 +41,7 @@
         private int Cash = 2000;
         private int Money = 500;
         
-        public readonly Dictionary<Merchandise, int> BASEPRICES = new() {
+        public static readonly Dictionary<Merchandise, int> BASEPRICES = new() {
             {Merchandise.Downers, 20 }, {Merchandise.Weed, 40 },
             {Merchandise.Acid, 250 }, {Merchandise.Ecstacy, 400 },
             {Merchandise.Heroin, 750 }, {Merchandise.Coke, 900 }
@@ -175,6 +176,10 @@
         // These names are relative to the player
         public float SellModifier;
         public float BuyModifier;
+
+        // TODO: Everything about these
+        public Merchandise BuyTip = Merchandise.NotDefined;
+        public Merchandise SellTip = Merchandise.NotDefined;
 
         public GameObject() 
         {
