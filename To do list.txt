@@ -24,7 +24,7 @@ Add Upgrades:
 General:
 	- Increase documentation (!!!)
 	- Add tooltips
-	- Fix UI on drug transfer window
+	- Fix Arrows (again)
 	- Look at window scaling options
 	- Get playtester
 	- Consider developing a helper class for frequent cross-file functions
