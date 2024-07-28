@@ -42,68 +42,45 @@ namespace MarketGame
             {Factions.Russians, "pack://application:,,,/MarketGame;component/Icons/Russian.png" },
             {Factions.Bikers, "pack://application:,,,/MarketGame;component/Icons/Biker.png" }
         };
-        // TODO: Put this in gameobjects
-        private static readonly Dictionary<string, int> DrugIndices = new()
+
+        private static readonly Dictionary<Merchandise, string> MerchandiseIcons = new()
         {
-            { "DownersTextBox", 0 },
-            { "WeedTextBox", 1 },
-            { "AcidTextBox", 2 },
-            { "EcstacyTextBox", 3 },
-            { "HeroinTextBox", 4 },
-            { "CokeTextBox", 5 }
+            {Merchandise.Downers, "pack://application:,,/MarketGame;component/Icons/Downers.png" },
+            {Merchandise.Weed, "pack://application:,,/MarketGame;component/Icons/Weed.png" },
+            {Merchandise.Acid, "pack://application:,,/MarketGame;component/Icons/Acid.png" },
+            {Merchandise.Ecstacy, "pack://application:,,/MarketGame;component/Icons/Ecstacy.png" },
+            {Merchandise.Heroin, "pack://application:,,/MarketGame;component/Icons/Heroin.png" },
+            {Merchandise.Coke, "pack://application:,,/MarketGame;component/Icons/Coke.png" }
         };
 
         public MerchantInventoryView()
         {
             InitializeComponent();
+            Dealer = new (Factions.NotDefined);
             this.Character = host.Game.Character;
-            Dealer = new(Factions.NotDefined);
             AssignLabelValues();
         }
 
-        private void DealerView_Click(object sender, RoutedEventArgs e)
-        {
-            AssignLabelValues();
-            AlterToggleButton();
-            isSelling = false;
-        }
-
-        private void BagView_Click(object sender, RoutedEventArgs e)
-        {
-            AssignLabelValues();
-            AlterToggleButton();
-            isSelling = true;
-        }
-
-        private void AssignLabelValues()
+        public void AssignLabelValues()
         {
             Label[] labels =
             [
-                DownersBagLabel,
-                WeedBagLabel,
-                AcidBagLabel,
-                EcstacyBagLabel,
-                HeroinBagLabel,
-                CokeBagLabel
+                DownersBagLabel, WeedBagLabel, AcidBagLabel,
+                EcstacyBagLabel, HeroinBagLabel, CokeBagLabel,
+                DownersDealerLabel, WeedDealerLabel, AcidDealerLabel,
+                EcstacyDealerLabel, HeroinDealerLabel, CokeDealerLabel
             ];
 
-            if (isSelling)
+            for (int i = 0; i < labels.Length; i++)
             {
-                // This assigns player bag labels, assuming the player wants to start by selling
-                for (int i = 0; i < labels.Length; i++)
+                if (i < 6)
                 {
-                    labels[i].Content = Character.Bag.ElementAt(i).Value.ToString();
+                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    continue;
                 }
+                labels[i].Content = Dealer.GetInventory().ElementAt(i%6).Value.ToString();
+                HeatGainLabel.Content = Dealer.Faction.ToString();
             }
-            else
-            {
-                // This assigns merchant bag labels
-                for (int i = 0; i < labels.Length; i++)
-                {
-                    labels[i].Content = Dealer.GetInventory().ElementAt(i).Value.ToString();
-                }
-            }
-            AlterToggleButton();
 
         }
 
@@ -118,7 +95,7 @@ namespace MarketGame
          */
         private void ConfirmDeal(object sender, RoutedEventArgs e)
         {
-            TextBox[] textBoxes = [DownersTextBox, WeedTextBox, AcidTextBox, EcstacyTextBox, HeroinTextBox, CokeTextBox];
+            TextBox[] textBoxes = [];
             if (isSelling)
             {
                 // Selling
@@ -164,7 +141,6 @@ namespace MarketGame
                 }
             }
             host.UpdateStatusIndicators();
-            ResetBars();
         }
 
         private bool CheckIfPurchaseValid()
@@ -182,75 +158,7 @@ namespace MarketGame
             // TODO: Explort a money check to player class for verification
             return true;
         }
-
-        private void AlterToggleButton()
-        {
-            if (isSelling)
-            {
-                DealerView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
-                // #FFDDDDDD
-                BagView.Background = new SolidColorBrush(Colors.LightSteelBlue);
-            }
-            else
-            {
-                BagView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
-                // #FFDDDDDD
-                DealerView.Background = new SolidColorBrush(Colors.LightSteelBlue);
-            }
-        }
-
-        private int UpdateQuantities(TextBox drugType, int amount)
-        {
-            // The index is used in the negative function
-            int index;
-            index = DrugIndices[drugType.Name];
-            this.RealQuantities[index] = amount;
-            return index;
-        }
-
-        private void ArrowButtonClicks(object sender, RoutedEventArgs e)
-        {
-            // This function is modified from the move merchandise window, there are two key changes:
-            // 1) The ability to move negative quantities has been removes
-            // 2) There are no directional indicators
-
-            bool isRight;
-            TextBox targeted;
-            Button accessString = (Button)sender;
-
-            // This assigns a value to the textbox that sent it
-            Dictionary<string, TextBox> keyValuePairs = new()
-            {
-                { "DownersLeftButton", DownersTextBox },
-                { "DownersRightButton", DownersTextBox },
-                { "WeedLeftButton", WeedTextBox },
-                { "WeedRightButton", WeedTextBox },
-                { "AcidLeftButton", AcidTextBox },
-                { "AcidRightButton", AcidTextBox },
-                { "EcstacyLeftButton", EcstacyTextBox },
-                { "EcstacyRightButton", EcstacyTextBox },
-                { "HeroinLeftButton", HeroinTextBox },
-                { "HeroinRightButton", HeroinTextBox },
-                { "CokeLeftButton", CokeTextBox },
-                { "CokeRightButton", CokeTextBox }
-            };
-            targeted = keyValuePairs[accessString.Name];
-
-            // Determine if targeted is left or right
-            // NOTE: It is scarily lucky no merch contains L, if this ever changes, fix this
-            if (!accessString.Name.Contains('L')) isRight = true;
-            else isRight = false;
-
-            int x = RealQuantities[(keyValuePairs.Keys.ToList().IndexOf(accessString.Name)) / 2];
-            int index;
-
-            // Update text values
-            if (isRight) index = UpdateQuantities(targeted, x + 1);
-            else if (x - 1 < 0) return;
-            else index = UpdateQuantities(targeted, x - 1);
-
-            targeted.Text = Math.Abs(RealQuantities[index]).ToString();
-        }
+        
 
         public void SetUpInventory()
         {
@@ -269,6 +177,7 @@ namespace MarketGame
 
             // Set image from dictionary
             MerchantIcon.Source = new BitmapImage(new Uri(FactionIcons[Dealer.Faction]));
+            RespectGainLabel.Content = Dealer.Faction.ToString();
         }
 
         public void SetMerchant(Merchant dealer)
@@ -292,19 +201,5 @@ namespace MarketGame
             DesiredSizeChanged?.Invoke(this, e);
         }
 
-        private void ResetBars()
-        {
-            DownersTextBox.Text = "0";
-            WeedTextBox.Text = "0";
-            AcidTextBox.Text = "0";
-            EcstacyTextBox.Text = "0";
-            HeroinTextBox.Text = "0";
-            CokeTextBox.Text = "0";
-
-            for (int i = 0; i < RealQuantities.Length; i++)
-            {
-                RealQuantities[i] = 0;
-            }
-        }
     }
 }

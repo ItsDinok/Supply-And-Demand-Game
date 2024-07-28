@@ -3,7 +3,7 @@
 <Window x:Class="MarketGame.BuySellWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Select Buyer" Height ="450" Width="800" Background="#FF262B37"
+        Title="Select Buyer" Height ="475" Width="800" Background="#FF262B37"
         ResizeMode="NoResize"
 		Icon="/Icons/Downers.png">
     <Grid>

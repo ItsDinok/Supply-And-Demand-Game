@@ -153,7 +153,8 @@
                     <Button x:Name="SendButton" Content="Send!" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="SendButton_Click"/>
                 </Grid>
             </StackPanel>
-            <StackPanel Margin="30,0,0,0">
+            <Rectangle Width="5" Fill="#FFB7B7B7" Margin="15,0,0,0" Opacity="0.75"/>
+            <StackPanel Margin="15,0,0,0">
                 <Label Content="Inventory" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
                 
                 <StackPanel>

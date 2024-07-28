@@ -6,24 +6,25 @@
              xmlns:local="clr-namespace:MarketGame"
              mc:Ignorable="d" 
              Height ="450" Width="800" Background="#FF262B37"
-             d:DesignHeight="550" d:DesignWidth="700"
+             d:DesignHeight="450" d:DesignWidth="800"
              SizeChanged="UserControl_SizeChanged">
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10,20,0,0" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" Margin="10,3,0,0" VerticalAlignment="Top">
                 <Image x:Name="MerchantIcon" HorizontalAlignment="Left" Height="74" Margin="0,0,0,0" VerticalAlignment="Center" Width="84" OpacityMask="#FFDC8888" Source="/Icons/Acid.png"/>
                 <Label x:Name="MerchantSpeech" Content="Hello" Margin="0,0,0,0" VerticalAlignment="Center" Width="350" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <StackPanel>
                     <Grid>
                         <Label Content="You" Foreground="White" HorizontalAlignment="Left"/>
-                        <Label Content="Dealer" Foreground="White" HorizontalAlignment="Right"/>
+                        <Label Content="Dealer" Foreground="White" HorizontalAlignment="Right" Margin="0,0,15,0"/>
                     </Grid>
-                    <StackPanel>
+                    <!-- Quantity Panel -->
+                    <StackPanel HorizontalAlignment="Center">
                         <!-- Downers -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="DownersBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button Background="{x:Null}" BorderThickness="0">
                                 <Image Source="/Icons/Downers.png" Height="46"/>
@@ -32,7 +33,7 @@
                         </StackPanel>
 
                         <!-- Weed -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="WeedBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button BorderThickness="0" Background="{x:Null}">
                                 <Image Source="/Icons/Weed.png" Height="46"/>
@@ -41,7 +42,7 @@
                         </StackPanel>
 
                         <!-- Acid -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="AcidBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button BorderThickness="0" Background="{x:Null}">
                                 <Image Source="/Icons/Acid.png" Height="46"/>
@@ -50,7 +51,7 @@
                         </StackPanel>
 
                         <!-- Ecstacy -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="EcstacyBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button BorderThickness="0" Background="{x:Null}">
                                 <Image Source="/Icons/Ecstacy.png" Height="46"/>
@@ -59,7 +60,7 @@
                         </StackPanel>
 
                         <!-- Heroin -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="HeroinBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button BorderThickness="0" Background="{x:Null}">
                                 <Image Source="/Icons/Heroin.png" Height="46"/>
@@ -68,19 +69,22 @@
                         </StackPanel>
 
                         <!-- Coke -->
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="CokeBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                             <Button BorderThickness="0" Background="{x:Null}">
                                 <Image Source="/Icons/Coke.png" Height="46"/>
                             </Button>
                             <Label x:Name="CokeDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
                         </StackPanel>
+                        
+                        <Button x:Name="BackButton" Content="Back" Margin="0,0,0,0" HorizontalAlignment="Center" Click="BackButton_Click" Height="20" Width="84"/>
+                        <ProgressBar Width="120" Opacity="0"/>
 
-                        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Bottom" Click="BackButton_Click" RenderTransformOrigin="0.603,3.282" Height="32" Width="64"/>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Background="#FF3E5180">
+                    <!-- Buy Panel -->
                     <StackPanel>
                         <Label Content="Gain/Loss:" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
                         <Label x:Name="MoneyChangeLabel" Content="$20,000" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
@@ -106,8 +110,14 @@
                                 <Button x:Name="SellButton" Content="Sell" Width="50" Height="25" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
+                            <Label Content="You are: " Foreground="White" FontSize="16"/>
+                            <Label x:Name="BuySellIndicator" Content="SELLING" Foreground="White" FontSize="16"/>
+                        </StackPanel>
                     </StackPanel>
 
+                    <!-- Deal rates panel-->
                     <StackPanel>
                         <Label Content="Current Rate" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
                         <Label x:Name="RateLabel" Foreground="White" Content="x1.24" HorizontalAlignment="Center" FontSize="16"/>
@@ -124,9 +134,22 @@
                         <Button x:Name="ConfirmationButton" Content="Confirm Deal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmDeal" Height="43" Width="159"/>
                     </StackPanel>
 
+                    <!-- Stats panel -->
                     <StackPanel>
                         <Label Content="Stats"  Foreground="White" FontSize="22"/>
+                        <Label Content="Bag Capacity" HorizontalAlignment="Left" FontSize="16" Margin="0,0,0,0" VerticalAlignment="Top" Width="135" Foreground="White"/>
+                        <ProgressBar x:Name="BagCapacityBar" HorizontalAlignment="Left" Height="17" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Value="0" Foreground="#FFE01818"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Cash: " Foreground="White" FontSize="16"/>
+                            <Label x:Name="CashDisplayLabel" Content="$10,000" FontSize="16" Foreground="White"/>
+                        </StackPanel>
                         
+                        <Label Content="Heat" Foreground="White" FontSize="16"/>
+                        <ProgressBar x:Name="HeatBar" Height="17" Width="200" Background="White" Foreground="#FFEA1C1C" Value="30"/>
+
+                        <Label Content="Respect" Foreground="White" FontSize="16"/>
+                        <ProgressBar x:Name="RespectBar" Height="17" Width="200" Background="White" Foreground="#FF65F517" Value="60"/>
                     </StackPanel>
                 </StackPanel>
 

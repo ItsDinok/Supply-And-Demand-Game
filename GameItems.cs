@@ -196,7 +196,7 @@
     public class Merchant
     {
         public Factions Faction;
-        Dictionary<Merchandise, int> DealerMerchandise;
+        public Dictionary<Merchandise, int> DealerMerchandise;
 
         public Merchant(Factions faction)
         {

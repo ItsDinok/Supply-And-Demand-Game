@@ -16,8 +16,10 @@
     <None Remove="Icons\Coke.png" />
     <None Remove="Icons\Downers.png" />
     <None Remove="Icons\Ecstacy.png" />
+    <None Remove="Icons\GreenArrow.png" />
     <None Remove="Icons\Heroin.png" />
     <None Remove="Icons\Mob.png" />
+    <None Remove="Icons\RedTriangle.png" />
     <None Remove="Icons\Russian.png" />
     <None Remove="Icons\Safe.png" />
     <None Remove="Icons\Syndicate.png" />
@@ -45,10 +47,16 @@
     <Content Include="Icons\Ecstacy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\GreenArrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\Heroin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Mob.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\RedTriangle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Russian.png">

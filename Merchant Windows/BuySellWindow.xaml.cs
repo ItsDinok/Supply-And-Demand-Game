@@ -50,6 +50,7 @@ namespace MarketGame
                     Dealer.SetFaction(faction);
 
                     InventoryView.SetMerchant(Dealer);
+                    InventoryView.AssignLabelValues();
                     WindowSetter.Content = InventoryView;                    
                 }
             }
