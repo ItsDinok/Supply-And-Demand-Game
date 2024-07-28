@@ -9,135 +9,128 @@
              d:DesignHeight="550" d:DesignWidth="700"
              SizeChanged="UserControl_SizeChanged">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            
-
-            <!-- Inventory Management Panel -->
-            <StackPanel>
-                <!-- Downers -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Downers.png"/>
-                        <Label x:Name="DownersBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,0"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="DownersLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="DownersTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="DownersRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Weed -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Weed.png"/>
-                        <Label x:Name="WeedBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,10"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="WeedLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="WeedTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="WeedRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Acid -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Acid.png"/>
-                        <Label x:Name="AcidBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,10"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="AcidLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="AcidTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="AcidRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Ecstacy -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Ecstacy.png"/>
-                        <Label x:Name="EcstacyBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,10"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="EcstacyLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="EcstacyTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="EcstacyRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Heroin -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Heroin.png"/>
-                        <Label x:Name="HeroinBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,10"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="HeroinLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="HeroinTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="HeroinRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Coke -->
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="50" Source="/Icons/Coke.png"/>
-                        <Label x:Name="CokeBagLabel" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="30" Width="42" Margin="20,25,10,10"/>
-                    </Grid>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="CokeLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
-                        </Button>
-                        <TextBox x:Name="CokeTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="CokeRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-                <Button x:Name="ConfirmationButton" Content="Confirm Deal" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" Click="ConfirmDeal" RenderTransformOrigin="0.603,3.282" Height="43" Width="159"/>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,20,0,0" VerticalAlignment="Top">
+                <Image x:Name="MerchantIcon" HorizontalAlignment="Left" Height="74" Margin="0,0,0,0" VerticalAlignment="Center" Width="84" OpacityMask="#FFDC8888" Source="/Icons/Acid.png"/>
+                <Label x:Name="MerchantSpeech" Content="Hello" Margin="0,0,0,0" VerticalAlignment="Center" Width="350" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
             </StackPanel>
 
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10,20,0,0" VerticalAlignment="Top">
-                    <Image x:Name="MerchantIcon" HorizontalAlignment="Left" Height="74" Margin="0,0,0,0" VerticalAlignment="Center" Width="84" OpacityMask="#FFDC8888" Source="/Icons/Acid.png"/>
-                    <Label x:Name="MerchantSpeech" Content="Hello" Margin="0,0,0,0" VerticalAlignment="Center" Width="350" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Grid>
+                        <Label Content="You" Foreground="White" HorizontalAlignment="Left"/>
+                        <Label Content="Dealer" Foreground="White" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <StackPanel>
+                        <!-- Downers -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="DownersBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button Background="{x:Null}" BorderThickness="0">
+                                <Image Source="/Icons/Downers.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="DownersDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Weed -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="WeedBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button BorderThickness="0" Background="{x:Null}">
+                                <Image Source="/Icons/Weed.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="WeedDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Acid -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="AcidBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button BorderThickness="0" Background="{x:Null}">
+                                <Image Source="/Icons/Acid.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="AcidDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Ecstacy -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="EcstacyBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button BorderThickness="0" Background="{x:Null}">
+                                <Image Source="/Icons/Ecstacy.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="EcstacyDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Heroin -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="HeroinBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button BorderThickness="0" Background="{x:Null}">
+                                <Image Source="/Icons/Heroin.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="HeroinDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Coke -->
+                        <StackPanel Orientation="Horizontal">
+                            <Label x:Name="CokeBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                            <Button BorderThickness="0" Background="{x:Null}">
+                                <Image Source="/Icons/Coke.png" Height="46"/>
+                            </Button>
+                            <Label x:Name="CokeDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Bottom" Click="BackButton_Click" RenderTransformOrigin="0.603,3.282" Height="32" Width="64"/>
+                    </StackPanel>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="20,0,0,0" HorizontalAlignment="Center">
-                    <Button x:Name="DealerView" HorizontalAlignment="Left" Margin="0,0,0,0" Height="30" Width="100" Click="DealerView_Click" FontSize="18" Padding="1,0,0,0" BorderThickness="1" Content="Buy"/>
-                    <Button x:Name="BagView" HorizontalAlignment="Right" Margin="0,0,0,0" Height="30" Width="100" Click="BagView_Click" FontSize="18" Padding="1,0,0,0" BorderThickness="1" Content="Sell"/>
+                <StackPanel Orientation="Horizontal" Background="#FF3E5180">
+                    <StackPanel>
+                        <Label Content="Gain/Loss:" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+                        <Label x:Name="MoneyChangeLabel" Content="$20,000" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="FeaturedDrugImage" Source="/Icons/Downers.png" />
+                            <Grid>
+                                <Button Background="{x:Null}" VerticalAlignment="Top" BorderBrush="{x:Null}">
+                                    <Image Source="/Icons/GreenArrow.png" Height="30"/>
+                                </Button>
+                                <Label x:Name="QuantityMovedIndicator" Content="30" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
+                                <Button Background="{x:Null}" VerticalAlignment="Bottom" BorderBrush="{x:Null}">
+                                    <Image Source="/Icons/RedTriangle.png" Height="30"/>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+
+                        <Label x:Name="DrugIndicatorLabel" Content="Downers" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
+
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="BuyButton" Content="Buy" Width="50" Height="25" HorizontalAlignment="Center"/>
+                                <Button x:Name="SellButton" Content="Sell" Width="50" Height="25" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Current Rate" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+                        <Label x:Name="RateLabel" Foreground="White" Content="x1.24" HorizontalAlignment="Center" FontSize="16"/>
+
+                        <Label Content="Drug Type" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+                        <Label x:Name="TypeLabel" Content="Depressant" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+
+                        <Label Content="Heat Gain" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+                        <Label x:Name="HeatGainLabel" Content="10" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+
+                        <Label Content="RespectGain" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
+                        <Label x:Name="RespectGainLabel" Content="10" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+
+                        <Button x:Name="ConfirmationButton" Content="Confirm Deal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmDeal" Height="43" Width="159"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <Label Content="Stats"  Foreground="White" FontSize="22"/>
+                        
+                    </StackPanel>
                 </StackPanel>
 
-                <Button x:Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Bottom" Click="BackButton_Click" RenderTransformOrigin="0.603,3.282" Height="32" Width="64"/>
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </UserControl>
