@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Downers.png" />
     <None Remove="Icons\Acid.png" />
     <None Remove="Icons\Bag.png" />
     <None Remove="Icons\Biker.png" />
@@ -77,10 +76,6 @@
     <Content Include="Icons\Yardies.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Downers.png" />
   </ItemGroup>
 
 </Project>

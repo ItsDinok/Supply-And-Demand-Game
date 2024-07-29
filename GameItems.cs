@@ -218,6 +218,23 @@ namespace MarketGame
         public Merchandise BuyTip = Merchandise.NotDefined;
         public Merchandise SellTip = Merchandise.NotDefined;
 
+        // TODO: Racism check some of these names, thanks chatGPT
+        public string[] GangsterNames = [
+            // Triad names
+            "Liang Chen", "Jin Wu", "Ming Zhao",
+            // Mob names
+            "Johnny Russo", "Vinny Moretti", "Lucky Falcone",
+            // Yardie names
+            "L-Train", "Dread", "Shay Williams",
+            // Russians
+            "Ivan Petrov", "Sergei Kozlov", "Dmitry Ivanov",
+            // Syndicate
+            "Liam Cross", "Alex Steele", "Eddie Harrington",
+            // Bikers
+            "Razor", "Bones McGraw", "Wildcat Turner",
+            // Friends
+            "Shek", "Charlie"];
+
         // NOTE: Tried to set values on the perceptions of each drug. I have no clue how these will be balanced
         public static readonly Dictionary<Merchandise, (int, int)> HeatRespectValues = new()
         {
@@ -245,7 +262,6 @@ namespace MarketGame
             Character = new Player();
         }
 
-        // NOT IMPLEMENTED
         public void GenerateTipOff()
         {
             Random random = new();
@@ -272,6 +288,9 @@ namespace MarketGame
             }
 
             // TODO: Decide on contact
+            string contact = random.Next(GangsterNames.Length).ToString();
+
+
         }
 
         public static string ReturnMoneyString(int amount)
