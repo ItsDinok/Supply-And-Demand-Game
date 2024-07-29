@@ -227,6 +227,17 @@ namespace MarketGame
             { Merchandise.Coke, (10, 25) }
         };
 
+        // Used in a few places
+        public static readonly Dictionary<Merchandise, string> MerchandiseIcons = new()
+        {
+            {Merchandise.Downers, "pack://application:,,/MarketGame;component/Icons/Downers.png" },
+            {Merchandise.Weed, "pack://application:,,/MarketGame;component/Icons/Weed.png" },
+            {Merchandise.Acid, "pack://application:,,/MarketGame;component/Icons/Acid.png" },
+            {Merchandise.Ecstacy, "pack://application:,,/MarketGame;component/Icons/Ecstacy.png" },
+            {Merchandise.Heroin, "pack://application:,,/MarketGame;component/Icons/Heroin.png" },
+            {Merchandise.Coke, "pack://application:,,/MarketGame;component/Icons/Coke.png" }
+        };
+
         public GameObject() 
         {
             Character = new Player();

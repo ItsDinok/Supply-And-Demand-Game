@@ -183,7 +183,7 @@
                     <Grid>
                         <Image Name="InDemandImage" Source="/Icons/Coke.png" Height="46" HorizontalAlignment="Center"/>
                         <Image Name="InDemandIndicator" Source="/Icons/GreenArrow.png" Height="15" Margin="55,0,0,30"/>
-                        <Label Content="+" Margin="55,0,0,30" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
+                        <Label Name="InDemandText" Content="+" Margin="55,0,0,30" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
                     </Grid>
                     
                 </Grid>
@@ -192,7 +192,7 @@
                     <Grid>
                         <Image Name="LowDemandImage" Source="/Icons/Weed.png" Height="46" HorizontalAlignment="Center"/>
                         <Image Name="LowDemandIndicator" Source="/Icons/RedTriangle.png" Height="15" Margin="55, 30,0,0"/>
-                        <Label Content="-" Margin="55,25,0,0" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                        <Label Name="LowDemandText" Content="-" Margin="55,25,0,0" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
                     </Grid>
                 </Grid>
                 <Grid >

@@ -1,4 +1,4 @@
-﻿!!! = Urgent or Easy#
+﻿!!! = Urgent or Easy
 	
 Add contacts:
 	- Include tipoffs
@@ -17,6 +17,4 @@ Add Upgrades:
 
 General:
 	- Add tooltips
-	- Fix Arrows (again)
-	- Get playtester
 	

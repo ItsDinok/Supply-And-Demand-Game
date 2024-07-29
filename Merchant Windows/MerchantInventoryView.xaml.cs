@@ -1,4 +1,5 @@
 ﻿using System.Printing;
+using System.Security.Permissions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -27,19 +28,10 @@ namespace MarketGame
 
         // This keeps track of the REAL (not displayed) total for transfer
         int TradeQuantity = 0;
-        private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
         private bool isSelling = true;
         private Merchandise FeaturedMerch = Merchandise.NotDefined;
 
-        private static readonly Dictionary<Merchandise, string> MerchandiseIcons = new()
-        {
-            {Merchandise.Downers, "pack://application:,,/MarketGame;component/Icons/Downers.png" },
-            {Merchandise.Weed, "pack://application:,,/MarketGame;component/Icons/Weed.png" },
-            {Merchandise.Acid, "pack://application:,,/MarketGame;component/Icons/Acid.png" },
-            {Merchandise.Ecstacy, "pack://application:,,/MarketGame;component/Icons/Ecstacy.png" },
-            {Merchandise.Heroin, "pack://application:,,/MarketGame;component/Icons/Heroin.png" },
-            {Merchandise.Coke, "pack://application:,,/MarketGame;component/Icons/Coke.png" }
-        };
+        
 
         public MerchantInventoryView()
         {
@@ -56,9 +48,7 @@ namespace MarketGame
         {
             QuantityMovedIndicator.Content = "0";
             DrugIndicatorLabel.Content = "Select Drug.";
-
-            // TODO: This needs to be responsive to tipoffs
-            RateLabel.Content = "x" + GeneralModifier.ToString();
+            RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
             TypeLabel.Content = "Unselected.";
             RespectGainLabel.Content = "0";
             HeatGainLabel.Content = "0";
@@ -100,10 +90,9 @@ namespace MarketGame
 
         private void ConfirmDeal(object sender, RoutedEventArgs e)
         {
-            TextBox[] textBoxes = [];
             if (isSelling)
             {
-                host.Game.Character.Sell(TradeQuantity, FeaturedMerch, GeneralModifier);
+                host.Game.Character.Sell(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, true));
                 Dealer.Buy(TradeQuantity, FeaturedMerch);
                 TradeQuantity = 0;
 
@@ -120,7 +109,7 @@ namespace MarketGame
             {
                 if (CheckIfPurchaseValid())
                 {
-                    host.Game.Character.Buy(TradeQuantity, FeaturedMerch, GeneralModifier);
+                    host.Game.Character.Buy(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, false));
                     Dealer.Sell(TradeQuantity, FeaturedMerch);
                     TradeQuantity = 0;
 
@@ -181,6 +170,23 @@ namespace MarketGame
             SetUpInventory();
         }
 
+        private float CalculateRate(Merchandise merch, bool isSell)
+        {
+            float modifier = GeneralModifier;
+            if (isSell)
+            {
+                // Checks to see if the merch has any special modifiers
+                if (Dealer.PrefferedBuy == merch) modifier += 0.25f;
+                if (host.Game.SellTip == merch) modifier += host.Game.SellModifier;
+            }
+            else
+            {
+                if (Dealer.PrefferedSell == merch) modifier += 0.25f;
+                if (host.Game.BuyTip == merch) modifier += host.Game.BuyModifier;
+            }
+            return modifier;
+        }
+
         #region Button Methods
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -196,6 +202,7 @@ namespace MarketGame
 
             isSelling = true;
             BuySellIndicator.Content = "SELLING";
+            RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
         }
 
         private void BuyButtonClick(object sender, RoutedEventArgs e)
@@ -204,6 +211,7 @@ namespace MarketGame
 
             isSelling = false;
             BuySellIndicator.Content = "BUYING";
+            RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
         }
 
         private void UpArrowClick(object sender, RoutedEventArgs e)
@@ -234,6 +242,8 @@ namespace MarketGame
             if (sender is Button clickedButton)
             {
                 string buttonName = clickedButton.Name;
+                
+                // Usedto set images and descriptions
                 Dictionary<string, Merchandise> pairs = new()
                 {
                     {"DownersButton", Merchandise.Downers },
@@ -256,20 +266,17 @@ namespace MarketGame
 
                 FeaturedMerch = pairs[buttonName];
 
-                FeaturedDrugImage.Source = new BitmapImage(new Uri(MerchandiseIcons[pairs[buttonName]]));
+                // Set image
+                FeaturedDrugImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[pairs[buttonName]]));
                 FeaturedDrugImage.Opacity = 1.0;
 
+                // Set labels
                 DrugIndicatorLabel.Content = FeaturedMerch.ToString();
-
                 HeatGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item1;
                 RespectGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item2;
-
                 TypeLabel.Content = typeDescriptors[FeaturedMerch];
 
-                // TODO: Better way to express this
-                if (FeaturedMerch == Dealer.PrefferedSell) RateLabel.Content = "x1.25 (s)";
-                else if (FeaturedMerch == Dealer.PrefferedBuy) RateLabel.Content = "x1.25 (b)";
-                else RateLabel.Content = "x1.00";
+                RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
             }
         }
         #endregion

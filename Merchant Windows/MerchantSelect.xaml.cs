@@ -42,26 +42,15 @@ namespace MarketGame
         }
 
         private void SetTipButtons() {
-
-            Dictionary<Merchandise, string> MerchandiseIcons = new() 
-            {
-            {Merchandise.Downers, "pack://application:,,,/MarketGame;component/Icons/Downers.png" },
-            {Merchandise.Weed, "pack://application:,,,/MarketGame;component/Icons/Weed.png" },
-            {Merchandise.Ecstacy, "pack://application:,,,/MarketGame;component/Icons/Ecstacy.png" },
-            {Merchandise.Acid, "pack://application:,,,/MarketGame;component/Icons/Acid.png" },
-            {Merchandise.Coke, "pack://application:,,,/MarketGame;component/Icons/Coke.png" },
-            {Merchandise.Heroin, "pack://application:,,,/MarketGame;component/Icons/Heroin.png" }
-            };
-
             // Set icons to correct image or hide image from view
             if (host.Game.BuyTip != Merchandise.NotDefined)
             {
-                BuyTipImage.Source = new BitmapImage(new Uri(MerchandiseIcons[host.Game.BuyTip]));
+                BuyTipImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[host.Game.BuyTip]));
             }   else BuyTipImage.Opacity = 0;
 
             if (host.Game.SellTip != Merchandise.NotDefined)
             {
-                SellTipImage.Source = new BitmapImage(new Uri(MerchandiseIcons[host.Game.BuyTip]));
+                SellTipImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[host.Game.BuyTip]));
             }   else SellTipImage.Opacity = 0;
         }
     }

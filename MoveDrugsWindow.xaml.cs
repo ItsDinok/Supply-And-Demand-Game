@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +32,28 @@ namespace MarketGame
             SetValueLabel();
             Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
             SetPoliceStatus();
+            // Sets the tip indicators
+            SetTipIndicators(host.Game.SellTip, InDemandText, InDemandIndicator, InDemandImage);
+            SetTipIndicators(host.Game.BuyTip, LowDemandText, LowDemandIndicator, LowDemandImage);
+        }
+
+        private static void SetTipIndicators(Merchandise merch, Label indicatorText, Image indicatorImage, Image merchImage)
+        {
+            if (merch == Merchandise.NotDefined) {
+                SetTipNull(indicatorImage, indicatorText, merchImage);
+                return;
+            }
+
+            indicatorImage.Opacity = 1;
+            indicatorText.Opacity = 1;
+            merchImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[merch]));
+        }
+
+        private static void SetTipNull(Image image, Label text, Image merchImage)
+        {
+            image.Opacity = 0;
+            text.Opacity = 0;
+            merchImage.Opacity = 0;
         }
 
         private void SetValueLabel()

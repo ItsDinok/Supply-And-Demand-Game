@@ -81,14 +81,14 @@ namespace MarketGame
         {
             // Used to automate
             Label[] countLabels =
-            {
+            [
                 DownersCount,
                 WeedCount,
                 AcidCount,
                 EcstacyCount,
                 HeroinCount,
                 CokeCount
-            };
+            ];
 
             if (isStash)
             {
