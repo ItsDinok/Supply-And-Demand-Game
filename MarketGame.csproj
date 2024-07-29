@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
     <None Remove="Icons\Acid.png" />
     <None Remove="Icons\Bag.png" />
     <None Remove="Icons\Biker.png" />
@@ -76,6 +78,13 @@
     <Content Include="Icons\Yardies.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <DnxInvisibleContent Include=".gitattributes" />
+    <DnxInvisibleContent Include="README.md" />
+    <DnxInvisibleContent Include=".gitignore" />
+    <DnxInvisibleContent Include="App.xaml" />
   </ItemGroup>
 
 </Project>
