@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:MarketGame"
              mc:Ignorable="d" 
              Height ="450" Width="800" Background="#FF262B37"
-             d:DesignHeight="450" d:DesignWidth="800"
-             SizeChanged="UserControl_SizeChanged">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10,3,0,0" VerticalAlignment="Top">
@@ -26,7 +25,7 @@
                         <!-- Downers -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="DownersBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button Background="{x:Null}" BorderThickness="0">
+                            <Button x:Name="DownersButton" Background="{x:Null}" BorderThickness="0" Click="DrugSelectClick">
                                 <Image Source="/Icons/Downers.png" Height="46"/>
                             </Button>
                             <Label x:Name="DownersDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -35,7 +34,7 @@
                         <!-- Weed -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="WeedBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button BorderThickness="0" Background="{x:Null}">
+                            <Button x:Name="WeedButton" BorderThickness="0" Background="{x:Null}" Click="DrugSelectClick">
                                 <Image Source="/Icons/Weed.png" Height="46"/>
                             </Button>
                             <Label x:Name="WeedDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -44,7 +43,7 @@
                         <!-- Acid -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="AcidBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button BorderThickness="0" Background="{x:Null}">
+                            <Button x:Name="AcidButton" BorderThickness="0" Background="{x:Null}" Click="DrugSelectClick">
                                 <Image Source="/Icons/Acid.png" Height="46"/>
                             </Button>
                             <Label x:Name="AcidDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -53,7 +52,7 @@
                         <!-- Ecstacy -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="EcstacyBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button BorderThickness="0" Background="{x:Null}">
+                            <Button x:Name="EcstacyButton" BorderThickness="0" Background="{x:Null}" Click="DrugSelectClick">
                                 <Image Source="/Icons/Ecstacy.png" Height="46"/>
                             </Button>
                             <Label x:Name="EcstacyDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -62,7 +61,7 @@
                         <!-- Heroin -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="HeroinBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button BorderThickness="0" Background="{x:Null}">
+                            <Button x:Name="HeroinButton" BorderThickness="0" Background="{x:Null}" Click="DrugSelectClick">
                                 <Image Source="/Icons/Heroin.png" Height="46"/>
                             </Button>
                             <Label x:Name="HeroinDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -71,7 +70,7 @@
                         <!-- Coke -->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label x:Name="CokeBagLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
-                            <Button BorderThickness="0" Background="{x:Null}">
+                            <Button x:Name="CokeButton" BorderThickness="0" Background="{x:Null}" Click="DrugSelectClick">
                                 <Image Source="/Icons/Coke.png" Height="46"/>
                             </Button>
                             <Label x:Name="CokeDealerLabel" Content="10" Foreground="White" VerticalAlignment="Center"/>
@@ -89,14 +88,14 @@
                         <Label Content="Gain/Loss:" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
                         <Label x:Name="MoneyChangeLabel" Content="$20,000" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
 
-                        <StackPanel Orientation="Horizontal">
-                            <Image x:Name="FeaturedDrugImage" Source="/Icons/Downers.png" />
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image x:Name="FeaturedDrugImage" Source="/Icons/Downers.png" Height="150" Width="150"/>
                             <Grid>
-                                <Button Background="{x:Null}" VerticalAlignment="Top" BorderBrush="{x:Null}">
+                                <Button x:Name="UpArrowButton" Background="{x:Null}" VerticalAlignment="Top" BorderBrush="{x:Null}" Click="UpArrowClick">
                                     <Image Source="/Icons/GreenArrow.png" Height="30"/>
                                 </Button>
-                                <Label x:Name="QuantityMovedIndicator" Content="30" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
-                                <Button Background="{x:Null}" VerticalAlignment="Bottom" BorderBrush="{x:Null}">
+                                <Label x:Name="QuantityMovedIndicator" Content="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
+                                <Button Background="{x:Null}" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Click="DownArrowClick">
                                     <Image Source="/Icons/RedTriangle.png" Height="30"/>
                                 </Button>
                             </Grid>
@@ -106,8 +105,8 @@
 
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button x:Name="BuyButton" Content="Buy" Width="50" Height="25" HorizontalAlignment="Center"/>
-                                <Button x:Name="SellButton" Content="Sell" Width="50" Height="25" HorizontalAlignment="Center"/>
+                                <Button x:Name="BuyButton" Content="Buy" Width="50" Height="25" HorizontalAlignment="Center" Click="BuyButtonClick"/>
+                                <Button x:Name="SellButton" Content="Sell" Width="50" Height="25" HorizontalAlignment="Center" Click="SellButtonClick"/>
                             </StackPanel>
                         </Grid>
 
@@ -135,7 +134,7 @@
                     </StackPanel>
 
                     <!-- Stats panel -->
-                    <StackPanel>
+                    <StackPanel Margin="0,0,10,0">
                         <Label Content="Stats"  Foreground="White" FontSize="22"/>
                         <Label Content="Bag Capacity" HorizontalAlignment="Left" FontSize="16" Margin="0,0,0,0" VerticalAlignment="Top" Width="135" Foreground="White"/>
                         <ProgressBar x:Name="BagCapacityBar" HorizontalAlignment="Left" Height="17" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Value="0" Foreground="#FFE01818"/>
