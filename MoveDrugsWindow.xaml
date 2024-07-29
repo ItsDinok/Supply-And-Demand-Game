@@ -19,11 +19,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="DownersLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="◄" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="DownersTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="21" HorizontalContentAlignment="Center"/>
                         <Button x:Name="DownersRightButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="21" Width="25" Click="ArrowButtonClicks" FontWeight="Bold" FontStretch="Expanded" FontSize="20">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -42,11 +42,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="WeedLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="◄" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="WeedTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
                         <Button x:Name="WeedRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -65,11 +65,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="AcidLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20" FontWeight="Bold">
-                            <TextBlock Text="◄" Margin="0,0, 0, 0"/>
+                            <TextBlock Text="◄" Margin="0,0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="AcidTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
                         <Button x:Name="AcidRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -88,11 +88,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="EcstacyLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="◄" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="EcstacyTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
                         <Button x:Name="EcstacyRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -111,11 +111,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="HeroinLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontSize="20">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="◄" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="HeroinTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
                         <Button x:Name="HeroinRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" RenderTransformOrigin="0.5,0.5" FontWeight="Bold">
-                            <TextBlock Text="►" Margin="0, 0, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -134,11 +134,11 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="CokeLeftButton" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks">
-                            <TextBlock Text="◄" Margin="0, 0, 0, 0" FontSize="20"/>
+                            <TextBlock Text="◄" Margin="0, 0, 0, 0" FontSize="20" VerticalAlignment="Center"/>
                         </Button>
                         <TextBox x:Name="CokeTextBox" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="20" HorizontalContentAlignment="Center"/>
                         <Button x:Name="CokeRightButton" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="20" Width="25" Click="ArrowButtonClicks" FontWeight="Bold">
-                            <TextBlock Text="►" Margin="0, -5.5, 0, 0"/>
+                            <TextBlock Text="►" Margin="0, 0, 0, 0" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
 
@@ -180,11 +180,20 @@
                 <Label Content="The News" Foreground="White" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                 <Grid>
                     <Label Content="In Demand: " FontSize="15" Foreground="White" VerticalAlignment="Center"/>
-                    <Image Name="InDemandImage" Source="/Icons/Coke.png" Height="46" HorizontalAlignment="Center"/>
+                    <Grid>
+                        <Image Name="InDemandImage" Source="/Icons/Coke.png" Height="46" HorizontalAlignment="Center"/>
+                        <Image Name="InDemandIndicator" Source="/Icons/GreenArrow.png" Height="15" Margin="55,0,0,30"/>
+                        <Label Content="+" Margin="55,0,0,30" HorizontalAlignment="Center" FontSize="18" Foreground="White"/>
+                    </Grid>
+                    
                 </Grid>
                 <Grid>
                     <Label Content="Low value: " FontSize="15" Foreground="White" VerticalAlignment="Center"/>
-                    <Image Name="LowDemandImage" Source="/Icons/Weed.png" Height="46" HorizontalAlignment="Center"/>
+                    <Grid>
+                        <Image Name="LowDemandImage" Source="/Icons/Weed.png" Height="46" HorizontalAlignment="Center"/>
+                        <Image Name="LowDemandIndicator" Source="/Icons/RedTriangle.png" Height="15" Margin="55, 30,0,0"/>
+                        <Label Content="-" Margin="55,25,0,0" HorizontalAlignment="Center" FontSize="20" Foreground="White"/>
+                    </Grid>
                 </Grid>
                 <Grid >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

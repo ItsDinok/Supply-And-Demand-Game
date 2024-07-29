@@ -17,8 +17,6 @@ using System.Windows.Shapes;
 
 namespace MarketGame
 {
-    // TODO: Bag and stash have a cap; implement cap
-    // TODO: Add "jump" buttons
     public partial class MoveDrugsWindow : Window
     {
         readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
@@ -31,7 +29,7 @@ namespace MarketGame
             InitializeComponent();
             AssignLabelValues();
             SetValueLabel();
-            SetCapacityBars();
+            Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
             SetPoliceStatus();
         }
 
@@ -46,50 +44,29 @@ namespace MarketGame
             }
 
             // Set label
-            // TODO: Set commas for cash values
-            EstimatedTotalValueLabel.Content = "$" + total.ToString();
-        }
-
-        private void SetCapacityBars()
-        {
-            float StashPercentage = (float)host.Game.Character.GetTotalCapacity(true) / 1500 * 100;
-            float BagPercentage = (float)host.Game.Character.GetTotalCapacity(false) / 150 * 100;
-            StashCapacityBar.Value = StashPercentage;
-            BagCapacityBar.Value = BagPercentage;
-            StashCapacityLabel.Content = host.Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
-            BagCapacityLabel.Content = host.Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
+            EstimatedTotalValueLabel.Content = GameObject.ReturnMoneyString(total);
         }
 
         private void AssignLabelValues()
         {
-            Label[] leftLabels =
+            Label[] labels =
             [
-                DownersBagLabel,
-                WeedBagLabel,
-                AcidBagLabel,
-                EcstacyBagLabel,
-                HeroinBagLabel,
-                CokeBagLabel
+                DownersBagLabel, WeedBagLabel, AcidBagLabel,
+                EcstacyBagLabel, HeroinBagLabel, CokeBagLabel,
+
+                DownersStashLabel, WeedStashLabel, AcidStashLabel,
+                EcstacyStashLabel, HeroinStashLabel, CokeStashLabel
             ];
 
-            for (int i = 0; i < leftLabels.Length; i++)
+            // Neat little function here that automatically assigns labels
+            for (int i = 0; i < labels.Length; i++)
             {
-                leftLabels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
-            }
-
-            Label[] rightLabels =
-            [
-                DownersStashLabel,
-                WeedStashLabel,
-                AcidStashLabel,
-                EcstacyStashLabel,
-                HeroinStashLabel,
-                CokeStashLabel
-            ];
-
-            for (int i = 0; i < rightLabels.Length; i++)
-            {
-                rightLabels[i].Content = host.Game.Character.Stash.ElementAt(i).Value.ToString();
+                if (i < 6)
+                {
+                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    continue;
+                }
+                labels[i].Content = host.Game.Character.Stash.ElementAt(i%6).Value.ToString();
             }
         }
 
@@ -206,7 +183,7 @@ namespace MarketGame
             AssignLabelValues();
             UpdateCapacityBars();
             ResetBars();
-            SetCapacityBars();
+            Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
         }
 
         private void SetPoliceStatus()

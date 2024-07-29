@@ -9,10 +9,6 @@ namespace MarketGame
     /// <summary>
     /// Interaction logic for MerchantInventoryView.xaml
     /// </summary>
-    /// TODO: Genuinely consider a per-drug screen
-    /// TODO: Still needs to display capacity
-    /// BUG: Labels don't update when changing vendors
-    /// TODO: A lot of this can be generalised to avoid double declarations
     
     public partial class MerchantInventoryView : UserControl
     {
@@ -27,24 +23,13 @@ namespace MarketGame
         private readonly Player Character;
 
         // TODO: This needs to be implemented
-        private readonly float Modifier = 1;
+        private float GeneralModifier = 1;
 
         // This keeps track of the REAL (not displayed) total for transfer
         int TradeQuantity = 0;
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
         private bool isSelling = true;
         private Merchandise FeaturedMerch = Merchandise.NotDefined;
-
-        // TODO: consider putting this in merchant class
-        private static readonly Dictionary<Factions, string> FactionIcons = new()
-        {
-            {Factions.Yardies, "pack://application:,,,/MarketGame;component/Icons/Yardies.png" },
-            {Factions.Triad, "pack://application:,,,/MarketGame;component/Icons/Triad.png" },
-            {Factions.Mob, "pack://application:,,,/MarketGame;component/Icons/Mob.png" },
-            {Factions.Syndicate, "pack://application:,,,/MarketGame;component/Icons/Syndicate.png" },
-            {Factions.Russians, "pack://application:,,,/MarketGame;component/Icons/Russian.png" },
-            {Factions.Bikers, "pack://application:,,,/MarketGame;component/Icons/Biker.png" }
-        };
 
         private static readonly Dictionary<Merchandise, string> MerchandiseIcons = new()
         {
@@ -71,8 +56,9 @@ namespace MarketGame
         {
             QuantityMovedIndicator.Content = "0";
             DrugIndicatorLabel.Content = "Select Drug.";
+
             // TODO: This needs to be responsive to tipoffs
-            RateLabel.Content = "x" + Modifier.ToString();
+            RateLabel.Content = "x" + GeneralModifier.ToString();
             TypeLabel.Content = "Unselected.";
             RespectGainLabel.Content = "0";
             HeatGainLabel.Content = "0";
@@ -107,52 +93,45 @@ namespace MarketGame
                     labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
                     continue;
                 }
-                labels[i].Content = Dealer.GetInventory().ElementAt(i%6).Value.ToString();
+                labels[i].Content = Dealer.DealerMerchandise.ElementAt(i%6).Value.ToString();
             }
 
         }
 
-
-        /*
-         Buying/Selling protocol:
-
-        - Check if bag will exceed
-        - Iteratively call buy or sell
-        - Update cash/heat/respect display
-        - Bust will happen before calling merchant functions
-         */
         private void ConfirmDeal(object sender, RoutedEventArgs e)
         {
             TextBox[] textBoxes = [];
             if (isSelling)
             {
-                host.Game.Character.Sell(TradeQuantity, FeaturedMerch, Modifier);
+                host.Game.Character.Sell(TradeQuantity, FeaturedMerch, GeneralModifier);
                 Dealer.Buy(TradeQuantity, FeaturedMerch);
                 TradeQuantity = 0;
 
                 // Trade effects
-                Character.Heat += 10;
-                Character.Respect += 10;
+                Character.Heat += GameObject.HeatRespectValues[FeaturedMerch].Item1;
+                Character.Respect += GameObject.HeatRespectValues[FeaturedMerch].Item2;
 
                 AssignLabelValues();
                 SetBars();
                 QuantityMovedIndicator.Content = "0";
+                GeneralModifier = 1;
             }
             else
             {
                 if (CheckIfPurchaseValid())
                 {
-                    host.Game.Character.Buy(TradeQuantity, FeaturedMerch, Modifier);
+                    host.Game.Character.Buy(TradeQuantity, FeaturedMerch, GeneralModifier);
                     Dealer.Sell(TradeQuantity, FeaturedMerch);
                     TradeQuantity = 0;
 
                     // Trade effects
-                    Character.Heat += 10;
-                    Character.Respect += 10;
+                    Character.Heat += GameObject.HeatRespectValues[FeaturedMerch].Item1;
+                    Character.Respect += GameObject.HeatRespectValues[FeaturedMerch].Item2;
 
                     AssignLabelValues();
                     SetBars();
                     QuantityMovedIndicator.Content = "0";
+                    host.UpdateStatusIndicators(); return;
                 }
             }
             host.UpdateStatusIndicators();
@@ -166,12 +145,12 @@ namespace MarketGame
                 return false;
             }
             // Check if broke
-            if (Int32.Parse(Character.DisplayCash) < TradeQuantity * Player.BASEPRICES[FeaturedMerch] * Modifier)
+            if (Int32.Parse(Character.DisplayCash) < TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier)
             {
                 return false;
             }
             // Check if dealer has enough
-            if (Dealer.DealerMerchandise[FeaturedMerch] - TradeQuantity < 0) { return false; }
+            if (Dealer.DealerMerchandise[FeaturedMerch] - TradeQuantity < 0 || Dealer.DealerMerchandise[FeaturedMerch] == 0) { return false; }
             return true;
         }
         
@@ -192,7 +171,7 @@ namespace MarketGame
             MerchantSpeech.Content = IntroMessages[message];
 
             // Set image from dictionary
-            MerchantIcon.Source = new BitmapImage(new Uri(FactionIcons[Dealer.Faction]));
+            MerchantIcon.Source = new BitmapImage(new Uri(Dealer.FactionIcons[Dealer.Faction]));
             RespectGainLabel.Content = Dealer.Faction.ToString();
         }
 
@@ -205,9 +184,8 @@ namespace MarketGame
         #region Button Methods
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            // HACK: Try and return user to merchant select while resetting everything
             BuySellWindow ParentWindow = (BuySellWindow)Window.GetWindow(this);
-            // HACK: See if I can't fix this for a better user experience
-            //ParentWindow.SetChange();
             ParentWindow.Close();
         }
 
@@ -235,7 +213,7 @@ namespace MarketGame
             TradeQuantity++;
             QuantityMovedIndicator.Content = TradeQuantity.ToString();
 
-            int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * Modifier);
+            int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier);
             MoneyChangeLabel.Content = "$" + potential;
         }
 
@@ -247,7 +225,7 @@ namespace MarketGame
             TradeQuantity--;
             QuantityMovedIndicator.Content = TradeQuantity.ToString();
 
-            int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * Modifier);
+            int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier);
             MoneyChangeLabel.Content = "$" + potential;
         }
 
@@ -282,11 +260,16 @@ namespace MarketGame
                 FeaturedDrugImage.Opacity = 1.0;
 
                 DrugIndicatorLabel.Content = FeaturedMerch.ToString();
-                // TODO: Make this drug specific
-                HeatGainLabel.Content = "10";
-                RespectGainLabel.Content = "10";
+
+                HeatGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item1;
+                RespectGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item2;
 
                 TypeLabel.Content = typeDescriptors[FeaturedMerch];
+
+                // TODO: Better way to express this
+                if (FeaturedMerch == Dealer.PrefferedSell) RateLabel.Content = "x1.25 (s)";
+                else if (FeaturedMerch == Dealer.PrefferedBuy) RateLabel.Content = "x1.25 (b)";
+                else RateLabel.Content = "x1.00";
             }
         }
         #endregion

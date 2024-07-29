@@ -1,7 +1,4 @@
-﻿!!! = Urgent or Easy
-
-Complete buying/selling:
-	- Implement heat/respect
+﻿!!! = Urgent or Easy#
 	
 Add contacts:
 	- Include tipoffs
@@ -10,9 +7,6 @@ Add contacts:
 
 Add Missions:
 	- Add tutorial showing game systems
-	- Idk yet
-
-Add levels?
 
 Add Upgrades:
 	- Enhanced bag size
@@ -22,9 +16,7 @@ Add Upgrades:
 //////////
 
 General:
-	- Increase documentation (!!!)
 	- Add tooltips
 	- Fix Arrows (again)
-	- Look at window scaling options
 	- Get playtester
-	- Consider developing a helper class for frequent cross-file functions
+	

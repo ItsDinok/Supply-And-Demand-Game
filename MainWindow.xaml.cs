@@ -59,14 +59,14 @@ namespace MarketGame
                 Game.Character.CashConvert(amount, false);
             }
 
-            CashLabel.Content = "$" + Game.Character.DisplayCash;
-            MoneyLabel.Content = "$" + Game.Character.DisplayMoney;
+            CashLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
+            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetMoney());
         }
 
         public void UpdateMoney()
         {
-            CashLabel.Content = "$" + Game.Character.DisplayCash;
-            MoneyLabel.Content = "$" + Game.Character.DisplayMoney;
+            CashLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
+            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
         }
 
         private void MoveCashButton_Click(object sender, RoutedEventArgs e)
@@ -79,30 +79,36 @@ namespace MarketGame
 
         public void SetToBagOrStashView(bool isStash)
         {
-            // TODO: Research sunken
+            // Used to automate
+            Label[] countLabels =
+            {
+                DownersCount,
+                WeedCount,
+                AcidCount,
+                EcstacyCount,
+                HeroinCount,
+                CokeCount
+            };
+
             if (isStash)
             {
-                DownersCount.Content = Game.Character.Stash[Merchandise.Downers];
-                WeedCount.Content = Game.Character.Stash[Merchandise.Weed];
-                AcidCount.Content = Game.Character.Stash[Merchandise.Acid];
-                EcstacyCount.Content = Game.Character.Stash[Merchandise.Ecstacy];
-                HeroinCount.Content = Game.Character.Stash[Merchandise.Heroin];
-                CokeCount.Content = Game.Character.Stash[Merchandise.Coke];
+                for (int i = 0; i < countLabels.Length; i++)
+                {
+                    countLabels[i].Content = Game.Character.Stash.ElementAt(i).Value;
+                }
 
                 IsStashInView = true;
 
+                // Chnage button colours
                 BagView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
-                // #FFDDDDDD
                 StashView.Background = new SolidColorBrush(Colors.LightSteelBlue);
             }
             else
             {
-                DownersCount.Content = Game.Character.Bag[Merchandise.Downers];
-                WeedCount.Content = Game.Character.Bag[Merchandise.Weed];
-                AcidCount.Content = Game.Character.Bag[Merchandise.Acid];
-                EcstacyCount.Content = Game.Character.Bag[Merchandise.Ecstacy];
-                HeroinCount.Content = Game.Character.Bag[Merchandise.Heroin];
-                CokeCount.Content = Game.Character.Bag[Merchandise.Coke];
+                for (int i = 0; i < countLabels.Length; i++)
+                {
+                    countLabels[i].Content = Game.Character.Bag.ElementAt(i).Value;
+                }
 
                 IsStashInView = false;
 
@@ -115,17 +121,7 @@ namespace MarketGame
         {
             UpdateMoney();
             UpdateHeatAndRespect();
-            UpdateCapacityBar();
-        }
-
-        private void UpdateCapacityBar()
-        {
-            float StashPercentage = (float)Game.Character.GetTotalCapacity(true) / 1500 * 100;
-            float BagPercentage = (float)Game.Character.GetTotalCapacity(false) / 150 * 100;
-            StashCapacityBar.Value = StashPercentage;
-            BagCapacityBar.Value = BagPercentage;
-            StashCapacityLabel.Content = Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
-            BagCapacityLabel.Content = Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
+            Helper.SetCapacityBars(BagCapacityBar, StashCapacityBar, BagCapacityLabel, StashCapacityLabel, Game);
         }
 
         private void UpdateHeatAndRespect()
