@@ -1,8 +1,5 @@
-﻿using System.Printing;
-using System.Security.Permissions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace MarketGame
@@ -23,7 +20,6 @@ namespace MarketGame
         private readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
         private readonly Player Character;
 
-        // TODO: This needs to be implemented
         private float GeneralModifier = 1;
 
         // This keeps track of the REAL (not displayed) total for transfer

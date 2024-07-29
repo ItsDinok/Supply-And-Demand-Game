@@ -1,16 +1,8 @@
-﻿using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MarketGame
 {
@@ -22,6 +14,10 @@ namespace MarketGame
         readonly public GameObject Game;
         public bool IsStashInView = false;
 
+        // This is used in tips
+        private DispatcherTimer _timer;
+        private int Updates = 0;
+
         public MainWindow()
         {
             ValueFromChildWindow = "";
@@ -31,6 +27,24 @@ namespace MarketGame
             // Sets initial status indicators
             UpdateStatusIndicators();
             SetToBagOrStashView(true);
+
+            // Timer logic for tips and messages
+            _timer = new()
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _timer.Tick += OnTimedEvent;
+            _timer.Start();
+        }
+
+        // This is called every time the timer reaches the time threshold
+        private void OnTimedEvent(object ?source, EventArgs e)
+        {
+            Game.GenerateTipOff();
+            Game.Character.Heat--;
+            Game.Character.Respect--;
+
+            UpdateHeatAndRespect();
         }
 
         // Stores value passed from child window
@@ -66,7 +80,7 @@ namespace MarketGame
         public void UpdateMoney()
         {
             CashLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
-            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
+            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetMoney());
         }
 
         private void MoveCashButton_Click(object sender, RoutedEventArgs e)
@@ -161,12 +175,6 @@ namespace MarketGame
                 Owner = this
             };
             moveDrugsWindow.ShowDialog();
-        }
-
-        private void MerchantInventoryView_DesirableSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.Width = 600;
-            this.Height = 450;
         }
     }
 }

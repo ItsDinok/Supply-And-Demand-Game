@@ -101,6 +101,7 @@ namespace MarketGame
 
         private void ArrowButtonClicks(object sender, RoutedEventArgs e)
         {
+            // TODO: Rewrite this
             bool isRight;
             TextBox targeted;
             Button accessString = (Button)sender;

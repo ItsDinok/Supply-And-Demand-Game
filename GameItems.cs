@@ -12,6 +12,7 @@ namespace MarketGame
         Ecstacy,
         Heroin,
         Coke,
+
         NotDefined
     }
 
@@ -23,6 +24,7 @@ namespace MarketGame
         Russians,
         Syndicate,
         Bikers,
+
         NotDefined
     }
     #endregion
@@ -244,22 +246,47 @@ namespace MarketGame
         }
 
         // NOT IMPLEMENTED
-        private static float GenerateTipOff(bool isSell)
+        public void GenerateTipOff()
         {
             Random random = new();
-            return (isSell) ? (float)(random.NextDouble() * (0.8 - 0.5) + 0.5) : (float)(random.NextDouble() * (3 - 1.5) + 1.5) ;
+            bool isSell = false;
+
+            // Decide if it will be buy or sell
+            float modifier = (float)random.NextDouble() * 2 - 1;
+            if (modifier > 0)
+            {
+                SellModifier = modifier;
+                isSell = true;
+            }
+            else BuyModifier = modifier;
+
+            // Decide on merch
+            int merchIndex = random.Next(0, 5);
+            if (isSell)
+            {
+                SellTip = (Merchandise)merchIndex; BuyTip = Merchandise.NotDefined;
+            }
+            else
+            {
+                BuyTip = (Merchandise)merchIndex; SellTip = Merchandise.NotDefined;
+            }
+
+            // TODO: Decide on contact
         }
 
         public static string ReturnMoneyString(int amount)
         {
             string toWork = amount.ToString();
-            for(int i = toWork.Length-1; i >= 0; i--)
+            int index = 1;
+
+            for (int i = toWork.Length-1; i >= 0; i--)
             {
                 // Must be where a comma goes
-                if (i%3 == 0 && i != 0)
+                if (index%3 == 0 && i != 0)
                 {
                     toWork = toWork.Insert(i, ",");
                 }
+                index++;
             }
 
             return "$" + toWork;
