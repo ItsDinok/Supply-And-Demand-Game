@@ -84,5 +84,18 @@
         <Label x:Name="BagCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,34,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
         <Label x:Name="StashCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,88,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
 
+        
+        <!-- Popup -->
+        <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="200" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}">
+            <Border Background="#FFACACAC" BorderBrush="Black" BorderThickness="1">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="DealerImage" Source="/Icons/Russian.png" Height="45"/>
+                        <Label x:Name="DealerName" Content="Petrov" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                    <TextBlock x:Name="NotificationText" Text="test" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </Window>

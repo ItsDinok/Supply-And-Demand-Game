@@ -1,32 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Printing;
 using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MarketGame
 {
     public partial class MoveDrugsWindow : Window
     {
-        readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+        // Aliases for convenience
+        private readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
+        private readonly Player Character;
 
         // This keeps track of the REAL (not displayed) total for transfer
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
 
         public MoveDrugsWindow()
         {
+            Character = host.Game.Character;
             InitializeComponent();
             AssignLabelValues();
             SetValueLabel();
@@ -60,36 +52,41 @@ namespace MarketGame
         {
             int total = 0;
             // Accumulate all values in one dictionary for ease of calculation
-            for (int i = 0; i < 6; i++)
+            
+            for (int i = 0; i < Character.Bag.Count; i++)
             {
-                total += host.Game.Character.Bag.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
-                total += host.Game.Character.Stash.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
+                // Multiplies the value of each item by the baseprices
+                total += Character.Bag.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
+                total += Character.Stash.ElementAt(i).Value * Player.BASEPRICES.ElementAt(i).Value;
             }
 
             // Set label
-            EstimatedTotalValueLabel.Content = GameObject.ReturnMoneyString(total);
+            EstimatedTotalValueLabel.Content = Helper.ReturnMoneyString(total);
         }
 
         private void AssignLabelValues()
         {
             Label[] labels =
-            [
+            {
                 DownersBagLabel, WeedBagLabel, AcidBagLabel,
                 EcstacyBagLabel, HeroinBagLabel, CokeBagLabel,
 
                 DownersStashLabel, WeedStashLabel, AcidStashLabel,
                 EcstacyStashLabel, HeroinStashLabel, CokeStashLabel
-            ];
+            };
+
+            var bag = Character.Bag;
+            var stash = Character.Stash;
 
             // Neat little function here that automatically assigns labels
             for (int i = 0; i < labels.Length; i++)
             {
-                if (i < 6)
+                if (i < bag.Count)
                 {
-                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    labels[i].Content = bag.ElementAt(i).Value.ToString();
                     continue;
                 }
-                labels[i].Content = host.Game.Character.Stash.ElementAt(i%6).Value.ToString();
+                labels[i].Content = stash.ElementAt(i % stash.Count).Value.ToString();
             }
         }
 
@@ -101,8 +98,7 @@ namespace MarketGame
 
         private void ArrowButtonClicks(object sender, RoutedEventArgs e)
         {
-            // TODO: Rewrite this
-            bool isRight;
+            // TODO: Rewrite this#
             TextBox targeted;
             Button accessString = (Button)sender;
 
@@ -124,72 +120,23 @@ namespace MarketGame
             };
             targeted = keyValuePairs[accessString.Name];
 
-            // Determine if targeted is left or right
-            // NOTE: It is scarily lucky no merch contains L, if this ever changes, fix this
-            if (!accessString.Name.Contains('L')) isRight = true;
-            else isRight = false;
+            // Determines if it is adding or subtracting
+            bool isRight = accessString.Name.Contains("Right");
 
-            int x = RealQuantities[(keyValuePairs.Keys.ToList().IndexOf(accessString.Name)) / 2];
-            int index;
-
-            // Update text values
-            if (isRight) index = UpdateQuantities(targeted, x + 1);
-            else index = UpdateQuantities(targeted, x - 1);
-
-            targeted.Text = Math.Abs(RealQuantities[index]).ToString();
+            // Determines the drug being changed
+            int index = keyValuePairs.Keys.ToList().IndexOf(accessString.Name);
+            // Changes and sets drug quantity
+            int updatedQuantity = isRight ? RealQuantities[index] + 1 : RealQuantities[index] -1;
+            // Changes text
+            RealQuantities[index] = updatedQuantity;
+            targeted.Text = Math.Abs(updatedQuantity).ToString();
 
             // Assign arrows as needed
             Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
                 EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
-
-            if (RealQuantities[index] < 0) indicators[index].Content = "⬅️";
-            else if (RealQuantities[index] == 0) indicators[index].Content = "";
-            else indicators[index].Content = "➞";
-
+            // Changes directional indicators
+            indicators[index].Content = updatedQuantity < 0 ? "⬅️" : updatedQuantity > 0 ? "➞" : "";
             indicators[index].IsEnabled = true;
-        }
-
-        private int UpdateQuantities(TextBox drugType, int amount)
-        {
-
-            // The index is used in the negative function
-            int index;
-
-            // Determines which drug it is
-            switch (drugType.Name)
-            {
-                case "DownersTextBox":
-                    this.RealQuantities[0] = amount;
-                    index = 0;
-                    break;
-                case "WeedTextBox":
-                    this.RealQuantities[1] = amount;
-                    index = 1;
-                    break;
-                case "AcidTextBox":
-                    this.RealQuantities[2] = amount;
-                    index = 2;
-                    break;
-
-                case "EcstacyTextBox":
-                    this.RealQuantities[3] = amount;
-                    index = 3;
-                    break;
-                case "HeroinTextBox":
-                    this.RealQuantities[4] = amount;
-                    index = 4;
-                    break;
-                case "CokeTextBox":
-                    this.RealQuantities[5] = amount;
-                    index = 5;
-                    break;
-                // Thanks to buttons, this will never be called
-                default:
-                    index = -1;
-                    break;
-            }
-
-            return index;
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)

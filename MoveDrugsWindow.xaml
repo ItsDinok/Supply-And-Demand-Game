@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MarketGame"
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800" ResizeMode="NoResize"
-        Background="#FF262B37" Icon="/Downers.png">
+        Background="#FF262B37" Icon="/Icons/Downers.png">
     <Grid>
         <StackPanel Orientation="Horizontal">
             <StackPanel HorizontalAlignment="Left" Margin="30,0,0,0">

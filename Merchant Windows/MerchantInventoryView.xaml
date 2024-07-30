@@ -86,22 +86,22 @@
                     <!-- Buy Panel -->
                     <StackPanel>
                         <Label Content="Gain/Loss:" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
-                        <Label x:Name="MoneyChangeLabel" Content="$20,000" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+                        <Label x:Name="MoneyChangeLabel" Content="$0" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
 
                         <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                            <Image x:Name="FeaturedDrugImage" Source="/Icons/Downers.png" Height="150" Width="150"/>
+                            <Image x:Name="FeaturedDrugImage" Source="/Icons/Downers.png" Height="150" Width="150" Opacity="0"/>
                             <Grid>
                                 <Button x:Name="UpArrowButton" Background="{x:Null}" VerticalAlignment="Top" BorderBrush="{x:Null}" Click="UpArrowClick">
                                     <Image Source="/Icons/GreenArrow.png" Height="30"/>
                                 </Button>
-                                <Label x:Name="QuantityMovedIndicator" Content="30" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
+                                <Label x:Name="QuantityMovedIndicator" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
                                 <Button Background="{x:Null}" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Click="DownArrowClick">
                                     <Image Source="/Icons/RedTriangle.png" Height="30"/>
                                 </Button>
                             </Grid>
                         </StackPanel>
 
-                        <Label x:Name="DrugIndicatorLabel" Content="Downers" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
+                        <Label x:Name="DrugIndicatorLabel" Content="Select Drug." Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
 
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -119,16 +119,16 @@
                     <!-- Deal rates panel-->
                     <StackPanel>
                         <Label Content="Current Rate" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
-                        <Label x:Name="RateLabel" Foreground="White" Content="x1.24" HorizontalAlignment="Center" FontSize="16"/>
+                        <Label x:Name="RateLabel" Foreground="White" Content="x1.00" HorizontalAlignment="Center" FontSize="16"/>
 
                         <Label Content="Drug Type" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
-                        <Label x:Name="TypeLabel" Content="Depressant" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+                        <Label x:Name="TypeLabel" Content="Unselected" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
 
                         <Label Content="Heat Gain" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
-                        <Label x:Name="HeatGainLabel" Content="10" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+                        <Label x:Name="HeatGainLabel" Content="0" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
 
                         <Label Content="RespectGain" Foreground="White" HorizontalAlignment="Center" FontSize="18"/>
-                        <Label x:Name="RespectGainLabel" Content="10" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
+                        <Label x:Name="RespectGainLabel" Content="0" Foreground="White" HorizontalAlignment="Center" FontSize="16"/>
 
                         <Button x:Name="ConfirmationButton" Content="Confirm Deal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmDeal" Height="43" Width="159"/>
                     </StackPanel>

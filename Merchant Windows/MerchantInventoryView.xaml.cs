@@ -35,21 +35,8 @@ namespace MarketGame
             Dealer = new (Factions.NotDefined);
             this.Character = host.Game.Character;
             AssignLabelValues();
-            SetDisplays();
             isSelling = true;
             SetBars();
-        }
-        
-        private void SetDisplays()
-        {
-            QuantityMovedIndicator.Content = "0";
-            DrugIndicatorLabel.Content = "Select Drug.";
-            RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
-            TypeLabel.Content = "Unselected.";
-            RespectGainLabel.Content = "0";
-            HeatGainLabel.Content = "0";
-            MoneyChangeLabel.Content = "$0";
-            FeaturedDrugImage.Opacity = 0;
         }
 
         private void SetBars()
@@ -86,40 +73,41 @@ namespace MarketGame
 
         private void ConfirmDeal(object sender, RoutedEventArgs e)
         {
-            if (isSelling)
-            {
-                host.Game.Character.Sell(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, true));
-                Dealer.Buy(TradeQuantity, FeaturedMerch);
-                TradeQuantity = 0;
+            if (isSelling) HandleSellTransaction();
+            else HandleBuyTransaction();
 
-                // Trade effects
-                Character.Heat += GameObject.HeatRespectValues[FeaturedMerch].Item1;
-                Character.Respect += GameObject.HeatRespectValues[FeaturedMerch].Item2;
-
-                AssignLabelValues();
-                SetBars();
-                QuantityMovedIndicator.Content = "0";
-                GeneralModifier = 1;
-            }
-            else
-            {
-                if (CheckIfPurchaseValid())
-                {
-                    host.Game.Character.Buy(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, false));
-                    Dealer.Sell(TradeQuantity, FeaturedMerch);
-                    TradeQuantity = 0;
-
-                    // Trade effects
-                    Character.Heat += GameObject.HeatRespectValues[FeaturedMerch].Item1;
-                    Character.Respect += GameObject.HeatRespectValues[FeaturedMerch].Item2;
-
-                    AssignLabelValues();
-                    SetBars();
-                    QuantityMovedIndicator.Content = "0";
-                    host.UpdateStatusIndicators(); return;
-                }
-            }
+            // Effects of trade
+            ResetAfterSale();
+            AssignLabelValues();
+            SetBars();
             host.UpdateStatusIndicators();
+        }
+
+        private void HandleBuyTransaction()
+        {
+            if (!CheckIfPurchaseValid()) return;
+            Character.Buy(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, false));
+            Dealer.Sell(TradeQuantity, FeaturedMerch);
+        }
+
+        private void HandleSellTransaction()
+        {
+            Character.Sell(TradeQuantity, FeaturedMerch, CalculateRate(FeaturedMerch, true));
+            Dealer.Buy(TradeQuantity, FeaturedMerch);
+        }
+
+        private void ResetAfterSale()
+        {
+            QuantityMovedIndicator.Content = 0;
+            TradeQuantity = 0;
+
+            UpdateHeatAndRespectAfterSale();
+        }
+
+        private void UpdateHeatAndRespectAfterSale()
+        {
+            Character.Heat += GameObject.HeatRespectValues[FeaturedMerch].Item1;
+            Character.Respect += GameObject.HeatRespectValues[FeaturedMerch].Item2;
         }
 
         private bool CheckIfPurchaseValid()
@@ -138,7 +126,6 @@ namespace MarketGame
             if (Dealer.DealerMerchandise[FeaturedMerch] - TradeQuantity < 0 || Dealer.DealerMerchandise[FeaturedMerch] == 0) { return false; }
             return true;
         }
-        
 
         public void SetUpInventory()
         {

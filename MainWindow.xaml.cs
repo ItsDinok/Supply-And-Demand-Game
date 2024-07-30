@@ -1,27 +1,37 @@
 ﻿using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Media;
 
 namespace MarketGame
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
+    // TODO: Consider putting this in gameobjects
+    public struct Notification
+    {
+        public string Message;
+        public string Name;
+        public string PathToImage;
+    }
+
     public partial class MainWindow : Window
     {
         readonly public GameObject Game;
         public bool IsStashInView = false;
+        public Notification TipNotification = new();
 
         // This is used in tips
-        private DispatcherTimer _timer;
-        private int Updates = 0;
+        private readonly DispatcherTimer _timer;
+
 
         public MainWindow()
         {
-            ValueFromChildWindow = "";
-
             InitializeComponent();
             this.Game = new();
             // Sets initial status indicators
@@ -31,7 +41,7 @@ namespace MarketGame
             // Timer logic for tips and messages
             _timer = new()
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromSeconds(10)
             };
             _timer.Tick += OnTimedEvent;
             _timer.Start();
@@ -40,15 +50,39 @@ namespace MarketGame
         // This is called every time the timer reaches the time threshold
         private void OnTimedEvent(object ?source, EventArgs e)
         {
-            Game.GenerateTipOff();
+            Game.GenerateTipOff(this);
+            NotificationGenerated();
+
+            // This needs to be tuned.
             Game.Character.Heat--;
             Game.Character.Respect--;
-
             UpdateHeatAndRespect();
         }
 
-        // Stores value passed from child window
-        public string ValueFromChildWindow { get; set; }
+        // TODO: Maybe export to class
+        private void NotificationGenerated()
+        {
+            // Play sound
+            PlayNotificationSound();
+
+            // Set popup attributes
+            DealerImage.Source = new BitmapImage(new Uri(TipNotification.PathToImage));
+            DealerName.Content = TipNotification.Name;
+            NotificationText.Text = TipNotification.Message;
+
+            PopUpWindow();
+        }
+
+        private void PopUpWindow()
+        {
+            NotificationPopup.IsOpen = true;
+        }
+
+        private static void PlayNotificationSound()
+        {
+            using SoundPlayer player = new("Sound/TextNotification.wav");
+            player.Play();
+        }
 
         private void MoneyInput_KeyUp(object sender, KeyEventArgs e) { 
             if (e.Key == Key.Enter)
@@ -73,14 +107,13 @@ namespace MarketGame
                 Game.Character.CashConvert(amount, false);
             }
 
-            CashLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
-            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetMoney());
+            UpdateMoney();
         }
 
         public void UpdateMoney()
         {
-            CashLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetCash());
-            MoneyLabel.Content = GameObject.ReturnMoneyString(Game.Character.GetMoney());
+            CashLabel.Content = Helper.ReturnMoneyString(Game.Character.GetCash());
+            MoneyLabel.Content = Helper.ReturnMoneyString(Game.Character.GetMoney());
         }
 
         private void MoveCashButton_Click(object sender, RoutedEventArgs e)

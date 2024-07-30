@@ -1,4 +1,5 @@
-﻿using System.Security.Policy;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Windows.Media;
 
 namespace MarketGame
@@ -203,112 +204,6 @@ namespace MarketGame
                 DisplayCash = Cash.ToString();
                 DisplayMoney = Money.ToString();
             }
-        }
-    }
-
-    public class GameObject
-    {
-        public Player Character;
-
-        // These names are relative to the player
-        public float SellModifier;
-        public float BuyModifier;
-
-        // Used to set extra modifiers
-        public Merchandise BuyTip = Merchandise.NotDefined;
-        public Merchandise SellTip = Merchandise.NotDefined;
-
-        // TODO: Racism check some of these names, thanks chatGPT
-        public string[] GangsterNames = [
-            // Triad names
-            "Liang Chen", "Jin Wu", "Ming Zhao",
-            // Mob names
-            "Johnny Russo", "Vinny Moretti", "Lucky Falcone",
-            // Yardie names
-            "L-Train", "Dread", "Shay Williams",
-            // Russians
-            "Ivan Petrov", "Sergei Kozlov", "Dmitry Ivanov",
-            // Syndicate
-            "Liam Cross", "Alex Steele", "Eddie Harrington",
-            // Bikers
-            "Razor", "Bones McGraw", "Wildcat Turner",
-            // Friends
-            "Shek", "Charlie"];
-
-        // NOTE: Tried to set values on the perceptions of each drug. I have no clue how these will be balanced
-        public static readonly Dictionary<Merchandise, (int, int)> HeatRespectValues = new()
-        {
-            { Merchandise.Downers, (10, 4) },
-            { Merchandise.Weed, (5, 10) },
-            { Merchandise.Acid, (10, 10) },
-            { Merchandise.Ecstacy, (10, 15) },
-            { Merchandise.Heroin, (25, 15) },
-            { Merchandise.Coke, (10, 25) }
-        };
-
-        // Used in a few places
-        public static readonly Dictionary<Merchandise, string> MerchandiseIcons = new()
-        {
-            {Merchandise.Downers, "pack://application:,,/MarketGame;component/Icons/Downers.png" },
-            {Merchandise.Weed, "pack://application:,,/MarketGame;component/Icons/Weed.png" },
-            {Merchandise.Acid, "pack://application:,,/MarketGame;component/Icons/Acid.png" },
-            {Merchandise.Ecstacy, "pack://application:,,/MarketGame;component/Icons/Ecstacy.png" },
-            {Merchandise.Heroin, "pack://application:,,/MarketGame;component/Icons/Heroin.png" },
-            {Merchandise.Coke, "pack://application:,,/MarketGame;component/Icons/Coke.png" }
-        };
-
-        public GameObject() 
-        {
-            Character = new Player();
-        }
-
-        public void GenerateTipOff()
-        {
-            Random random = new();
-            bool isSell = false;
-
-            // Decide if it will be buy or sell
-            float modifier = (float)random.NextDouble() * 2 - 1;
-            if (modifier > 0)
-            {
-                SellModifier = modifier;
-                isSell = true;
-            }
-            else BuyModifier = modifier;
-
-            // Decide on merch
-            int merchIndex = random.Next(0, 5);
-            if (isSell)
-            {
-                SellTip = (Merchandise)merchIndex; BuyTip = Merchandise.NotDefined;
-            }
-            else
-            {
-                BuyTip = (Merchandise)merchIndex; SellTip = Merchandise.NotDefined;
-            }
-
-            // TODO: Decide on contact
-            string contact = random.Next(GangsterNames.Length).ToString();
-
-
-        }
-
-        public static string ReturnMoneyString(int amount)
-        {
-            string toWork = amount.ToString();
-            int index = 1;
-
-            for (int i = toWork.Length-1; i >= 0; i--)
-            {
-                // Must be where a comma goes
-                if (index%3 == 0 && i != 0)
-                {
-                    toWork = toWork.Insert(i, ",");
-                }
-                index++;
-            }
-
-            return "$" + toWork;
         }
     }
 

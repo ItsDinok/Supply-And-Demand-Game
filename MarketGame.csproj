@@ -27,6 +27,7 @@
     <None Remove="Icons\Triad.png" />
     <None Remove="Icons\Weed.png" />
     <None Remove="Icons\Yardies.png" />
+    <None Remove="Sound\TextNotification.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +77,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Yardies.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sound\TextNotification.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
