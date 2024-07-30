@@ -86,7 +86,7 @@
 
         
         <!-- Popup -->
-        <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="200" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}">
+        <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="250" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}">
             <Border Background="#FFACACAC" BorderBrush="Black" BorderThickness="1">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">

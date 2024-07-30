@@ -7,7 +7,7 @@ namespace MarketGame
     /// <summary>
     /// Interaction logic for MerchantInventoryView.xaml
     /// </summary>
-    
+
     public partial class MerchantInventoryView : UserControl
     {
         public Merchant Dealer;
@@ -15,7 +15,7 @@ namespace MarketGame
         [
             "Come on, buy already... I'm a little jumpy."
         ];
-        
+
         // Aliases for readability
         private readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
         private readonly Player Character;
@@ -27,12 +27,12 @@ namespace MarketGame
         private bool isSelling = true;
         private Merchandise FeaturedMerch = Merchandise.NotDefined;
 
-        
+
 
         public MerchantInventoryView()
         {
             InitializeComponent();
-            Dealer = new (Factions.NotDefined);
+            Dealer = new(Factions.NotDefined);
             this.Character = host.Game.Character;
             AssignLabelValues();
             isSelling = true;
@@ -66,7 +66,7 @@ namespace MarketGame
                     labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
                     continue;
                 }
-                labels[i].Content = Dealer.DealerMerchandise.ElementAt(i%6).Value.ToString();
+                labels[i].Content = Dealer.DealerMerchandise.ElementAt(i % 6).Value.ToString();
             }
 
         }
@@ -143,7 +143,7 @@ namespace MarketGame
             MerchantSpeech.Content = IntroMessages[message];
 
             // Set image from dictionary
-            MerchantIcon.Source = new BitmapImage(new Uri(Dealer.FactionIcons[Dealer.Faction]));
+            MerchantIcon.Source = new BitmapImage(new Uri(Merchant.FactionIcons[Dealer.Faction]));
             RespectGainLabel.Content = Dealer.Faction.ToString();
         }
 
@@ -208,7 +208,7 @@ namespace MarketGame
             MoneyChangeLabel.Content = "$" + potential;
         }
 
-        private void DownArrowClick(object sender, RoutedEventArgs e) 
+        private void DownArrowClick(object sender, RoutedEventArgs e)
         {
             if (TradeQuantity <= 0) return;
             if (FeaturedMerch == Merchandise.NotDefined) return;
@@ -225,7 +225,7 @@ namespace MarketGame
             if (sender is Button clickedButton)
             {
                 string buttonName = clickedButton.Name;
-                
+
                 // Usedto set images and descriptions
                 Dictionary<string, Merchandise> pairs = new()
                 {

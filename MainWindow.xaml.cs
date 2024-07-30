@@ -1,30 +1,21 @@
-﻿using System.Windows.Threading;
+﻿using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Media;
+using System.Windows.Threading;
 
 namespace MarketGame
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
-    // TODO: Consider putting this in gameobjects
-    public struct Notification
-    {
-        public string Message;
-        public string Name;
-        public string PathToImage;
-    }
 
     public partial class MainWindow : Window
     {
         readonly public GameObject Game;
         public bool IsStashInView = false;
-        public Notification TipNotification = new();
+        public Notification? TipNotification;
 
         // This is used in tips
         private readonly DispatcherTimer _timer;
@@ -41,14 +32,14 @@ namespace MarketGame
             // Timer logic for tips and messages
             _timer = new()
             {
-                Interval = TimeSpan.FromSeconds(10)
+                Interval = TimeSpan.FromSeconds(2)
             };
             _timer.Tick += OnTimedEvent;
             _timer.Start();
         }
 
         // This is called every time the timer reaches the time threshold
-        private void OnTimedEvent(object ?source, EventArgs e)
+        private void OnTimedEvent(object? source, EventArgs e)
         {
             Game.GenerateTipOff(this);
             NotificationGenerated();
@@ -66,7 +57,7 @@ namespace MarketGame
             PlayNotificationSound();
 
             // Set popup attributes
-            DealerImage.Source = new BitmapImage(new Uri(TipNotification.PathToImage));
+            DealerImage.Source = TipNotification.Icon;
             DealerName.Content = TipNotification.Name;
             NotificationText.Text = TipNotification.Message;
 
@@ -84,7 +75,8 @@ namespace MarketGame
             player.Play();
         }
 
-        private void MoneyInput_KeyUp(object sender, KeyEventArgs e) { 
+        private void MoneyInput_KeyUp(object sender, KeyEventArgs e)
+        {
             if (e.Key == Key.Enter)
             {
                 string input = MoneyInput.Text[1..];

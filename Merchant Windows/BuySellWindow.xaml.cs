@@ -1,14 +1,5 @@
-﻿using System.ComponentModel;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MarketGame
 {
@@ -32,7 +23,7 @@ namespace MarketGame
 
         public void SetChange(bool isToInventory = false, Button? sender = null)
         {
-            if(isToInventory)
+            if (isToInventory)
             {
                 if (sender != null)
                 {
@@ -51,14 +42,14 @@ namespace MarketGame
 
                     InventoryView.SetMerchant(Dealer);
                     InventoryView.AssignLabelValues();
-                    WindowSetter.Content = InventoryView;                    
+                    WindowSetter.Content = InventoryView;
                 }
             }
             else
             {
                 WindowSetter.Content = SelectWindow;
             }
-            
+
         }
 
         public void ForceClose()

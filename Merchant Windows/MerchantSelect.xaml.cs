@@ -30,17 +30,20 @@ namespace MarketGame
             ParentWindow.Close();
         }
 
-        private void SetTipButtons() {
+        private void SetTipButtons()
+        {
             // Set icons to correct image or hide image from view
             if (host.Game.BuyTip != Merchandise.NotDefined)
             {
                 BuyTipImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[host.Game.BuyTip]));
-            }   else BuyTipImage.Opacity = 0;
+            }
+            else BuyTipImage.Opacity = 0;
 
             if (host.Game.SellTip != Merchandise.NotDefined)
             {
                 SellTipImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[host.Game.SellTip]));
-            }   else SellTipImage.Opacity = 0;
+            }
+            else SellTipImage.Opacity = 0;
         }
     }
 }

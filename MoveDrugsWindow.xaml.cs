@@ -1,6 +1,4 @@
-﻿using System.Printing;
-using System.Security.Permissions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -16,6 +14,12 @@ namespace MarketGame
         // This keeps track of the REAL (not displayed) total for transfer
         private readonly int[] RealQuantities = [0, 0, 0, 0, 0, 0];
 
+        // These will never be null but it makes the IDE calm down
+        private TextBox[] TextBoxes = [];
+        private Label[] DirectionalIndicators = [];
+        private Dictionary<string, TextBox> TextBoxNames = [];
+        private Label[] BagLabels = [];
+
         public MoveDrugsWindow()
         {
             Character = host.Game.Character;
@@ -24,14 +28,36 @@ namespace MarketGame
             SetValueLabel();
             Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
             SetPoliceStatus();
+
             // Sets the tip indicators
             SetTipIndicators(host.Game.SellTip, InDemandText, InDemandIndicator, InDemandImage);
             SetTipIndicators(host.Game.BuyTip, LowDemandText, LowDemandIndicator, LowDemandImage);
+            AssignMajorValues();
+        }
+
+        private void AssignMajorValues()
+        {
+            // Makes the constructor less cluttered
+            TextBoxes = [DownersTextBox, WeedTextBox, AcidTextBox, EcstacyTextBox, HeroinTextBox, CokeTextBox];
+            DirectionalIndicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
+                                     EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
+            TextBoxNames = new() { { "DownersLeftButton", DownersTextBox }, { "DownersRightButton", DownersTextBox },
+                                   { "WeedLeftButton", WeedTextBox }, { "WeedRightButton", WeedTextBox },
+                                   { "AcidLeftButton", AcidTextBox }, { "AcidRightButton", AcidTextBox },
+                                   { "EcstacyLeftButton", EcstacyTextBox }, { "EcstacyRightButton", EcstacyTextBox },
+                                   { "HeroinLeftButton", HeroinTextBox }, { "HeroinRightButton", HeroinTextBox },
+                                   { "CokeLeftButton", CokeTextBox }, { "CokeRightButton", CokeTextBox }};
+            BagLabels = [DownersBagLabel, WeedBagLabel, AcidBagLabel,
+                EcstacyBagLabel, HeroinBagLabel, CokeBagLabel,
+
+                DownersStashLabel, WeedStashLabel, AcidStashLabel,
+                EcstacyStashLabel, HeroinStashLabel, CokeStashLabel];
         }
 
         private static void SetTipIndicators(Merchandise merch, Label indicatorText, Image indicatorImage, Image merchImage)
         {
-            if (merch == Merchandise.NotDefined) {
+            if (merch == Merchandise.NotDefined)
+            {
                 SetTipNull(indicatorImage, indicatorText, merchImage);
                 return;
             }
@@ -52,7 +78,7 @@ namespace MarketGame
         {
             int total = 0;
             // Accumulate all values in one dictionary for ease of calculation
-            
+
             for (int i = 0; i < Character.Bag.Count; i++)
             {
                 // Multiplies the value of each item by the baseprices
@@ -66,27 +92,18 @@ namespace MarketGame
 
         private void AssignLabelValues()
         {
-            Label[] labels =
-            {
-                DownersBagLabel, WeedBagLabel, AcidBagLabel,
-                EcstacyBagLabel, HeroinBagLabel, CokeBagLabel,
-
-                DownersStashLabel, WeedStashLabel, AcidStashLabel,
-                EcstacyStashLabel, HeroinStashLabel, CokeStashLabel
-            };
-
             var bag = Character.Bag;
             var stash = Character.Stash;
 
             // Neat little function here that automatically assigns labels
-            for (int i = 0; i < labels.Length; i++)
+            for (int i = 0; i < BagLabels.Length; i++)
             {
                 if (i < bag.Count)
                 {
-                    labels[i].Content = bag.ElementAt(i).Value.ToString();
+                    BagLabels[i].Content = bag.ElementAt(i).Value.ToString();
                     continue;
                 }
-                labels[i].Content = stash.ElementAt(i % stash.Count).Value.ToString();
+                BagLabels[i].Content = stash.ElementAt(i % stash.Count).Value.ToString();
             }
         }
 
@@ -102,41 +119,23 @@ namespace MarketGame
             TextBox targeted;
             Button accessString = (Button)sender;
 
-            // This assigns a value to the textbox that sent it
-            Dictionary<string, TextBox> keyValuePairs = new()
-            {
-                { "DownersLeftButton", DownersTextBox },
-                { "DownersRightButton", DownersTextBox },
-                { "WeedLeftButton", WeedTextBox },
-                { "WeedRightButton", WeedTextBox },
-                { "AcidLeftButton", AcidTextBox },
-                { "AcidRightButton", AcidTextBox },
-                { "EcstacyLeftButton", EcstacyTextBox },
-                { "EcstacyRightButton", EcstacyTextBox },
-                { "HeroinLeftButton", HeroinTextBox },
-                { "HeroinRightButton", HeroinTextBox },
-                { "CokeLeftButton", CokeTextBox },
-                { "CokeRightButton", CokeTextBox }
-            };
-            targeted = keyValuePairs[accessString.Name];
+            targeted = TextBoxNames[accessString.Name];
 
             // Determines if it is adding or subtracting
             bool isRight = accessString.Name.Contains("Right");
 
             // Determines the drug being changed
-            int index = keyValuePairs.Keys.ToList().IndexOf(accessString.Name);
+            int index = TextBoxNames.Keys.ToList().IndexOf(accessString.Name) / 2;
             // Changes and sets drug quantity
-            int updatedQuantity = isRight ? RealQuantities[index] + 1 : RealQuantities[index] -1;
+            int updatedQuantity = isRight ? RealQuantities[index] + 1 : RealQuantities[index] - 1;
             // Changes text
             RealQuantities[index] = updatedQuantity;
             targeted.Text = Math.Abs(updatedQuantity).ToString();
 
             // Assign arrows as needed
-            Label[] indicators = [DownersDirectionalIndicator, WeedDirectionalIndicator, AcidDirectionalIndicator,
-                EcstacyDirectionalIndicator, HeroinDirectionalIndicator, CokeDirectionalIndicator];
-            // Changes directional indicators
-            indicators[index].Content = updatedQuantity < 0 ? "⬅️" : updatedQuantity > 0 ? "➞" : "";
-            indicators[index].IsEnabled = true;
+
+            DirectionalIndicators[index].Content = updatedQuantity < 0 ? "⬅️" : updatedQuantity > 0 ? "➞" : "";
+            DirectionalIndicators[index].IsEnabled = true;
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
@@ -152,7 +151,6 @@ namespace MarketGame
             }
 
             AssignLabelValues();
-            UpdateCapacityBars();
             ResetBars();
             Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
         }
@@ -175,42 +173,19 @@ namespace MarketGame
         }
         private void ResetBars()
         {
-            DownersTextBox.Text = "0";
-            WeedTextBox.Text = "0";
-            AcidTextBox.Text = "0";
-            EcstacyTextBox.Text = "0";
-            HeroinTextBox.Text = "0";
-            CokeTextBox.Text = "0";
+            // Set all values to 0
+            Array.Fill(RealQuantities, 0);
 
-            for (int i = 0; i < RealQuantities.Length; i++)
+
+            // Reset textboxes and directional indicators
+            foreach (TextBox box in TextBoxes)
             {
-                RealQuantities[i] = 0;
+                box.Text = "0";
             }
-            Label[] indicators = [DownersDirectionalIndicator,
-                WeedDirectionalIndicator,
-                AcidDirectionalIndicator,
-                EcstacyDirectionalIndicator,
-                HeroinDirectionalIndicator,
-                CokeDirectionalIndicator];
-            for (int i = 0; i < indicators.Length; i++)
+            foreach (Label indicator in DirectionalIndicators)
             {
-                indicators[i].Content = "";
+                indicator.Content = "";
             }
-        }
-
-        private void UpdateCapacityBars()
-        {
-            // Set bars
-            float stashPercentage = (float)host.Game.Character.GetTotalCapacity(true) / 1500 * 100;
-            float bagPercentage = (float)host.Game.Character.GetTotalCapacity(false) / 150 * 100;
-
-            host.StashCapacityBar.Value = stashPercentage;
-            host.BagCapacityBar.Value = bagPercentage;
-
-
-            // Set label
-            host.StashCapacityLabel.Content = host.Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
-            host.BagCapacityLabel.Content = host.Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
         }
     }
 }

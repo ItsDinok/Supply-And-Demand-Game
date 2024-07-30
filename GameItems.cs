@@ -1,8 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Windows.Media;
-
-namespace MarketGame
+﻿namespace MarketGame
 {
     #region Enum Declarations
     public enum Merchandise
@@ -47,7 +43,7 @@ namespace MarketGame
         // Display stats
         public string DisplayCash;
         public string DisplayMoney;
-     
+
         // Base values of merchandise
         public static readonly Dictionary<Merchandise, int> BASEPRICES = new() {
             {Merchandise.Downers, 20 }, {Merchandise.Weed, 40 },
@@ -56,7 +52,7 @@ namespace MarketGame
         };
 
         // Methods
-        public Player() 
+        public Player()
         {
             // Used for labels
             DisplayMoney = Money.ToString();
@@ -84,7 +80,7 @@ namespace MarketGame
         }
 
         public int GetCash() { return Cash; }
-        public int GetMoney() { return Money; } 
+        public int GetMoney() { return Money; }
 
         public int GetTotalCapacity(bool isStash)
         {
@@ -92,7 +88,7 @@ namespace MarketGame
             // Gets total amount of items in stash
             if (isStash)
             {
-                foreach(var pair in Stash)
+                foreach (var pair in Stash)
                 {
                     total += pair.Value;
                 }
@@ -100,7 +96,7 @@ namespace MarketGame
             // Gets total amount of items in bag
             else
             {
-                foreach(var pair in Bag)
+                foreach (var pair in Bag)
                 {
                     total += pair.Value;
                 }
@@ -131,7 +127,7 @@ namespace MarketGame
             Bag[type] += amount;
         }
 
-        public void MoveToStash(int amount, Merchandise type) 
+        public void MoveToStash(int amount, Merchandise type)
         {
             // Validity checks
             if (Bag[type] - amount < 0) return;
@@ -143,7 +139,7 @@ namespace MarketGame
         }
 
         // Transactions can only be made with stuff on hand
-        public void Sell(int amount, Merchandise type, float modifier) 
+        public void Sell(int amount, Merchandise type, float modifier)
         {
             // Calculate value per unit
             int cost = (int)(BASEPRICES[type] * modifier);
@@ -158,14 +154,14 @@ namespace MarketGame
             // Change amount to be displayed
             DisplayCash = Cash.ToString();
         }
-        public void Buy(int amount, Merchandise type, float modifier) 
+        public void Buy(int amount, Merchandise type, float modifier)
         {
 
             // Calculate value per unit
             int cost = (int)(BASEPRICES[type] * modifier);
 
             // Validity check
-            if (Cash - cost*amount < 0) return;
+            if (Cash - cost * amount < 0) return;
 
             // Move items and money
             Cash -= (amount * cost);
@@ -234,7 +230,7 @@ namespace MarketGame
         };
 
         // Used to set icon in buy/sell
-        public readonly Dictionary<Factions, string> FactionIcons = new()
+        public static readonly Dictionary<Factions, string> FactionIcons = new()
         {
             {Factions.Yardies, "pack://application:,,,/MarketGame;component/Icons/Yardies.png" },
             {Factions.Triad, "pack://application:,,,/MarketGame;component/Icons/Triad.png" },
@@ -247,7 +243,7 @@ namespace MarketGame
         public Merchant(Factions faction)
         {
             Faction = faction;
-            
+
             GenerateMerchandise();
         }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 // Helper function to avoid repeated code
 namespace MarketGame
@@ -15,8 +10,8 @@ namespace MarketGame
             // These are used to calculate the value to display on the bar
             float StashPercentage = (float)(game.Character.GetTotalCapacity(true) / 1500) * 100;
             float BagPercentage = (float)(game.Character.GetTotalCapacity(false) / 150) * 100;
-            
-            
+
+
             stashBar.Value = StashPercentage;
             bagBar.Value = BagPercentage;
 
