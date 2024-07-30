@@ -8,7 +8,7 @@ namespace MarketGame
         public string Name;
         public BitmapImage Icon;
 
-        public string[] GangsterNames = {
+        public string[] GangsterNames = [
             "Liang Chen", "Jin Wu", "Ming Zhao", // Triad Names
             "Johnny Russo", "Vinny Moretti", "Lucky Falcone", // Mob names
             "L-Train", "Dread", "Shay Williams", // Yardies names
@@ -16,7 +16,7 @@ namespace MarketGame
             "Liam Cross", "Alex Steele", "Eddie Harrington", // Syndicate names
             "Razor", "Bones", "Wildcat", // Biker 
             //"Shek", "Charlie" // Friend names
-        };
+        ];
 
         public Notification(Merchandise merch, bool isSell)
         {
@@ -26,6 +26,15 @@ namespace MarketGame
             // Makes sure the string is valid and formatted
             string tempMessage = GenerateMessage(isSell);
             Message = ReplaceStringChunk(tempMessage, isSell, merch);
+        }
+         
+        public Notification()
+        {
+            Random random = new();
+            int index = random.Next(DialogueManager.SpamNames.Length);
+            Name = DialogueManager.SpamNames[index];
+            Message = DialogueManager.SpamTexts[index];
+            Icon = new BitmapImage(new Uri("pack://application:,,/MarketGame;component/Icons/UnknownContact.png"));
         }
 
         private string GenerateName()

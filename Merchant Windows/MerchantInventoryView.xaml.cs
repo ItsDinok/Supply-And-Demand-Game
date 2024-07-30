@@ -20,7 +20,7 @@ namespace MarketGame
         private readonly MainWindow host = (MainWindow)Application.Current.MainWindow;
         private readonly Player Character;
 
-        private float GeneralModifier = 1;
+        private const float GeneralModifier = 1;
 
         // This keeps track of the REAL (not displayed) total for transfer
         int TradeQuantity = 0;

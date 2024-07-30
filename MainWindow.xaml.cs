@@ -15,7 +15,7 @@ namespace MarketGame
     {
         readonly public GameObject Game;
         public bool IsStashInView = false;
-        public Notification? TipNotification;
+        public Notification TipNotification = new();
 
         // This is used in tips
         private readonly DispatcherTimer _timer;
@@ -41,8 +41,17 @@ namespace MarketGame
         // This is called every time the timer reaches the time threshold
         private void OnTimedEvent(object? source, EventArgs e)
         {
-            Game.GenerateTipOff(this);
-            NotificationGenerated();
+            Random rnd = new();
+            if (rnd.Next(0,10) <= 3)
+            {
+                Game.GenerateTipOff(this);
+                NotificationGenerated();
+            }
+            else
+            {
+                TipNotification = new Notification();
+                NotificationGenerated();
+            }
 
             // This needs to be tuned.
             Game.Character.Heat--;

@@ -25,6 +25,7 @@
     <None Remove="Icons\Safe.png" />
     <None Remove="Icons\Syndicate.png" />
     <None Remove="Icons\Triad.png" />
+    <None Remove="Icons\UnknownContact.png" />
     <None Remove="Icons\Weed.png" />
     <None Remove="Icons\Yardies.png" />
     <None Remove="Sound\TextNotification.wav" />
@@ -71,6 +72,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Triad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\UnknownContact.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Weed.png">
