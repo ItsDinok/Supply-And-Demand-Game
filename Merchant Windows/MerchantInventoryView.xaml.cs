@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Reflection.Metadata.Ecma335;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -28,6 +29,25 @@ namespace MarketGame
         private Merchandise FeaturedMerch = Merchandise.NotDefined;
 
 
+        private readonly Dictionary<string, Merchandise> Pairs = new()
+        {
+            {"DownersButton", Merchandise.Downers },
+            {"WeedButton", Merchandise.Weed },
+            {"AcidButton", Merchandise.Acid },
+            {"EcstacyButton", Merchandise.Ecstacy },
+            {"HeroinButton", Merchandise.Heroin },
+            {"CokeButton", Merchandise.Coke }
+        };
+
+        private readonly Dictionary<Merchandise, string> TypeDescriptors = new()
+        {
+            {Merchandise.Downers, "Depressants" },
+            {Merchandise.Weed, "Depressants" },
+            {Merchandise.Acid, "Hallucinogens" },
+            {Merchandise.Ecstacy, "Hallucinogens" },
+            {Merchandise.Coke, "Powders" },
+            {Merchandise.Heroin, "Powders" }
+        };
 
         public MerchantInventoryView()
         {
@@ -63,7 +83,7 @@ namespace MarketGame
             {
                 if (i < 6)
                 {
-                    labels[i].Content = host.Game.Character.Bag.ElementAt(i).Value.ToString();
+                    labels[i].Content = Character.Bag.ElementAt(i).Value.ToString();
                     continue;
                 }
                 labels[i].Content = Dealer.DealerMerchandise.ElementAt(i % 6).Value.ToString();
@@ -112,19 +132,21 @@ namespace MarketGame
 
         private bool CheckIfPurchaseValid()
         {
-            // Check if bag capacity
-            if (Character.Bag.Values.Sum() + TradeQuantity > Character.BagCapacity)
-            {
-                return false;
-            }
-            // Check if broke
-            if (Int32.Parse(Character.DisplayCash) < TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier)
-            {
-                return false;
-            }
-            // Check if dealer has enough
-            if (Dealer.DealerMerchandise[FeaturedMerch] - TradeQuantity < 0 || Dealer.DealerMerchandise[FeaturedMerch] == 0) { return false; }
+            if(CheckIfPlayerCanBuy() || CanDealerMakeTrade()) return false;
             return true;
+        }
+
+        private bool CheckIfPlayerCanBuy()
+        {
+            // Checks if player is broke or has too full a bag
+            return (Character.Bag.Values.Sum() + TradeQuantity > Character.BagCapacity ||
+                Character.GetCash() < TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier);
+        }
+
+        private bool CanDealerMakeTrade()
+        {
+            // Checks if dealer has enough
+            return (Dealer.DealerMerchandise[FeaturedMerch] - TradeQuantity < 0 || Dealer.DealerMerchandise[FeaturedMerch] == 0);
         }
 
         public void SetUpInventory()
@@ -136,15 +158,18 @@ namespace MarketGame
 
         private void SetIcon()
         {
-            // TODO: Add more messages
             // Set message from message set
-            Random random = new();
-            int message = random.Next(IntroMessages.Length);
+            int message = new Random().Next(IntroMessages.Length);
             MerchantSpeech.Content = IntroMessages[message];
 
             // Set image from dictionary
-            MerchantIcon.Source = new BitmapImage(new Uri(Merchant.FactionIcons[Dealer.Faction]));
+            MerchantIcon.Source = GetDealerIcon();
             RespectGainLabel.Content = Dealer.Faction.ToString();
+        }
+
+        private BitmapImage GetDealerIcon()
+        {
+            return new BitmapImage(new Uri(Merchant.FactionIcons[Dealer.Faction]));
         }
 
         public void SetMerchant(Merchant dealer)
@@ -156,17 +181,10 @@ namespace MarketGame
         private float CalculateRate(Merchandise merch, bool isSell)
         {
             float modifier = GeneralModifier;
-            if (isSell)
-            {
-                // Checks to see if the merch has any special modifiers
-                if (Dealer.PrefferedBuy == merch) modifier += 0.25f;
-                if (host.Game.SellTip == merch) modifier += host.Game.SellModifier;
-            }
-            else
-            {
-                if (Dealer.PrefferedSell == merch) modifier += 0.25f;
-                if (host.Game.BuyTip == merch) modifier += host.Game.BuyModifier;
-            }
+            if (isSell && Dealer.PrefferedBuy == merch || !isSell && Dealer.PrefferedSell == merch) modifier += 0.25f;
+            if (isSell && host.Game.SellTip == merch) modifier += host.Game.SellModifier;
+            else if (!isSell && host.Game.BuyTip == merch) modifier += host.Game.BuyModifier;
+
             return modifier;
         }
 
@@ -199,68 +217,61 @@ namespace MarketGame
 
         private void UpArrowClick(object sender, RoutedEventArgs e)
         {
-            if (FeaturedMerch == Merchandise.NotDefined) return;
+            if (!ValidityCheck(false)) return;
 
             TradeQuantity++;
             QuantityMovedIndicator.Content = TradeQuantity.ToString();
 
-            int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier);
-            MoneyChangeLabel.Content = "$" + potential;
+            SetPotential();
         }
 
         private void DownArrowClick(object sender, RoutedEventArgs e)
         {
-            if (TradeQuantity <= 0) return;
-            if (FeaturedMerch == Merchandise.NotDefined) return;
+            if (!ValidityCheck(true)) return;
 
             TradeQuantity--;
             QuantityMovedIndicator.Content = TradeQuantity.ToString();
 
+            SetPotential();
+        }
+
+        private void SetPotential()
+        {
             int potential = (int)(TradeQuantity * Player.BASEPRICES[FeaturedMerch] * GeneralModifier);
             MoneyChangeLabel.Content = "$" + potential;
         }
 
+        private bool ValidityCheck(bool isDown)
+        {
+            if (FeaturedMerch == Merchandise.NotDefined) return false;
+            if (isDown && TradeQuantity <= 0) return false;
+
+            return true;
+        }
+
         private void DrugSelectClick(object sender, RoutedEventArgs e)
         {
-            if (sender is Button clickedButton)
-            {
-                string buttonName = clickedButton.Name;
+            if (sender is not Button) return;
 
-                // Usedto set images and descriptions
-                Dictionary<string, Merchandise> pairs = new()
-                {
-                    {"DownersButton", Merchandise.Downers },
-                    {"WeedButton", Merchandise.Weed },
-                    {"AcidButton", Merchandise.Acid },
-                    {"EcstacyButton", Merchandise.Ecstacy },
-                    {"HeroinButton", Merchandise.Heroin },
-                    {"CokeButton", Merchandise.Coke }
-                };
+            Button clickedButton = (Button)sender;
+            FeaturedMerch = Pairs[clickedButton.Name];
 
-                Dictionary<Merchandise, string> typeDescriptors = new()
-                {
-                    {Merchandise.Downers, "Depressants" },
-                    {Merchandise.Weed, "Depressants" },
-                    {Merchandise.Acid, "Hallucinogens" },
-                    {Merchandise.Ecstacy, "Hallucinogens" },
-                    {Merchandise.Coke, "Powders" },
-                    {Merchandise.Heroin, "Powders" }
-                };
+            // Set image
+            FeaturedDrugImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[Pairs[clickedButton.Name]]));
+            FeaturedDrugImage.Opacity = 1.0;
 
-                FeaturedMerch = pairs[buttonName];
+            // Set labels
+            SetDrugLabels();
+        }
 
-                // Set image
-                FeaturedDrugImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[pairs[buttonName]]));
-                FeaturedDrugImage.Opacity = 1.0;
+        private void SetDrugLabels()
+        {
+            DrugIndicatorLabel.Content = FeaturedMerch.ToString();
+            HeatGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item1;
+            RespectGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item2;
+            TypeLabel.Content = TypeDescriptors[FeaturedMerch];
 
-                // Set labels
-                DrugIndicatorLabel.Content = FeaturedMerch.ToString();
-                HeatGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item1;
-                RespectGainLabel.Content = GameObject.HeatRespectValues[FeaturedMerch].Item2;
-                TypeLabel.Content = typeDescriptors[FeaturedMerch];
-
-                RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
-            }
+            RateLabel.Content = "x" + CalculateRate(FeaturedMerch, isSelling);
         }
         #endregion
     }

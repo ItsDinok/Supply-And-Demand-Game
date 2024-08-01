@@ -251,6 +251,11 @@
         {
             Faction = faction;
             GenerateMerchandise();
+            SetPreferences();
+        }
+
+        private void SetPreferences()
+        {
             PrefferedBuy = Preferences[Faction].Item1;
             PrefferedSell = Preferences[Faction].Item2;
         }
@@ -258,30 +263,24 @@
         public void Sell(int amount, Merchandise type)
         {
             // Mainly validity checks
-            if (DealerMerchandise == null) return;
-            if (DealerMerchandise[type] - amount < 0) return;
+            if (!ValidityCheck(false, amount, type)) return;
             DealerMerchandise[type] -= amount;
         }
         public void Buy(int amount, Merchandise type)
         {
-            if (DealerMerchandise == null) return;
+            if (!(ValidityCheck(true, amount, type))) return;
             DealerMerchandise[type] += amount;
+        }
+
+        private bool ValidityCheck(bool isBuy, int amount, Merchandise type)
+        {
+            return (DealerMerchandise != null && (!isBuy && DealerMerchandise[type] - amount < 0));
         }
 
         private void GenerateMerchandise()
         {
             Random random = new();
-            // Internal function to set the values
-            void SetMerchandise(int weed, int downers, int acid, int ecstacy, int heroin, int coke)
-            {
-                DealerMerchandise[Merchandise.Weed] = weed;
-                DealerMerchandise[Merchandise.Downers] = downers;
-                DealerMerchandise[Merchandise.Ecstacy] = ecstacy;
-                DealerMerchandise[Merchandise.Acid] = acid;
-                DealerMerchandise[Merchandise.Heroin] = heroin;
-                DealerMerchandise[Merchandise.Coke] = coke;
-            }
-
+            
             // Very verbose. At some point change the probability distribution
             switch (Faction)
             {
@@ -303,5 +302,14 @@
             };
         }
 
+        private void SetMerchandise(int weed, int downers, int acid, int ecstacy, int heroin, int coke)
+        {
+            DealerMerchandise[Merchandise.Weed] = weed;
+            DealerMerchandise[Merchandise.Downers] = downers;
+            DealerMerchandise[Merchandise.Ecstacy] = ecstacy;
+            DealerMerchandise[Merchandise.Acid] = acid;
+            DealerMerchandise[Merchandise.Heroin] = heroin;
+            DealerMerchandise[Merchandise.Coke] = coke;
+        }
     }
 }

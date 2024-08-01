@@ -24,15 +24,20 @@ namespace MarketGame
         {
             Character = host.Game.Character;
             InitializeComponent();
-            AssignLabelValues();
-            SetValueLabel();
-            Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
-            SetPoliceStatus();
-
-            // Sets the tip indicators
-            SetTipIndicators(host.Game.SellTip, InDemandText, InDemandIndicator, InDemandImage);
-            SetTipIndicators(host.Game.BuyTip, LowDemandText, LowDemandIndicator, LowDemandImage);
             AssignMajorValues();
+
+            // Sets things the player sees
+            SetInitialSeen();
+        }
+
+        private void SetInitialSeen()
+        {
+            // Sets the tip indicators
+            SetTipIndicators([host.Game.SellTip, host.Game.BuyTip]);
+            SetPoliceStatus();
+            AssignLabelValues();
+            Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
+            SetValueLabel();
         }
 
         private void AssignMajorValues()
@@ -54,17 +59,32 @@ namespace MarketGame
                 EcstacyStashLabel, HeroinStashLabel, CokeStashLabel];
         }
 
-        private static void SetTipIndicators(Merchandise merch, Label indicatorText, Image indicatorImage, Image merchImage)
+        // I FUCKING COOKED HERE
+        private void SetTipIndicators(Merchandise[] merch)
         {
-            if (merch == Merchandise.NotDefined)
-            {
-                SetTipNull(indicatorImage, indicatorText, merchImage);
-                return;
-            }
+            // These are flipped, I do not know why
+            // HACK
+            Label[] indicators = [InDemandText, LowDemandText];
+            Image[] indicatorImages = [InDemandImage, LowDemandImage];
+            Image[] merchImages = [InDemandIndicator, LowDemandIndicator];
 
-            indicatorImage.Opacity = 1;
-            indicatorText.Opacity = 1;
-            merchImage.Source = new BitmapImage(new Uri(GameObject.MerchandiseIcons[merch]));
+            // Sets the low then the high values
+            for (int i = 0; i < merch.Length; i++) 
+            {
+                if (merch[i] == Merchandise.NotDefined) 
+                {
+                    SetTipNull(indicatorImages[i], indicators[i], merchImages[i]);
+                    continue;
+                }
+                indicators[i].Opacity = 1;
+                merchImages[i].Opacity = 1;
+                indicatorImages[i].Source = GetMerchIcon(merch[i]);
+            }
+        }
+
+        private static BitmapImage GetMerchIcon(Merchandise merch)
+        {
+            return new BitmapImage(new Uri(GameObject.MerchandiseIcons[merch]));
         }
 
         private static void SetTipNull(Image image, Label text, Image merchImage)

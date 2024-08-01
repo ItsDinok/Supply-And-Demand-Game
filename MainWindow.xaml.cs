@@ -19,39 +19,54 @@ namespace MarketGame
 
         // This is used in tips
         private readonly DispatcherTimer _timer;
-
+        private readonly Label[] CountLabels;
 
         public MainWindow()
         {
             InitializeComponent();
             this.Game = new();
+
             // Sets initial status indicators
             UpdateStatusIndicators();
-            SetToBagOrStashView(true);
 
+            CountLabels =
+            [
+                DownersCount,
+                WeedCount,
+                AcidCount,
+                EcstacyCount,
+                HeroinCount,
+                CokeCount
+            ];
+
+            SetToBagOrStashView(true);
+            
             // Timer logic for tips and messages
-            _timer = new()
+            _timer = SetTimer();
+            _timer.Start();
+        }
+
+        private DispatcherTimer SetTimer()
+        {
+            DispatcherTimer timer = new()
             {
                 Interval = TimeSpan.FromSeconds(2)
             };
-            _timer.Tick += OnTimedEvent;
-            _timer.Start();
+            timer.Tick += OnTimedEvent;
+
+            return timer;
         }
+
 
         // This is called every time the timer reaches the time threshold
         private void OnTimedEvent(object? source, EventArgs e)
         {
-            Random rnd = new();
-            if (rnd.Next(0,10) <= 3)
-            {
-                Game.GenerateTipOff(this);
-                NotificationGenerated();
-            }
-            else
-            {
-                TipNotification = new Notification();
-                NotificationGenerated();
-            }
+            // Generate tip off and work out type
+            if (new Random().Next(0,10) <= 3) Game.GenerateTipOff(this);
+            else TipNotification = new Notification();
+            
+            // Display notification
+            NotificationGenerated();
 
             // This needs to be tuned.
             Game.Character.Heat--;
@@ -66,9 +81,9 @@ namespace MarketGame
             PlayNotificationSound();
 
             // Set popup attributes
-            DealerImage.Source = TipNotification.Icon;
-            DealerName.Content = TipNotification.Name;
-            NotificationText.Text = TipNotification.Message;
+            this.DealerImage.Source = TipNotification.Icon;
+            this.DealerName.Content = TipNotification.Name;
+            this.NotificationText.Text = TipNotification.Message;
 
             PopUpWindow();
         }
@@ -97,16 +112,9 @@ namespace MarketGame
 
         private void MoveMoney(int amount)
         {
-            if (ToCashButton.IsChecked == null) return;
-
-            if ((bool)ToCashButton.IsChecked)
-            {
-                Game.Character.CashConvert(amount, true);
-            }
-            else
-            {
-                Game.Character.CashConvert(amount, false);
-            }
+            bool? isChecked = ToCashButton.IsChecked;
+            if (isChecked == null) return;
+            else Game.Character.CashConvert(amount, (bool)isChecked);
 
             UpdateMoney();
         }
@@ -128,43 +136,31 @@ namespace MarketGame
         public void SetToBagOrStashView(bool isStash)
         {
             // Used to automate
-            Label[] countLabels =
-            [
-                DownersCount,
-                WeedCount,
-                AcidCount,
-                EcstacyCount,
-                HeroinCount,
-                CokeCount
-            ];
+            
+            SolidColorBrush activeColour = new (Colors.LightSteelBlue);
+            SolidColorBrush inactiveColour = new(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
 
-            if (isStash)
+            Dictionary<Merchandise, int> items = isStash ? Game.Character.Stash : Game.Character.Bag;
+
+            UpdateLabels(items);
+            UpdateView(isStash, activeColour, inactiveColour);
+        }
+
+        private void UpdateLabels(IDictionary<Merchandise, int> items)
+        {
+            for (int i = 0; i < CountLabels.Length; i++)
             {
-                for (int i = 0; i < countLabels.Length; i++)
-                {
-                    countLabels[i].Content = Game.Character.Stash.ElementAt(i).Value;
-                }
-
-                IsStashInView = true;
-
-                // Chnage button colours
-                BagView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
-                StashView.Background = new SolidColorBrush(Colors.LightSteelBlue);
-            }
-            else
-            {
-                for (int i = 0; i < countLabels.Length; i++)
-                {
-                    countLabels[i].Content = Game.Character.Bag.ElementAt(i).Value;
-                }
-
-                IsStashInView = false;
-
-                StashView.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD));
-                BagView.Background = new SolidColorBrush(Colors.LightSteelBlue);
+                CountLabels[i].Content = items.ElementAt(i).Value.ToString();
             }
         }
 
+        private void UpdateView(bool isStash, SolidColorBrush active, SolidColorBrush inactive)
+        {
+            IsStashInView = isStash;
+            StashView.Background = isStash ? active : inactive;
+            BagView.Background = isStash ? inactive : active;
+        }
+             
         public void UpdateStatusIndicators()
         {
             UpdateMoney();

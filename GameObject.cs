@@ -1,4 +1,6 @@
-﻿namespace MarketGame
+﻿using System.Linq;
+
+namespace MarketGame
 {
     public class GameObject
     {
@@ -11,6 +13,9 @@
         // Used to set extra modifiers
         public Merchandise BuyTip = Merchandise.NotDefined;
         public Merchandise SellTip = Merchandise.NotDefined;
+
+        // This prevents a notdefined bug
+        private const int RELEVANTMERCH = 5;
 
         // NOTE: Tried to set values on the perceptions of each drug. I have no clue how these will be balanced
         public static readonly Dictionary<Merchandise, (int, int)> HeatRespectValues = new()
@@ -41,29 +46,26 @@
 
         public void GenerateTipOff(MainWindow window)
         {
-            Random random = new();
-
+            float modifier;
             // Decide if it will be buy or sell
-            float modifier = (float)(random.NextDouble() * 2 - 1);
-            bool isSell = modifier >= 0;
+            bool isSell = (modifier = (float)(new Random().NextDouble() * 2 - 1)) >= 0;
 
-            // Decide on merch
-            int merchIndex = random.Next(Enum.GetValues(typeof(Merchandise)).Length);
-
-            if (isSell)
-            {
-                SellTip = (Merchandise)merchIndex;
-                SellModifier = modifier;
-                BuyTip = Merchandise.NotDefined;
-            }
-            else
-            {
-                BuyTip = (Merchandise)merchIndex;
-                BuyModifier = modifier;
-                SellTip = Merchandise.NotDefined;
-            }
-
+            SetTipCounters(modifier, isSell, GetRandomMerch());
             PushToNotification(window, isSell);
+        }
+
+        private static Merchandise GetRandomMerch()
+        {
+            var rnd = new Random();
+            return (Merchandise)rnd.Next(RELEVANTMERCH);
+        }
+
+        private void SetTipCounters(float modifier, bool isSell, Merchandise toTip)
+        {
+            SellTip = isSell ? toTip : Merchandise.NotDefined;
+            BuyTip = isSell ? Merchandise.NotDefined : toTip;
+            SellModifier = isSell ? modifier : default;
+            BuyModifier = isSell ? default : modifier;
         }
 
         private void PushToNotification(MainWindow window, bool isSell)
