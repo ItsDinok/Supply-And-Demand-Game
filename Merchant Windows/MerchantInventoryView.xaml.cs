@@ -167,7 +167,7 @@ namespace MarketGame
             RespectGainLabel.Content = Dealer.Faction.ToString();
         }
 
-        private BitmapImage GetDealerIcon()
+        private BitmapImage GetDealerIcon() 
         {
             return new BitmapImage(new Uri(Merchant.FactionIcons[Dealer.Faction]));
         }

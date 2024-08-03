@@ -127,11 +127,7 @@ namespace MarketGame
             }
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Simply closes window
-            Close();
-        }
+        private void BackButton_Click(object sender, RoutedEventArgs e) => Close();
 
         private void ArrowButtonClicks(object sender, RoutedEventArgs e)
         {

@@ -21,16 +21,29 @@ namespace MarketGame
         private readonly DispatcherTimer _timer;
         private readonly Label[] CountLabels;
 
+
+        // Stored here for ease of editing
+        private readonly TimeSpan NotificationTime = TimeSpan.FromSeconds(10);
+        private readonly TimeSpan KillTime = TimeSpan.FromSeconds(2);
+
         public MainWindow()
         {
             InitializeComponent();
             this.Game = new();
 
             // Sets initial status indicators
-            UpdateStatusIndicators();
+            CountLabels = SetCountLabels();
+            SetToBagOrStashView(true);
 
-            CountLabels =
-            [
+            // Timer logic for tips and messages
+            _timer = SetTimer();
+            _timer.Start();
+            UpdateStatusIndicators();
+        }
+
+        private Label[] SetCountLabels()
+        {
+            return [
                 DownersCount,
                 WeedCount,
                 AcidCount,
@@ -38,19 +51,13 @@ namespace MarketGame
                 HeroinCount,
                 CokeCount
             ];
-
-            SetToBagOrStashView(true);
-            
-            // Timer logic for tips and messages
-            _timer = SetTimer();
-            _timer.Start();
         }
 
         private DispatcherTimer SetTimer()
         {
             DispatcherTimer timer = new()
             {
-                Interval = TimeSpan.FromSeconds(2)
+                Interval = NotificationTime
             };
             timer.Tick += OnTimedEvent;
 
@@ -90,8 +97,20 @@ namespace MarketGame
 
         private void PopUpWindow()
         {
+            // BUG: This will not display when in contacts view
             NotificationPopup.IsOpen = true;
+
+            // This limits time for notifications for user convenience
+            DispatcherTimer killTimer = new()
+            {
+                Interval = KillTime
+            };
+            killTimer.Tick += ClosePopup;
+            killTimer.Start();
+            return;
         }
+
+        private void ClosePopup(object? source, EventArgs e) => NotificationPopup.IsOpen = false;
 
         private static void PlayNotificationSound()
         {
@@ -165,7 +184,7 @@ namespace MarketGame
         {
             UpdateMoney();
             UpdateHeatAndRespect();
-            Helper.SetCapacityBars(BagCapacityBar, StashCapacityBar, BagCapacityLabel, StashCapacityLabel, Game);
+            SetCapacityBars();
         }
 
         private void UpdateHeatAndRespect()
@@ -174,21 +193,30 @@ namespace MarketGame
             ReputationBar.Value = Game.Character.Respect;
         }
 
-        private void BagView_Click(object sender, RoutedEventArgs e)
+        private void SetCapacityBars()
         {
-            SetToBagOrStashView(false);
+            // These are used to calculate the value to display on the bar
+            float StashPercentage = (float)Game.Character.GetTotalCapacity(true) / 1500 * 100;
+            float BagPercentage = (float)Game.Character.GetTotalCapacity(false) / 150 * 100;
+
+            StashCapacityBar.Value = StashPercentage;
+            BagCapacityBar.Value = BagPercentage;
+
+            UpdateLabels();
         }
 
-        private void StashView_Click(object sender, RoutedEventArgs e)
+        private void UpdateLabels()
         {
-            SetToBagOrStashView(true);
+            StashCapacityLabel.Content = Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
+            BagCapacityLabel.Content = Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
         }
+
+
+        private void BagView_Click(object sender, RoutedEventArgs e) => SetToBagOrStashView(false);
+        private void StashView_Click(object sender, RoutedEventArgs e) => SetToBagOrStashView(true);
 
         private void BuySell_Click(object sender, RoutedEventArgs e)
         {
-            // Prevents duplicates
-            if (Application.Current.Windows.OfType<BuySellWindow>().Any()) return;
-
             BuySellWindow second = new()
             {
                 Owner = this
@@ -198,8 +226,6 @@ namespace MarketGame
 
         private void MoveDrugsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.Windows.OfType<MoveDrugsWindow>().Any()) return;
-
             MoveDrugsWindow moveDrugsWindow = new()
             {
                 Owner = this

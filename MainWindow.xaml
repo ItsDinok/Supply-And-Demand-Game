@@ -31,8 +31,47 @@
                     <TextBox x:Name="MoneyInput" HorizontalAlignment="Center" Margin="0,324,0,0" TextWrapping="Wrap" Text="$" VerticalAlignment="Top" Width="124" KeyUp="MoneyInput_KeyUp"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Contacts">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Contacts" Height="20" VerticalAlignment="Top">
+                <Grid Background="#FFE5E5E5">
+                    <StackPanel>
+                        <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0" >
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F">
+                                <Image Source="/Icons/UnknownContact.png" Height="50"/>
+                                <Label FontSize="13" VerticalAlignment="Center" Content="The Broker" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                                <Image Source="/Icons/Russian.png" Height="50"/>
+                                <Label FontSize="15" VerticalAlignment="Center" Content="Igor" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                                <Image Source="/Icons/Mob.png" Height="50"/>
+                                <Label FontSize="11" VerticalAlignment="Center" Content="Officer Smith" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                                <Image Source="/Icons/Syndicate.png" Height="50"/>
+                                <Label FontSize="17" VerticalAlignment="Center" Content="Runner" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                                <Border Background="#FFC5C5C5">
+                                    <Image Source="/Icons/Ecstacy.png" Height="50"/>
+                                </Border>
+                                <Label FontSize="10" VerticalAlignment="Center" Content="Student Union" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
 
@@ -86,7 +125,7 @@
 
         
         <!-- Popup -->
-        <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="250" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}">
+        <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="250" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}" StaysOpen="False">
             <Border Background="#FFACACAC" BorderBrush="Black" BorderThickness="1">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">

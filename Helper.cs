@@ -8,8 +8,8 @@ namespace MarketGame
         public static void SetCapacityBars(ProgressBar stashBar, ProgressBar bagBar, Label stashLabel, Label bagLabel, GameObject game)
         {
             // These are used to calculate the value to display on the bar
-            float StashPercentage = (float)(game.Character.GetTotalCapacity(true) / 1500) * 100;
-            float BagPercentage = (float)(game.Character.GetTotalCapacity(false) / 150) * 100;
+            float StashPercentage = (float)game.Character.GetTotalCapacity(true) / 1500 * 100;
+            float BagPercentage = (float)game.Character.GetTotalCapacity(false) / 150 * 100;
 
 
             stashBar.Value = StashPercentage;
