@@ -1,4 +1,6 @@
-﻿namespace MarketGame
+﻿using System.Printing;
+
+namespace MarketGame
 {
     public static class DialogueManager
     {
@@ -99,6 +101,44 @@
             "You've been chosen for a special VIP discount at our online store! Don't miss out on exclusive deals.",
             "Breaking news: Local billionaire reveals how to make $10,000 a day from home. Click to learn more!",
             "We found a lost relative who wants to leave you an inheritance. Please send us your details to proceed."
+        ];
+
+        public static readonly string[] ContactDescriptions =
+        [
+            // The Broker
+            "Nothing is known about him, some people say he's a ghost. But in 2024 even ghosts have facebook profiles. All that is known is that he facilitates" +
+            " a lot of the deals that go down in this town, and for some reason he's taken a liking to you. Do NOT fuck this up.",
+
+            // Igor
+            "Igor Petrovitch, the Russian mafia's finest enforcer. He loves nothing more than breaking knees and drinking vodka... god he loves vodka. He doesn't" + 
+            " have much sway in this town but he does have money, and he is more than willing to pay you to outsource the work. It won't do good for your image..." +
+            " or your criminal record but beggars can't be choosers. \n\nIgor also isn't going to win any beauty contests anytime soon.",
+
+            // Officer smith
+            "You know what real power looks like? Bent cops. Or informants? Its hard to tell with officer smith. With a name like James Smith we don't really think" +
+            " he is the most loyal mob associate but that's what he claims. Any dealings with him stay strictly out of the gaze of your contemporaries, though, Smith" +
+            " does not need to be seen as a cop. You could probably bribe him to lower the heat on you... or you could wait it out.\n\nSmith has shadowy motives, like" +
+            " everyone else in this town, however, money is an excellent lubricant for your dealings with him.",
+        
+            // The Runner
+            "Mother Theresa, you are not. The runner is some poor junkie you got off the street to do your dirty work. What's his name? You don't know! Truly, you are" +
+            " a capitalist at heart. He will do just about anything for a fix, or for enough money to get his fix. Why risk your criminal record when you can get him to" +
+            " do your hard time? If he gets arrested you will have to wait, but he will be right back, in the brutal cycle that the streets are. What a shame." +
+            "\n\nAll that being said... you will not get the respect or recognition when he does something cool, so don't expect to bask in his glory.",
+
+            // Student Union
+            "You are a hardened criminal who dodges bullets and sells to other hardened criminals and you do hardened criminal things... \n\n" +
+            " And the local university! They do more than just study there. The students won't pay nearly as much but it is fast cash and you have no right to complain" +
+            " about that right now. The police certainly won't care, but your peers might. Don't expect to be renowned for selling drugs to students at a discount."
+        ];
+
+        public static readonly string[] CharacterTaglines =
+        [
+            "A shadowy figure who quite likes you.",
+            "Enforcer for the Russian mafia. Vodka sommelier.",
+            "Your favourite bent cop... or informer. We don't know.",
+            "A junkie, plucked off the street to do your bidding. Now don't you feel evil?",
+            "A student union with its priorities set. AAA : Acid, Alcohol, and Academia"
         ];
     }
 }

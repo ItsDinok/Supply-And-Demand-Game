@@ -35,35 +35,35 @@
                 <Grid Background="#FFE5E5E5">
                     <StackPanel>
                         <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0" >
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F">
+                            <StackPanel Name="BrokerButton" Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" MouseDown="LaunchContactsWindow">
                                 <Image Source="/Icons/UnknownContact.png" Height="50"/>
                                 <Label FontSize="13" VerticalAlignment="Center" Content="The Broker" Foreground="White"/>
                             </StackPanel>
                         </Border>
 
                         <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                            <StackPanel Name="IgorButton" Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" MouseDown="LaunchContactsWindow">
                                 <Image Source="/Icons/Russian.png" Height="50"/>
                                 <Label FontSize="15" VerticalAlignment="Center" Content="Igor" Foreground="White"/>
                             </StackPanel>
                         </Border>
 
                         <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                            <StackPanel Name="OSButton" Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" MouseDown="LaunchContactsWindow">
                                 <Image Source="/Icons/Mob.png" Height="50"/>
                                 <Label FontSize="11" VerticalAlignment="Center" Content="Officer Smith" Foreground="White"/>
                             </StackPanel>
                         </Border>
 
                         <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                            <StackPanel Name="RunnerButton" Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" MouseDown="LaunchContactsWindow">
                                 <Image Source="/Icons/Syndicate.png" Height="50"/>
                                 <Label FontSize="17" VerticalAlignment="Center" Content="Runner" Foreground="White"/>
                             </StackPanel>
                         </Border>
 
                         <Border Padding="3" Background="#FF7F7F7F" Margin="0,10,0,0">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" >
+                            <StackPanel Name="SUButton" Orientation="Horizontal" VerticalAlignment="Top" Background="#FF7F7F7F" MouseDown="LaunchContactsWindow">
                                 <Border Background="#FFC5C5C5">
                                     <Image Source="/Icons/Ecstacy.png" Height="50"/>
                                 </Border>

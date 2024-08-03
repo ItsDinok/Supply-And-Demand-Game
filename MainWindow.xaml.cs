@@ -1,8 +1,10 @@
-﻿using System.Media;
+﻿using MarketGame.Contact_Windows;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace MarketGame
@@ -231,6 +233,17 @@ namespace MarketGame
                 Owner = this
             };
             moveDrugsWindow.ShowDialog();
+        }
+
+        private void LaunchContactsWindow(object sender, RoutedEventArgs e)
+        {
+            // Calms the IDE down
+            if (sender is not StackPanel actualSender) return;
+            ContactWindow contactWindow = new(actualSender.Name)
+            {
+                Owner = this
+            };
+            contactWindow.ShowDialog();
         }
     }
 }

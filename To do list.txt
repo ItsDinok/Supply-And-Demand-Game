@@ -1,7 +1,6 @@
 ﻿!!! = Urgent or Easy
 	
 Add contacts:
-	- Include tipoffs
 	- Include raids
 	- Include quests
 
@@ -18,3 +17,7 @@ Add Upgrades:
 General:
 	- Add tooltips
 	
+
+////////
+Known Bugs:
+	-
