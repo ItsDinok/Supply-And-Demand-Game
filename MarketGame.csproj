@@ -19,6 +19,7 @@
     <None Remove="Icons\Ecstacy.png" />
     <None Remove="Icons\GreenArrow.png" />
     <None Remove="Icons\Heroin.png" />
+    <None Remove="Icons\LowBattery.png" />
     <None Remove="Icons\Mob.png" />
     <None Remove="Icons\RedTriangle.png" />
     <None Remove="Icons\Russian.png" />
@@ -54,6 +55,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Heroin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\LowBattery.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Mob.png">

@@ -77,5 +77,50 @@ namespace MarketGame.Contact_Windows
             ParentWindow = (ContactWindow) Window.GetWindow(this);
             ParentWindow.Close();
         }
+
+        private void LoadMessageScreen(object sender, RoutedEventArgs e)
+        {
+            ParentWindow = (ContactWindow)Window.GetWindow(this);
+            ParentWindow.LoadMessageScreen(Character);
+        }
+
+        private void UniqueSender(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, Action> UniqueButtons = new()
+            {
+                { "The Broker", Tutorial },
+                { "Igor Petrovitch", LowValueJob },
+                { "Officer Smith", Bribe },
+                { "The Runner", RunStuff },
+                { "The Student Union", LowValueDeal }
+            };
+        }
+
+        #region Dictionary Functions
+        private void Tutorial()
+        {
+
+        }
+
+        private void LowValueJob()
+        {
+
+        }
+
+        private void LowValueDeal()
+        {
+
+        }
+
+        private void RunStuff()
+        {
+
+        }
+
+        private void Bribe()
+        {
+            // Do stuff
+        }
+        #endregion
     }
 }

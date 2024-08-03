@@ -27,14 +27,13 @@ namespace MarketGame.Contact_Windows
             WindowSetter.Content = new ContactMenu(senderName);
         }
 
-        private void Back(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void Back(object sender, RoutedEventArgs e) => this.Close();
 
         public void SwitchToInformation(string character) => WindowSetter.Content = new InformationControl(character);
 
         public void SwitchToMain(string character) => WindowSetter.Content = new ContactMenu(character);
+
+        public void LoadMessageScreen(string character) => WindowSetter.Content = new TextExchange(character);
 
         public static BitmapImage GetCharacterImage(string character)
         {

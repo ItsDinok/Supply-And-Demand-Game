@@ -1,4 +1,5 @@
-﻿using System.Printing;
+﻿using System.IO.Packaging;
+using System.Printing;
 
 namespace MarketGame
 {
@@ -140,5 +141,21 @@ namespace MarketGame
             "A junkie, plucked off the street to do your bidding. Now don't you feel evil?",
             "A student union with its priorities set. AAA : Acid, Alcohol, and Academia"
         ];
+
+        // TODO: Add more of these
+        // TODO: Write down the standard logic for handling these
+        public static readonly string[,] ContactTextExchanges =
+        {
+            // The Broker
+            {"What are downers?", "What?", "It sounds so generic? Like what are they?", "Shut up."},
+            // Igor
+            {"Yo igor what's good?", "Мой английский не так хорош", "What?", "Уходите"},
+            // Officer Smith
+            {"So are you an informant or a bent cop?", "None of your business.", "Come onnnn I know you love me.", "I know where you live."},
+            // The Runner
+            {"Did you roll through town?", "No, why?", "Shortage of needles at the hospital.", "ha. ha. ha."},
+            // Student Union
+            {"Yo, saw a rave on this weekend.", "Yeah, we don't need drugs for it though.", "I was gonna ask if maybe I could come?", "To a student rave?\n..."}
+        };
     }
 }
