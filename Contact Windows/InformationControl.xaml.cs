@@ -30,17 +30,24 @@ namespace MarketGame.Contact_Windows
             CharacterIndex = ContactMenu.GetCharacterIndex(character);
             Character = character;
 
-            // Set visuals
-            CharacterName.Content = character;
+            SetVisuals();
+        }
+
+        private ContactWindow SetParentWindow() => (ContactWindow)Window.GetWindow(this);
+        
+
+        private void SetVisuals()
+        {
+            CharacterName.Content = Character;
             CharacterDescription.Content = DialogueManager.CharacterTaglines[CharacterIndex];
             CharacterIntroduction.Text = DialogueManager.ContactDescriptions[CharacterIndex];
-            ContactIcon.Source = ContactWindow.CharacterNamesToImages[character];
+            ContactIcon.Source = ContactWindow.CharacterNamesToImages[Character];
         }
 
         private void Back(object sender, RoutedEventArgs e) 
         {
-            ContactWindow ParentWindow = (ContactWindow)Window.GetWindow(this);
-            ParentWindow.SwitchToMain(Character);
+            ContactWindow parent = SetParentWindow();
+            parent.SwitchToMain(Character);
         }
         
     }

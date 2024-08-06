@@ -54,11 +54,7 @@ namespace MarketGame
             PushToNotification(window, isSell);
         }
 
-        private static Merchandise GetRandomMerch()
-        {
-            var rnd = new Random();
-            return (Merchandise)rnd.Next(RELEVANTMERCH);
-        }
+        private static Merchandise GetRandomMerch() => (Merchandise)new Random().Next(RELEVANTMERCH);
 
         private void SetTipCounters(float modifier, bool isSell, Merchandise toTip)
         {

@@ -106,15 +106,9 @@
         }
 
         // Consider making public for other functions
-        private int CalculateTotalInBag()
-        {
-            return Bag.Values.Sum();
-        }
+        private int CalculateTotalInBag() => Bag.Values.Sum();
         // Consider making public for other functions
-        private int CalculateTotalInStash()
-        {
-            return Stash.Values.Sum();
-        }
+        private int CalculateTotalInStash() => Stash.Values.Sum();
 
         public void MoveToBag(int amount, Merchandise type)
         {

@@ -82,10 +82,7 @@ namespace MarketGame
             }
         }
 
-        private static BitmapImage GetMerchIcon(Merchandise merch)
-        {
-            return new BitmapImage(new Uri(GameObject.MerchandiseIcons[merch]));
-        }
+        private static BitmapImage GetMerchIcon(Merchandise merch) => new BitmapImage(new Uri(GameObject.MerchandiseIcons[merch]));
 
         private static void SetTipNull(Image image, Label text, Image merchImage)
         {
