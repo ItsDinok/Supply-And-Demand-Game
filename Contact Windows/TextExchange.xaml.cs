@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows;
 
 namespace MarketGame.Contact_Windows
 {
@@ -24,23 +14,30 @@ namespace MarketGame.Contact_Windows
         private readonly string Character;
         private readonly string DisplayedTime;
         private readonly string Day;
+        private readonly string[] Messages;
 
         public TextExchange(string character)
         {
             InitializeComponent();
             Character = character;
-        
-            ContactName.Content = character;
-            ContactImage.Source = ContactWindow.GetCharacterImage(Character);
+            Messages = GetMessages();
 
             DisplayedTime = SetTime();
             Day = SetDay();
 
-            TimeLabel.Content = DisplayedTime;
+            SetVisuals();
             SetMessageTimes();
-            HideMembers();
 
             SetMessages();
+        }
+
+        private void SetVisuals()
+        {
+            ContactName.Content = Character;
+            ContactImage.Source = ContactWindow.GetCharacterImage(Character);
+            TimeLabel.Content = DisplayedTime;
+
+            HideMembers();
         }
 
         private static string SetTime() => DateTime.Now.ToString("HH:mm");
@@ -80,6 +77,8 @@ namespace MarketGame.Contact_Windows
 
         private void SetMessages()
         {
+            
+
             DispatcherTimer messageTime = new()
             {
                 Interval = TimeSpan.FromSeconds(3)
@@ -95,6 +94,74 @@ namespace MarketGame.Contact_Windows
              */
         }
 
-        private void MessageUpdates(object? source, EventArgs e) { }
+        private string[] GetMessages()
+        {
+            // TODO: Make this scalable for more dialogue options
+            Dictionary<string, int> characterIndexes = new() { { "The Broker", 0 }, { "Igor Petrovitch", 1 }, { "Officer Smith", 2 }, { "The Runner", 3 }, { "The Student Union", 4 } };
+            return DialogueManager.ContactTextExchanges[characterIndexes[Character]];
+        }
+
+        private void MessageUpdates(object? source, EventArgs e)
+        {
+            // These are used to iterate
+            StackPanel[] containers = [BoxOneContainer, BoxTwoContainer, BoxThreeContainer, BoxFourContainer];
+            Label[] messageBoxes = [BoxOne, BoxTwo, BoxThree, BoxFour];
+
+            StackPanel lastContainer = GetFirstEmptyStackPanel(containers);
+
+            PushBackLabels(messageBoxes, containers, GetBoxIndex());
+            SetNewText();
+        }
+
+        private void SetNewText() 
+        {
+            
+        }
+
+        private static StackPanel GetFirstEmptyStackPanel(StackPanel[] containers)
+        {
+            for (int i = 0; i < containers.Length; i++)
+            {
+                if (containers[i].Opacity == 0) return containers[i];
+            }
+            // It will never reach this
+            return new StackPanel();
+        }
+
+        private int GetBoxIndex()
+        {
+            return 0;
+        }
+
+        private void PushBackLabels(Label[] messages, StackPanel[] containers, int index)
+        {
+            Border[] borders =
+            [
+                BoxOneBorder,
+                BoxTwoBorder,
+                BoxThreeBorder,
+                BoxFourBorder
+            ];
+
+            string tempLabel = "";
+            string secondTemp = "";
+            // This needs to swap the sides, colours, and push back the labels
+            for(int i = 0; i < index; i++)
+            {
+                if (messages[i].Content.ToString() == null) return;
+
+                secondTemp = messages[i].Content.ToString();
+                messages[i].Content = tempLabel;
+                tempLabel = secondTemp;
+
+                // Colours will flip 
+                bool isGreen = borders[i].Background.Equals(Colors.Green);
+                borders[i].Background = isGreen ? new SolidColorBrush(Color.FromArgb(0xFF, 0x63, 0x63, 0x63)) : new SolidColorBrush(Colors.Green);
+
+                // Position flip
+                bool isAlignedLeft = containers[i].HorizontalAlignment.ToString() == "Left";
+                containers[i].HorizontalAlignment = isAlignedLeft ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+            }
+        }
     }
 }
