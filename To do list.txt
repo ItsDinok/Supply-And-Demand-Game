@@ -1,5 +1,8 @@
 ﻿!!! = Urgent or Easy
-	
+
+!!! Use App.xaml for game-wide events
+
+
 Add contacts:
 	- Include raids
 	- Include quests
