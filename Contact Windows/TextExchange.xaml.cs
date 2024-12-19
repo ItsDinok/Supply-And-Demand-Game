@@ -15,16 +15,20 @@ namespace MarketGame.Contact_Windows
         private readonly string DisplayedTime;
         private readonly string Day;
         private readonly string[] Messages;
+		private int MessageCount = 0;
 
         public TextExchange(string character)
         {
             InitializeComponent();
+			// This sets the character and retrieves messages from dialogue manager
             Character = character;
             Messages = GetMessages();
 
+			// Pretty stuff
             DisplayedTime = SetTime();
             Day = SetDay();
 
+			// Sets up the contact and message times
             SetVisuals();
             SetMessageTimes();
 
@@ -40,8 +44,8 @@ namespace MarketGame.Contact_Windows
             HideMembers();
         }
 
+		// These set parameters at the top of the screen
         private static string SetTime() => DateTime.Now.ToString("HH:mm");
-
         private static string SetDay() => DateTime.Now.DayOfWeek.ToString() + " ";
 
         private void HideMembers()
@@ -84,6 +88,7 @@ namespace MarketGame.Contact_Windows
                 Interval = TimeSpan.FromSeconds(3)
             };
             messageTime.Tick += MessageUpdates;
+			messageTime.Start();
             /*
              Every n seconds a message is played
 
@@ -103,19 +108,34 @@ namespace MarketGame.Contact_Windows
 
         private void MessageUpdates(object? source, EventArgs e)
         {
+			MessageCount++;
+
+			if (MessageCount >=4)
+			{
+				DispatcherTimer messageTime = (DispatcherTimer)source;
+				messageTime.Stop();
+			}
+
             // These are used to iterate
             StackPanel[] containers = [BoxOneContainer, BoxTwoContainer, BoxThreeContainer, BoxFourContainer];
             Label[] messageBoxes = [BoxOne, BoxTwo, BoxThree, BoxFour];
 
             StackPanel lastContainer = GetFirstEmptyStackPanel(containers);
 
-            PushBackLabels(messageBoxes, containers, GetBoxIndex());
-            SetNewText();
-        }
+			int index = GetBoxIndex(containers);
+			
+            //PushBackLabels(messageBoxes, containers, index);
+            SetNewText(lastContainer, index);
+			lastContainer.Opacity = 100;
+		}
 
-        private void SetNewText() 
+        private void SetNewText(StackPanel lastContainer, int index) 
         {
-            
+			Label[] labels = [BoxOne, BoxTwo, BoxThree, BoxFour];
+
+			string message =  Messages[index];
+			labels[index].Content = message;
+			
         }
 
         private static StackPanel GetFirstEmptyStackPanel(StackPanel[] containers)
@@ -128,10 +148,14 @@ namespace MarketGame.Contact_Windows
             return new StackPanel();
         }
 
-        private int GetBoxIndex()
+        private int GetBoxIndex(StackPanel[] containers)
         {
-            return 0;
-        }
+			for (int i = 0; i < containers.Length; i++) 
+			{
+				if (containers[i].Opacity == 0) return i;
+			}
+			return -1;
+		}
 
         private void PushBackLabels(Label[] messages, StackPanel[] containers, int index)
         {
@@ -161,6 +185,7 @@ namespace MarketGame.Contact_Windows
                 // Position flip
                 bool isAlignedLeft = containers[i].HorizontalAlignment.ToString() == "Left";
                 containers[i].HorizontalAlignment = isAlignedLeft ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+				
             }
         }
     }

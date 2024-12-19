@@ -129,7 +129,7 @@ namespace MarketGame
 
             // Student Union
             "You are a hardened criminal who dodges bullets and sells to other hardened criminals and you do hardened criminal things... \n\n" +
-            " And the local university! They do more than just study there. The students won't pay nearly as much but it is fast cash and you have no right to complain" +
+            " And you sell drugs to the local university! They do more than just study there. The students won't pay nearly as much but it is fast cash and you have no right to complain" +
             " about that right now. The police certainly won't care, but your peers might. Don't expect to be renowned for selling drugs to students at a discount."
         ];
 

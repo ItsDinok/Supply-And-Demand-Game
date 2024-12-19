@@ -100,7 +100,7 @@ namespace MarketGame
             ResetAfterSale();
             AssignLabelValues();
             SetBars();
-            host.UpdateStatusIndicators();
+            host.RefreshUI();
         }
 
         private void HandleBuyTransaction()

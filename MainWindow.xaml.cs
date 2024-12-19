@@ -26,7 +26,7 @@ namespace MarketGame
 
         // Stored here for ease of editing
         private readonly TimeSpan NotificationTime = TimeSpan.FromSeconds(10);
-        private readonly TimeSpan KillTime = TimeSpan.FromSeconds(2);
+        private readonly TimeSpan KillTime = TimeSpan.FromSeconds(5);
 
         public MainWindow()
         {
@@ -40,8 +40,8 @@ namespace MarketGame
             // Timer logic for tips and messages
             _timer = SetTimer();
             _timer.Start();
-            UpdateStatusIndicators();
-        }
+			RefreshUI();
+		}
 
         private Label[] SetCountLabels()
         {
@@ -80,8 +80,8 @@ namespace MarketGame
             // This needs to be tuned.
             Game.Character.Heat--;
             Game.Character.Respect--;
-            UpdateHeatAndRespect();
-        }
+			RefreshUI();
+		}
 
         // TODO: Maybe export to class
         private void NotificationGenerated()
@@ -99,7 +99,6 @@ namespace MarketGame
 
         private void PopUpWindow()
         {
-            // BUG: This will not display when in contacts view
             NotificationPopup.IsOpen = true;
 
             // This limits time for notifications for user convenience
@@ -107,12 +106,16 @@ namespace MarketGame
             {
                 Interval = KillTime
             };
-            killTimer.Tick += ClosePopup;
+            killTimer.Tick += (sender, e) => ClosePopup(sender, new TimerEventArgs(killTimer));
             killTimer.Start();
             return;
         }
 
-        private void ClosePopup(object? source, EventArgs e) => NotificationPopup.IsOpen = false;
+        private void ClosePopup(object? source, TimerEventArgs e) 
+		{
+			e.Timer.Stop();
+			NotificationPopup.IsOpen = false;
+		}
 
         private static void PlayNotificationSound()
         {
@@ -131,21 +134,35 @@ namespace MarketGame
             }
         }
 
+		public void RefreshUI() 
+		{
+			// Update money
+			CashLabel.Content = Helper.ReturnMoneyString(Game.Character.GetCash());
+			MoneyLabel.Content = Helper.ReturnMoneyString(Game.Character.GetMoney());
+
+			// Update heat and respect
+			HeatBar.Value = Game.Character.Heat;
+            ReputationBar.Value = Game.Character.Respect;
+			
+			// Capacity bars
+			float StashPercentage = (float)Game.Character.GetTotalCapacity(true) / 1500 * 100;
+            float BagPercentage = (float)Game.Character.GetTotalCapacity(false) / 150 * 100;
+
+            StashCapacityBar.Value = StashPercentage;
+            BagCapacityBar.Value = BagPercentage;
+		
+			StashCapacityLabel.Content = Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
+            BagCapacityLabel.Content = Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
+		}
+
         private void MoveMoney(int amount)
         {
             bool? isChecked = ToCashButton.IsChecked;
             if (isChecked == null) return;
             else Game.Character.CashConvert(amount, (bool)isChecked);
-
-            UpdateMoney();
+			RefreshUI();
         }
-
-        public void UpdateMoney()
-        {
-            CashLabel.Content = Helper.ReturnMoneyString(Game.Character.GetCash());
-            MoneyLabel.Content = Helper.ReturnMoneyString(Game.Character.GetMoney());
-        }
-
+        
         private void MoveCashButton_Click(object sender, RoutedEventArgs e)
         {
             string input = MoneyInput.Text[1..];
@@ -167,7 +184,7 @@ namespace MarketGame
             UpdateView(isStash, activeColour, inactiveColour);
         }
 
-        private void UpdateLabels(IDictionary<Merchandise, int> items)
+        public void UpdateLabels(IDictionary<Merchandise, int> items)
         {
             for (int i = 0; i < CountLabels.Length; i++)
             {
@@ -181,38 +198,6 @@ namespace MarketGame
             StashView.Background = isStash ? active : inactive;
             BagView.Background = isStash ? inactive : active;
         }
-             
-        public void UpdateStatusIndicators()
-        {
-            UpdateMoney();
-            UpdateHeatAndRespect();
-            SetCapacityBars();
-        }
-
-        private void UpdateHeatAndRespect()
-        {
-            HeatBar.Value = Game.Character.Heat;
-            ReputationBar.Value = Game.Character.Respect;
-        }
-
-        private void SetCapacityBars()
-        {
-            // These are used to calculate the value to display on the bar
-            float StashPercentage = (float)Game.Character.GetTotalCapacity(true) / 1500 * 100;
-            float BagPercentage = (float)Game.Character.GetTotalCapacity(false) / 150 * 100;
-
-            StashCapacityBar.Value = StashPercentage;
-            BagCapacityBar.Value = BagPercentage;
-
-            UpdateLabels();
-        }
-
-        private void UpdateLabels()
-        {
-            StashCapacityLabel.Content = Game.Character.GetTotalCapacity(true).ToString() + "/ 1500";
-            BagCapacityLabel.Content = Game.Character.GetTotalCapacity(false).ToString() + "/ 150";
-        }
-
 
         private void BagView_Click(object sender, RoutedEventArgs e) => SetToBagOrStashView(false);
         private void StashView_Click(object sender, RoutedEventArgs e) => SetToBagOrStashView(true);

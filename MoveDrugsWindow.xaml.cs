@@ -166,7 +166,10 @@ namespace MarketGame
             AssignLabelValues();
             ResetBars();
             Helper.SetCapacityBars(StashCapacityBar, BagCapacityBar, StashCapacityLabel, BagCapacityLabel, host.Game);
-        }
+		
+			if (host.IsStashInView) host.UpdateLabels(host.Game.Character.Stash);
+			else host.UpdateLabels(host.Game.Character.Bag);
+		}
 
         private void SetPoliceStatus()
         {

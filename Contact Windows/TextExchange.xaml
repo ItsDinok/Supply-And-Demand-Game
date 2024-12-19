@@ -19,9 +19,7 @@
                         </Grid>
                         <!-- Image and backbutton -->
                         <Grid >
-                            <Button HorizontalAlignment="Left">
-                            
-                            </Button>
+                            <Button HorizontalAlignment="Left" Content="Back" Width="100" Height="30" Padding="10,0,0,0"/>
 
                             <Image Name="ContactImage" HorizontalAlignment="Center" Source="/Icons/Russian.png" Height="50"/>
                         </Grid>
