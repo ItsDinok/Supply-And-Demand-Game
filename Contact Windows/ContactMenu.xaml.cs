@@ -84,6 +84,12 @@ namespace MarketGame.Contact_Windows
             ParentWindow.LoadMessageScreen(Character);
         }
 
+        private void IntroductionButtonClick(object sender, RoutedEventArgs e)
+        {
+            ParentWindow = (ContactWindow)Window.GetWindow(this);
+            ParentWindow.LoadIntroductionScreen(Character);
+        }
+
         private void UniqueSender(object sender, RoutedEventArgs e)
         {
             Dictionary<string, Action> UniqueButtons = new()
@@ -122,5 +128,6 @@ namespace MarketGame.Contact_Windows
             // Do stuff
         }
         #endregion
+
     }
 }

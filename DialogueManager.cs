@@ -157,5 +157,45 @@ namespace MarketGame
             // Student Union
             ["Yo, saw a rave on this weekend.", "Yeah, we don't need drugs for it though.", "I was gonna ask if maybe I could come?", "To a student rave?\n..."]
         ];
+
+		public static readonly string[][] IntroductionTextExchanges = 
+		[
+			// The Broker
+			[
+			"Hey, I am new in town and a mutual contact gave me your number. Told me you could tell me what's good around here.",
+			"I don't just talk to anyone. How do I know you're worth anything?",
+			"You don't. But trust me, I make ends meet.",
+			"You better not be lying. I will be in touch soon. Listen to what I say and you will become a very rich person."
+			],
+
+			// Igor
+			[
+			"A little birdy told me you are the man to go to for quick work.",
+			"Did that little birdy tell you it involves breaking legs, stealing, and selling smack to kids?",
+			"Yeah it may have been mentioned.",
+			"Good. Desparation is a much better fuel than vodka"
+			],
+			// Officer Smith
+			[
+			"I kinda need a man in the police. I was told you were the goto.",
+			"You need to lose some heat?",
+			"Not now, but I think I will. I heard the mob's finest double agent handles the legal side of things",
+			"Whatever you need will cost. Big time."
+			],
+			// The Runner
+			[
+			"Still desparate?",
+			"Who is this?",
+			"It doesn't matter. I need someone to run merch for me across town. I will pay you for your troubles",
+			"Count me in"
+			],
+			// Student Union
+			[
+			"I remember when I was at uni",
+			"Who is this?",
+			"I am a drug dealer. I am more than happy to supply your raves... for student-friendly prices",
+			"Noted."
+			]
+		];
     }
 }

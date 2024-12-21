@@ -1,7 +1,7 @@
 ﻿!!! = Urgent or Easy
 
 !!! Use App.xaml for game-wide events
-
+!!! Add a mute button
 
 Add contacts:
 	- Include raids

@@ -21,7 +21,7 @@
             </Border>
 
             <Button Width="400" Margin="0,15,0,0" Content="Message" FontSize="24" Click="LoadMessageScreen" HorizontalAlignment="Center"/>
-            <Button Width="400" Margin="0,15,0,0" Content="Introduction" FontSize="24" HorizontalAlignment="Center"/>
+            <Button Width="400" Margin="0,15,0,0" Content="Introduction" FontSize="24" HorizontalAlignment="Center" Click="IntroductionButtonClick"/>
             <Button Name="UniqueButton" Margin="0,15,0,0" Width="400" Content="Placeholder" FontSize="24" Click="UniqueSender" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="0,30,0,0" Content="Back" Click="Back" Width="196" FontSize="24"/>

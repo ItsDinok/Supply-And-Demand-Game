@@ -33,7 +33,9 @@ namespace MarketGame.Contact_Windows
 
         public void SwitchToMain(string character) => WindowSetter.Content = new ContactMenu(character);
 
-        public void LoadMessageScreen(string character) => WindowSetter.Content = new TextExchange(character);
+        public void LoadMessageScreen(string character) => WindowSetter.Content = new TextExchange(character, false);
+
+        public void LoadIntroductionScreen(string character) => WindowSetter.Content = new TextExchange(character, true); 
 
         public static BitmapImage GetCharacterImage(string character)
         {

@@ -16,12 +16,14 @@ namespace MarketGame.Contact_Windows
         private readonly string Day;
         private readonly string[] Messages;
 		private int MessageCount = 0;
+        private readonly bool IsIntroduction;
 
-        public TextExchange(string character)
+        public TextExchange(string character, bool isIntroduction)
         {
             InitializeComponent();
 			// This sets the character and retrieves messages from dialogue manager
             Character = character;
+            IsIntroduction = isIntroduction;
             Messages = GetMessages();
 
 			// Pretty stuff
@@ -101,8 +103,12 @@ namespace MarketGame.Contact_Windows
 
         private string[] GetMessages()
         {
-            // TODO: Make this scalable for more dialogue options
             Dictionary<string, int> characterIndexes = new() { { "The Broker", 0 }, { "Igor Petrovitch", 1 }, { "Officer Smith", 2 }, { "The Runner", 3 }, { "The Student Union", 4 } };
+            if (IsIntroduction)
+            {
+                return DialogueManager.IntroductionTextExchanges[characterIndexes[Character]];
+            }
+            // TODO: Make this scalable for more dialogue options
             return DialogueManager.ContactTextExchanges[characterIndexes[Character]];
         }
 
@@ -118,7 +124,7 @@ namespace MarketGame.Contact_Windows
 
             // These are used to iterate
             StackPanel[] containers = [BoxOneContainer, BoxTwoContainer, BoxThreeContainer, BoxFourContainer];
-            Label[] messageBoxes = [BoxOne, BoxTwo, BoxThree, BoxFour];
+            TextBlock[] messageBoxes = [BoxOne, BoxTwo, BoxThree, BoxFour];
 
             StackPanel lastContainer = GetFirstEmptyStackPanel(containers);
 
@@ -131,10 +137,10 @@ namespace MarketGame.Contact_Windows
 
         private void SetNewText(StackPanel lastContainer, int index) 
         {
-			Label[] labels = [BoxOne, BoxTwo, BoxThree, BoxFour];
+			TextBlock[] labels = [BoxOne, BoxTwo, BoxThree, BoxFour];
 
 			string message =  Messages[index];
-			labels[index].Content = message;
+			labels[index].Text = message;
 			
         }
 

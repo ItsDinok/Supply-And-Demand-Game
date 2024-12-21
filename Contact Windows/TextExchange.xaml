@@ -34,28 +34,28 @@
                             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="BoxOneContainer">
                                 <Label Name="BoxOneMetalabel" Content="10:44 Monday" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="DarkGray" FontSize="8"/>
                                 <Border Name="BoxOneBorder" CornerRadius="10" Background="#FF636363" Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="3">
-                                    <Label Name="BoxOne" Content="Does this work for longer messages?" Foreground="White" MaxWidth="300"/>
+                                    <TextBlock Name="BoxOne" Text="Does this work for longer messages?" Foreground="White" MaxWidth="300" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
                                 </Border>
                             </StackPanel>
                             
                             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="BoxTwoContainer">
                                 <Label Name="BoxTwoMetalabel" Content="10:44 Monday" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="DarkGray" FontSize="8"/>
                                 <Border Name="BoxTwoBorder" CornerRadius="10" Background="Green" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="3">
-                                    <Label Name="BoxTwo" Content="Does this work for longer messages?" Foreground="White" MaxWidth="300"/>
+                                    <TextBlock Name="BoxTwo" Text="Does this work for longer messages?" Foreground="White" MaxWidth="300"/>
                                 </Border>
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="BoxThreeContainer">
                                 <Label Name="BoxThreeMetalabel" Content="10:44 Monday" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="DarkGray" FontSize="8"/>
                                 <Border Name="BoxThreeBorder" CornerRadius="10" Background="#FF636363" Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="3">
-                                    <Label Name="BoxThree" Content="Does this work for longer messages?" Foreground="White" MaxWidth="300"/>
+                                    <TextBlock Name="BoxThree" Text="Does this work for longer messages?" Foreground="White" MaxWidth="300"/>
                                 </Border>
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="BoxFourContainer">
                                 <Label Name="BoxFourMetalabel" Content="10:44 Monday" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="DarkGray" FontSize="8"/>
                                 <Border Name="BoxFourBorder" CornerRadius="10" Background="Green" MaxHeight="30" MaxWidth="300" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="3">
-                                    <Label Name="BoxFour" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Hello There" Foreground="White" Background="Green" 
+                                    <TextBlock Name="BoxFour" HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="Hello There" Foreground="White" Background="Green" 
                                            MaxWidth="300"/>
                                 </Border>
                             </StackPanel>
