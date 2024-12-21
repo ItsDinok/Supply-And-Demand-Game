@@ -123,7 +123,7 @@
         <Label x:Name="BagCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,34,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
         <Label x:Name="StashCapacityLabel" Content="Label" HorizontalAlignment="Left" Margin="491,88,0,0" VerticalAlignment="Top" Width="74" Foreground="White"/>
 
-        
+
         <!-- Popup -->
         <Popup x:Name="NotificationPopup" VerticalOffset="-100" Width="250" Height="100" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=MoveCashButton}" StaysOpen="False">
             <Border Background="#FFACACAC" BorderBrush="Black" BorderThickness="1">
@@ -136,5 +136,6 @@
                 </StackPanel>
             </Border>
         </Popup>
+        <Button Name="MuteButton" Content="Mute" HorizontalAlignment="Left" Margin="691,18,0,0" VerticalAlignment="Top" Height="36" Width="79" Click="MuteButtonClick"/>
     </Grid>
 </Window>

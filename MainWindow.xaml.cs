@@ -1,5 +1,6 @@
 ﻿using MarketGame.Contact_Windows;
 using System.Media;
+using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,7 +23,7 @@ namespace MarketGame
         // This is used in tips
         private readonly DispatcherTimer _timer;
         private readonly Label[] CountLabels;
-
+        private bool IsMuted = false;
 
         // Stored here for ease of editing
         private readonly TimeSpan NotificationTime = TimeSpan.FromSeconds(10);
@@ -87,7 +88,10 @@ namespace MarketGame
         private void NotificationGenerated()
         {
             // Play sound
-            PlayNotificationSound();
+            if (!IsMuted)
+            {
+                PlayNotificationSound();
+            }
 
             // Set popup attributes
             this.DealerImage.Source = TipNotification.Icon;
@@ -229,6 +233,19 @@ namespace MarketGame
                 Owner = this
             };
             contactWindow.ShowDialog();
+        }
+
+        private void MuteButtonClick(object sender, RoutedEventArgs e)
+        {
+            IsMuted = !IsMuted;
+            if (IsMuted)
+            {
+                MuteButton.Background = new SolidColorBrush(Colors.DarkGray);
+            }
+            else
+            {
+                MuteButton.Background = new SolidColorBrush(Colors.White);
+            }
         }
     }
 }

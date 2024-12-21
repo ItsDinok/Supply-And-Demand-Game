@@ -3,6 +3,10 @@
 !!! Use App.xaml for game-wide events
 !!! Add a mute button
 
+Texts:
+	- Add scroll functionality
+	- Ensure that texts look good
+
 Add contacts:
 	- Include raids
 	- Include quests
